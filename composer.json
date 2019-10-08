@@ -1,0 +1,24 @@
+{
+  "name": "MinidokaMagic",
+  "authors": [
+    {
+      "name": "Andrew Harrington",
+      "email": "aharrington4@mail.greenriver.edu"
+    },
+    {
+      "name": "Zane Stearman",
+      "email": "zstearman@mail.greenriver.edu"
+    },
+    {
+      "name": "Kat Truitt",
+      "email": "ktruitt@mail.greenriver.edu"
+    },
+    {
+      "name": "Ryan Guelzo",
+      "email": "rguelzo@mail.greenriver.edu"
+    }
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  }
+}
