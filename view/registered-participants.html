@@ -3,8 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Registered Participants</title>
+    <link rel="stylesheet" href="jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>
 </head>
 <body>
+<div id="myTable">
 
+</div>
+
+
+<footer>
+    <script src="jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
+    </script>
+</footer>
 </body>
 </html>
