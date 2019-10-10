@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Registered Participants</title>
     <link rel="stylesheet" href="jquery-ui.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 </head>
 <body>
 <div>
@@ -22,15 +22,22 @@
             <th>Hotel Reservation</th>
             <th>Number of Pilgrimages Attended</th>
         </tr>
-        </thead>
+        <tbody>
+        <tr>
+            <td>Row 1 Data 1</td>
+            <td>Row 1 Data 2</td>
+         </tr>
+         <tr>
+            <td>Row 2 Data 1</td>
+            <td>Row 2 Data 2</td>
+         </tr>
+        </tbody>
     </table>
-
 </div>
-
 
 <footer>
     <script src="jquery-ui.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
     <script>
         $(document).ready(function() {
             $('#registrants').DataTable({

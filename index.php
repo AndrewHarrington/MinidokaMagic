@@ -14,7 +14,7 @@ $f3 = Base::instance();
 
 $f3->route('GET|POST /', function (){
     $view = new Template();
-    echo $view->render('views/registered-participants.html');
+    echo $view->render('view/registered-participants.html');
 });
 
 $f3->run();
