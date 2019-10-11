@@ -1,5 +1,4 @@
 <?php
-require("/home/minidoka/db_connection.php");
 class Database
 {
 
@@ -25,8 +24,8 @@ class Database
      * Connects to the database and stores the connection inside the class
      */
     public function connect(){
-        //$user = $_SERVER['USER'];
-        //require_once("/home/$user/db_connection.php");
+        $user = $_SERVER['USER'];
+        require_once("/home/$user/db_connection.php");
 
         // Make the connection
         try {
@@ -39,17 +38,11 @@ class Database
             return;
         }
 
-        //$this->_getRegistrationData = $dbc->prepare(self::INSERT_MEMBER);
+        $this->_getRegistrationData = $this->_dbc->prepare(self::INSERT_MEMBER);
     }
 
     public function getRegistrationData(){
-        $sql = self::GET_REGISTRATION_DATA;
-
-        $statement = $this->_dbc->prepare($sql);
-        $statement->execute();
-        $row = $statement->fetch(PDO::FETCH_ASSOC);
-        return $row;
-//        $this->_getRegistrationData->execute();
-//        return $this->_getRegistrationData->fetchAll(PDO::FETCH_ASSOC);
+        $this->_getRegistrationData->execute();
+        return $this->_getRegistrationData->fetchAll(PDO::FETCH_ASSOC);
     }
 }
