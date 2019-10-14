@@ -1,17 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+<include href="/view/header.html"/>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
-<head>
-    <meta charset="UTF-8">
-    <title>Registered Participants</title>
-</head>
 <body>
-<div>
-    <table id="registrants" class="display" style="width:100%">
+<div class="ml-5">
+    <br>
+    <h3><u>Registrants</u></h3>
+</div>
+<div class="text-center ml-5 mr-5">
+    <table id="registrants" class="display" style="width:80%">
         <thead>
             <tr>
-                <th></th>
-                <th>Registrant ID</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Phone 1</th>
@@ -23,19 +20,78 @@
                 <th>Number of Pilgrimages Attended</th>
             </tr>
         </thead>
+        <tbody>
+            <repeat group="{{@registrations}}" value="{{@row}}">
+                <tr>
+                    <td>{{@row.fname}}</td>
+                    <td>{{@row.lname}}</td>
+                    <!--phone1-->
+                    <check if="{{@row.phone1 == null}}">
+                        <true>
+                            <td>none</td>
+                        </true>
+                        <false>
+                            <td>{{@row.phone1}}</td>
+                        </false>
+                    </check>
+                    <!--phone2-->
+                    <check if="{{@row.phone2 == null}}">
+                        <true>
+                            <td>none</td>
+                        </true>
+                        <false>
+                            <td>{{@row.phone2}}</td>
+                        </false>
+                    </check>
+                    <!--email-->
+                    <check if="{{@row.email == null}}">
+                        <true>
+                            <td>none</td>
+                        </true>
+                        <false>
+                            <td>{{@row.email}}</td>
+                        </false>
+                    </check>
+
+                    <td>{{@row.age}}</td>
+
+                    <!--are they a survivor?-->
+                    <check if="{{@row.survivor == true}}">
+                        <true>
+                            <td>Yes</td>
+                        </true>
+                        <false>
+                            <td>No</td>
+                        </false>
+                    </check>
+                    <!--hotel registration id-->
+                    <check if="{{@row.hotelResID == null}}">
+                        <true>
+                            <td>none</td>
+                        </true>
+                        <false>
+                            <td>{{@row.hotelResID}}</td>
+                        </false>
+                    </check>
+                    <td>{{@row.prevattendences}}</td>
+                </tr>
+
+            </repeat>
+        </tbody>
     </table>
 </div>
 
 <footer>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#registrants').DataTable({
+            $('#registrants').DataTable(
+                {
                 scrollY:        '50vh',
                 scrollCollapse: true,
                 paging:         false
-            } );
+            }
+            );
         } );
     </script>
 </footer>
