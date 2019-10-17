@@ -3,7 +3,7 @@
 <body>
 <div class="ml-5">
     <br>
-    <h3><u>Registrants</u></h3>
+    <h3>Registrants</h3>
 </div>
 <div class="text-center ml-5 mr-5">
     <table id="registrants" class="display" style="width:80%">
@@ -17,13 +17,16 @@
                 <th>Age</th>
                 <th>Survivor</th>
                 <th>Hotel Reservation</th>
-                <th>Number of Pilgrimages Attended</th>
+                <th>Pilgrimages Attended</th>
             </tr>
         </thead>
         <tbody>
             <repeat group="{{@registrations}}" value="{{@row}}">
                 <tr>
-                    <td>{{@row.fname}}</td>
+                    <td>{{@row.fname}}
+                    <!--optimize searching-->
+                        <p hidden>{{@row.fname}} {{@row.lname}}</p>
+                    </td>
                     <td>{{@row.lname}}</td>
                     <!--phone1-->
                     <check if="{{@row.phone1 == null}}">
@@ -89,7 +92,7 @@
                 {
                 scrollY:        '50vh',
                 scrollCollapse: true,
-                paging:         false
+                paging:         true
             }
             );
         } );
