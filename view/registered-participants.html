@@ -29,21 +29,21 @@
                     </td>
                     <td>{{@row.lname}}</td>
                     <!--phone1-->
-                    <check if="{{@row.phone1 == null}}">
+                    <check if="{{@row.phone == null}}">
                         <true>
                             <td>none</td>
                         </true>
                         <false>
-                            <td>({{substr(@row.phone1, 0, 3)}})-{{substr(@row.phone1, 3, 3)}}-{{substr(@row.phone1, 6)}}</td>
+                            <td>({{substr(@row.phone, 0, 3)}})-{{substr(@row.phone, 3, 3)}}-{{substr(@row.phone, 6)}}</td>
                         </false>
                     </check>
                     <!--phone2-->
-                    <check if="{{@row.phone2 == null}}">
+                    <check if="{{@row.emergency == null}}">
                         <true>
                             <td>none</td>
                         </true>
                         <false>
-                            <td>({{substr(@row.phone1, 0, 3)}})-{{substr(@row.phone2, 3, 3)}}-{{substr(@row.phone2, 6)}}</td>
+                            <td>({{substr(@row.emergency, 0, 3)}})-{{substr(@row.emergency, 3, 3)}}-{{substr(@row.emergency, 6)}}</td>
                         </false>
                     </check>
                     <!--email-->
@@ -52,7 +52,8 @@
                             <td>none</td>
                         </true>
                         <false>
-                            <td>{{@row.email}}</td>
+
+                            <td><a href="mailto:{{@row.email}}">{{@row.email}}</a></td>
                         </false>
                     </check>
 
@@ -61,9 +62,11 @@
                     <!--are they a survivor?-->
                     <check if="{{@row.survivor == true}}">
                         <true>
+                            <!--<td><img src="styles/images/yes.jpg" style="width: 50px; height: 55px;" alt="Yes"></td>-->
                             <td>Yes</td>
                         </true>
                         <false>
+                            <!--<td><img src="styles/images/no.jpg" style="width: 50px; height: 50px;" alt="No"></td>-->
                             <td>No</td>
                         </false>
                     </check>
@@ -89,7 +92,13 @@
     <script>
         $(document).ready(function() {
             $('#registrants').DataTable(
-                {
+            {
+                columnDefs: [
+                    {
+                        className: "dt-left",
+                        targets: [0, 1, 2, 3, 4, 5]
+                    }
+                ],
                 scrollY:        '50vh',
                 scrollCollapse: true,
                 paging:         true
