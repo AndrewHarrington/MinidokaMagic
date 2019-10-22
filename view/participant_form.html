@@ -61,18 +61,27 @@
         </label>
     </div>
     <div id="attendance">
-        <label>Check if you have previously attended.
-            <input type="radio" id="prevattend-yes" name="prevattend" value="yes">
-            <input type="radio" id="prevattend-no" name="prevattend" value="no">
-        </label>
+        <label>Check if you have previously attended.</label>
+        <input type="radio" id="prevattend-yes" name="prevattend" value="yes">
+        <input type="radio" id="prevattend-no" name="prevattend" value="no">
+    </div>
+    <div id="reservation">
+        <label for="name">Label text goes here</label>
+            <input id="name" type="checkbox" onclick="addBlock()">
+
     </div>
     <div id="submission">
         <label for="submit">
             <input type="submit" id="submit">
         </label>
-
-        <-- TODO Finish adding form validation -->
     </div>
 </form>
 </body>
+
+<script>
+    function addBlock(){
+        var clicked = document.getElementById('hotel');
+
+    };
+</script>
 </html>
