@@ -29,8 +29,7 @@ class Database
      */
     public function connect(){
         $user = $_SERVER['USER'];
-        require_once("/../home/$user/db_connection.php");
-
+        require_once("/../home/minidoka/db_connection.php");
         // Make the connection
         try {
           $this -> _dbc = new PDO(DSN, DB_USER, DB_PASSWORD);
