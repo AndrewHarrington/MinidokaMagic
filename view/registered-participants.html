@@ -1,12 +1,15 @@
-<include href='/view/header.html'/>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+<include href='view/header.html'/>
+<!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">-->
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.jqueryui.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
 <body>
 <div class="ml-5">
     <br>
     <h3>Participants</h3>
 </div>
-<div class="text-center ml-5 mr-5">
-    <table id="registrants" class="display" style="width:100%">
+<div class="text-left ml-5 mr-5">
+    <table id="registrants" class="display nowrap" style="width:100%">
         <thead>
             <tr>
                 <th>First Name</th>
@@ -86,27 +89,16 @@
         </tbody>
     </table>
 </div>
-
 <footer>
+<!--    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>-->
+<!--    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.20/js/dataTables.jqueryui.min.js"></script>-->
+    <script type="text/javascript" charset="utf-8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.20/js/dataTables.jqueryui.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#registrants').DataTable(
-            {
-                columnDefs: [
-                    {
-                        className: "dt-left",
-                        targets: [0, 1, 2, 3, 4, 5]
-                    }
-                ],
-                scrollY:        '50vh',
-                scrollX:        '50vh',
-                paging:         '50vh'
-            }
-            );
-        } );
-    </script>
+    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.jqueryui.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="view/js/participant-table.js"></script>
 </footer>
 </body>
 </html>
