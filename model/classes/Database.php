@@ -8,7 +8,7 @@ class Database
           FROM registrations INNER JOIN hotelregistrations 
           WHERE registrations.regID = hotelregistrations.userID
           UNION
-          SELECT regID, fname, lname, phone1, phone2, email, age, survivor, hashotel, prevattendences, NULL as hotelRedPKID, NULL as userID, NULL as hotelResID, NULL as hotelName
+          SELECT regID, fname, lname, phone, emergency, email, age, survivor, hashotel, prevattendences, NULL as hotelRedPKID, NULL as userID, NULL as hotelResID, NULL as hotelName
           FROM registrations
           WHERE hashotel = false
     ";
@@ -29,7 +29,7 @@ class Database
      */
     public function connect(){
         $user = $_SERVER['USER'];
-        require_once("/../home/minidoka/db_connection.php");
+        require_once("/../home/$user/db_connection.php");
 
         // Make the connection
         try {
