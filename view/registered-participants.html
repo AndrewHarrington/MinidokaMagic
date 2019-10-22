@@ -1,4 +1,4 @@
-<include href="/view/header.html"/>
+<include href='/view/header.html'/>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 <body>
 <div class="ml-5">
@@ -6,7 +6,7 @@
     <h3>Participants</h3>
 </div>
 <div class="text-center ml-5 mr-5">
-    <table id="registrants" class="display" style="width:80%">
+    <table id="registrants" class="display" style="width:100%">
         <thead>
             <tr>
                 <th>First Name</th>
@@ -89,6 +89,7 @@
 
 <footer>
     <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.20/js/dataTables.jqueryui.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#registrants').DataTable(
@@ -100,8 +101,8 @@
                     }
                 ],
                 scrollY:        '50vh',
-                scrollCollapse: true,
-                paging:         true
+                scrollX:        '50vh',
+                paging:         '50vh'
             }
             );
         } );
