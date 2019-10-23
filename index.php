@@ -1,13 +1,13 @@
 <?php
-require_once('vendor/autoload.php');
-//start the session
-session_start();
-//error reporting
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
-$f3 = Base::instance();
-global $db;
+//require_once('vendor/autoload.php');
+////start the session
+//session_start();
+////error reporting
+//ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//
+//$f3 = Base::instance();
+//global $db;
 
 //$f3->route('GET|POST /', function()
 //{
@@ -16,13 +16,13 @@ global $db;
 //    echo $view->render('view/login.html');
 //});
 
-$f3->route('GET|POST /', function ($f3){
-    $db = new Database();
-    $data = $db->getRegistrationData();
-    $f3->set('registrations', $data);
-    $view = new Template();
-    echo $view->render('view/registered-participants.html');
-});
+//$f3->route('GET|POST /', function ($f3){
+//    $db = new Database();
+//    $data = $db->getRegistrationData();
+//    $f3->set('registrations', $data);
+//    $view = new Template();
+//    echo $view->render('view/registered-participants.html');
+//});
 
 
 //error reporting
@@ -62,14 +62,14 @@ $f3->route('GET|POST /new_user', function ($f3) {
         $attended = $_POST['prevattend'];
 
         $f3->set('fname', $fname);
-        $f3->set('lname', lname);
+        $f3->set('lname', $lname);
         $f3->set('phone', $phone);
         $f3->set('ephone', $phone);
         $f3->set('age', $age);
         $f3->set('survivor', $survivor);
         $f3->set('attended', $attended);
 
-        if (validFrom()) {
+        if (validForm()) {
             //TODO
         }
     }
@@ -78,7 +78,5 @@ $f3->route('GET|POST /new_user', function ($f3) {
     echo $view->render('view/participant_form.html');
 });
 
-
-$f3->run();
 
 $f3->run();
