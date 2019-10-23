@@ -1,6 +1,6 @@
 <?php
 if($_SERVER['REQUEST_METHOD'] == "POST"){
-    $target_dir = "../uploads/";
+    $target_dir = "../../uploads/";
     $target_file = $target_dir . basename($_FILES["file"]["name"]);
     $uploadOk = 1;
     $file_type=$_FILES['file']['type'];

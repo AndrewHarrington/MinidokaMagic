@@ -1,0 +1,2 @@
+[23-Oct-2019 15:39:56 UTC] PHP Warning:  move_uploaded_file(../uploads/Resume.pdf): failed to open stream: No such file or directory in /home/minidoka/public_html/MinidokaMagic/view/budget-views/budget-upload.php on line 32
+[23-Oct-2019 15:39:56 UTC] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/phpAFTggf' to '../uploads/Resume.pdf' in /home/minidoka/public_html/MinidokaMagic/view/budget-views/budget-upload.php on line 32
