@@ -26,9 +26,7 @@
         <tbody>
             <repeat group="{{@registrations}}" value="{{@row}}">
                 <tr>
-                    <td>{{@row.fname}}
-                        <p hidden>{{@row.fname}} {{@row.lname}}</p>
-                    </td>
+                    <td>{{@row.fname}}</td>
                     <td>{{@row.lname}}</td>
                     <!--phone1-->
                     <check if="{{@row.phone == null}}">
