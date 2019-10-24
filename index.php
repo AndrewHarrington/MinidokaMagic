@@ -34,15 +34,15 @@ require_once('vendor/autoload.php');
 $f3 = Base::instance();
 global $db;
 
-$f3->route('GET|POST /data', function ($f3) {
+$f3->route('POST|GET /', function ($f3) {
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        $f3->reroute("/data");
+        $f3->reroute("/registrations");
     }
     $view = new Template();
     echo $view->render('view/login.html');
 });
 
-$f3->route('GET|POST /', function ($f3) {
+$f3->route('GET|POST /registrations', function ($f3) {
     $db = new Database();
     $data = $db->getRegistrationData();
     $f3->set('registrations', $data);
