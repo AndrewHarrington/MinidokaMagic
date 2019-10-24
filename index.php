@@ -35,8 +35,16 @@ $f3 = Base::instance();
 global $db;
 
 $f3->route('GET|POST /', function ($f3) {
+    $f3->set('hidden', "hidden");
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        $f3->reroute("/registrations");
+        var_dump($_POST);
+        if($_POST['username'] == "volunteer" && $_POST['password'] == "MinidokaPilgrimage"){
+            $f3->reroute("/registrations");
+        }
+        else{
+            //ERROR OUT
+            $f3->set('hidden', "");
+        }
     }
     $view = new Template();
     echo $view->render('view/login.html');
@@ -123,7 +131,7 @@ $f3->route('GET|POST /new_user', function ($f3) {
         $f3->set('attended', $attended);
 
         if (validForm()) {
-            //TODO
+            echo "Hello World";
         }
     }
 

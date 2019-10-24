@@ -6,19 +6,24 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+
     <div class="container text-center mt-5 align-items-center" style="width: 300px; border: 1px solid deepskyblue; border-radius: 25px">
         <br>
         <img src="http://www.minidokapilgrimage.org/Minidoka08-LOGO.jpg"
              alt="Minidoka Logo"
              style="width: 250px; height: 200px"
         >
-        <form action="registrations" method="POST">
+        <!--Error MSG here-->
+        <div class="alert alert-danger" role="alert" {{@hidden}}>
+            You have entered an invalid username or password
+        </div>
+        <form action="" method="POST">
             <label for="username">Username</label>
-            <input id="username" type="text" placeholder="Username" class="form-control" required>
+            <input name="username" id="username" type="text" placeholder="Username" class="form-control" required>
             <p hidden class="text-danger" id="username-invalid">You have entered an invalid username</p>
 
             <label for="password" class="mt-3">Password</label>
-            <input id="password" type="password" placeholder="Password" class="form-control">
+            <input name="password" id="password" type="password" placeholder="Password" class="form-control">
             <p hidden class="text-danger" id="password-invalid">You have entered an invalid password</p>
             <br>
             <button class="btn btn-primary" id="login">Log In</button>
@@ -27,6 +32,6 @@
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="model/javascript/login-validation.js"></script>
+    <script src="../model/javascript/login-validation.js"></script>
 </body>
 </html>
