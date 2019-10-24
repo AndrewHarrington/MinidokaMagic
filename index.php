@@ -37,7 +37,6 @@ global $db;
 $f3->route('GET|POST /', function ($f3) {
     $f3->set('hidden', "hidden");
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        var_dump($_POST);
         if($_POST['username'] == "volunteer" && $_POST['password'] == "MinidokaPilgrimage"){
             $f3->reroute("/registrations");
         }
