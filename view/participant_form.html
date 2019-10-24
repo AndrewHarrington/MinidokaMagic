@@ -50,19 +50,21 @@
         </check>
     </div>
     <div id="survive">
-        <label>Check if you are a internment camp survivor.
-            <input type="radio" name="survivor[]" id="survivor-yes" value="yes">
-            <input type="radio" name="survivor[]" id="survivor-no" value="no">
-        </label>
+        <label>Is the guest a survivor?</label>
+            <input type="radio" name="survivor[]" id="survivor-yes" value="yes">Yes
+            <input type="radio" name="survivor[]" id="survivor-no" value="no">No
     </div>
     <div id="attendance">
-        <label>Check if you have previously attended.</label>
-        <input type="radio" id="prevattend-yes" name="prevattend" value="yes">
-        <input type="radio" id="prevattend-no" name="prevattend" value="no">
+        <label>Has the guest previously attended?</label>
+        <input type="radio" id="prevattend-yes" name="prevattend" value="yes">Yes
+        <input type="radio" id="prevattend-no" name="prevattend" value="no">No
     </div>
     <div id="reservation">
-        <label for="name">Label text goes here</label>
-            <input id="name" type="checkbox" onclick="addBlock()">
+        <label for="resCheck">Check if the guest has a reservation:</label>
+            <input id="resCheck" type="checkbox" onclick="addBlock()">
+            <div id="res" hidden>
+                <p>Hello World!</p>
+            </div>
 
     </div>
     <div id="submission">
@@ -74,9 +76,15 @@
 </body>
 
 <script>
-    function addBlock(){
-        var clicked = document.getElementById('hotel');
-
-    };
+    $(document).ready(function(){
+        $("#resCheck").click(function(){
+            if($("#resCheck").attr("checked")){
+                     $("#res").attr("hidden", false);
+                 }
+            else{
+                $("#res").attr("hidden", true);
+            }
+        });
+    });
 </script>
 </html>
