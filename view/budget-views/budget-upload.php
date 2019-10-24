@@ -39,13 +39,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Upload Budget</title>
-</head>
-<body>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Upload Budget</title>-->
+<!--</head>-->
+<!--<body>-->
+<include href="view/header.html"/>
     <form action="" method="post" enctype="multipart/form-data">
         <label for="file">Select File:</label>
         <input type="file" name="file" id="file">

@@ -34,7 +34,7 @@ require_once('vendor/autoload.php');
 $f3 = Base::instance();
 global $db;
 
-$f3->route('POST|GET /', function ($f3) {
+$f3->route('GET|POST /', function ($f3) {
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $f3->reroute("/registrations");
     }
@@ -48,6 +48,11 @@ $f3->route('GET|POST /registrations', function ($f3) {
     $f3->set('registrations', $data);
     $view = new Template();
     echo $view->render('view/registered-participants.html');
+});
+
+$f3->route('GET /budget-pdf', function (){
+    $view = new Template();
+    echo $view->render('view/budget-views/budget-upload.php');
 });
 
 $f3->route('GET|POST /new_user', function ($f3) {
