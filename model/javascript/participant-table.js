@@ -1,5 +1,11 @@
 $(document).ready(function() {
     $('#registrants').DataTable( {
+        columnDefs: [
+            {
+                className: "dt-left",
+                targets: [0, 1, 2, 3, 4, 5]
+            }
+            ],
         responsive: {
             details: {
                 display: $.fn.dataTable.Responsive.display.modal( {
@@ -12,7 +18,8 @@ $(document).ready(function() {
                     tableClass: 'table'
                 } )
             }
-        }
+        },
+        "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
     } );
 } );
 // $(document).ready(function() {
