@@ -23,16 +23,15 @@
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <div class="bg-dark p-4">
-                <!--                <ul class="nav nav-pills nav-justified bg-warning text-dark">-->
                 <ul class="navbar-nav justify-content-center">
-                    <!--                    <li class="nav-item border border-dark">-->
-                    <!--                        <a class="nav-link" href="#">Home</a>-->
-                    <!--                    </li>-->
+                    <li class="nav-item border border-dark">
+                    <a class="nav-link" href="../{{registrations}}"><img src="../styles/images/MinidokaLogoWhite.png" style="height: 150px; max-width: 100px;"></a>
+                    </li>
                     <li class="nav-item border border-dark">
                         <a class="nav-link" href="../{{'budget-pdf'}}">Budget</a>
                     </li>
                     <li class="nav-item border border-dark">
-                        <a class="nav-link" href="../{{'new_user'}}">Registration</a>
+                        <a class="nav-link" href="../{{'new-participant'}}">Registration</a>
                     </li>
                     <li class="nav-item border border-dark">
                         <a class="nav-link" href="#">Volunteers</a>
@@ -41,10 +40,10 @@
                         <a class="nav-link" href="#">Scholarships</a>
                     </li>
                     <li class="nav-item border border-dark">
-                        <a class="nav-link" href="#">Reference Documents</a>
+                        <a class="nav-link" href="../{{'reference-pdf'}}">Reference Documents</a>
                     </li>
                     <li class="nav-item border border-dark">
-                        <a class="nav-link" href="#">Logout</a>
+                        <a class="nav-link" href="../../">Logout</a>
                     </li>
                 </ul>
             </div>

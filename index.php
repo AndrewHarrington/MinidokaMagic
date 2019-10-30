@@ -30,6 +30,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 require_once('vendor/autoload.php');
+require('model/validation.php');
 
 $f3 = Base::instance();
 global $db;
@@ -110,7 +111,60 @@ $f3->route('GET /budget-view/@fileName', function (){
     echo $view->render('view/budget-views/budget-view.php');
 });
 
-$f3->route('GET|POST /new_user', function ($f3) {
+$f3->route('GET|POST /reference-pdf', function (){
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($_FILES["file"]["name"]);
+        $uploadOk = 1;
+        $file_type=$_FILES['file']['type'];
+
+        //validate that the file is a pdf
+        if(isset($_POST["submit"])) {
+
+            if($file_type=="application/pdf") {
+                //echo "File is a PDF.";
+                $uploadOk = 1;
+            } else {
+                echo "File is not a PDF.";
+                $uploadOk = 0;
+            }
+        }
+
+        //Check file name length < 23chars
+        if(strlen($_FILES["file"]["name"]) > 23){
+            echo "Sorry, file name too long. ";
+            $uploadOk = 0;
+        }
+
+        // Check if file already exists
+        if (file_exists($target_file)) {
+            echo "Sorry, file already exists.";
+            $uploadOk = 0;
+        }
+
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            echo "Your file was not uploaded.";
+            // if everything is ok, try to upload file
+        } else {
+            //save the pdf to an "uploads" folder
+            if (!move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+                //reroute to a master page to select a pdf to view
+                echo "Sorry, there was an error uploading your file.";
+                //echo "The file ". basename( $_FILES["file"]["name"]). " has been uploaded.";
+            }
+        }
+    }
+    $view = new Template();
+    echo $view->render('view/document-views/doc-upload.php');
+});
+
+$f3->route('GET /doc-view/@fileName', function (){
+    $view = new Template();
+    echo $view->render('view/document-views/doc-view.php');
+});
+
+$f3->route('GET|POST /new-participant', function ($f3) {
 
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $fname = $_POST['fname'];
@@ -135,7 +189,12 @@ $f3->route('GET|POST /new_user', function ($f3) {
     }
 
     $view = new Template();
-    echo $view->render('view/participant_form.html');
+    echo $view->render('view/participant-form.html');
+});
+
+$f3->route('GET|POST /volunteers', function ($f3){
+    $view = new Template();
+    echo $view->render('view/volunteers.html');
 });
 
 
