@@ -6,26 +6,29 @@ $(document).ready(function(){
 
 function validateFields(){
     //check username
-
-    if(!validString($("#username").text)){
-        $("#username-invalid").attr("hidden", false);
-    }
+    //
+    // if(!validString($("#username").text)){
+    //     $("#username-invalid").attr("hidden", false);
+    // }
     //check password
 
 }
 
 //returns false if the string is invalid
-function validString(string){
-    const check = /[.a-z0-9]/i;
-
-    alert(check.exec(string));
-    //check empty
-    if(string === ""){
-        return false;
-    }
-    if(check.exec(string)){
-        alert("true");
-        return false;
-    }
-    return true;
-}
+// function validString(string){
+//     // if(string.trim() === ""){
+//     //     return false;
+//     // }
+//     //var usernameRegex = /^[a-zA-Z0-9]+$/;
+//     var usernameRegex = /^[a-z]+/;
+//
+//     alert(usernameRegex.test(string));
+//     if(usernameRegex.test(string)){
+//         alert("true");
+//         return false;
+//     }
+//     else{
+//         alert("false");
+//     }
+//     return true;
+// }
