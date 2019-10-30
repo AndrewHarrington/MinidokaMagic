@@ -13,7 +13,26 @@ class Database
           WHERE hashotel = false
     ";
 
+    const NEW_PARTICIPANT =
+    "
+        INSERT 
+        INTO registrations
+          (fname, lname, phone, emergency, email, age, survivor, hashotel, prevattendences) 
+        VALUES (:fname, :lname, :phone, :emergency, :email, :age, :survivor, :hashotel, :prevattendences);
+        
+        SELECT @@IDENTITY;
+        
+    ";
+
+    const NEW_HOTEL_REG =
+    "
+        INSERT INTO hotelregistrations(userID, hotelResID, hotelName)
+        VALUES (:id, :resId, :hotelName)
+    ";
+
     private $_getRegistrationData;
+    private $_newParticipant;
+    private $_newHotelReg;
     private $_dbc;
 
     /**
@@ -41,10 +60,40 @@ class Database
         }
 
         $this->_getRegistrationData = $this->_dbc->prepare(self::GET_REGISTRATION_DATA_1);
+        $this->_newParticipant = $this->_dbc->prepare(self::NEW_PARTICIPANT);
+        $this->_newHotelReg = $this->_dbc->prepare(self::NEW_HOTEL_REG);
+
     }
 
     public function getRegistrationData(){
         $this->_getRegistrationData->execute();
         return $this->_getRegistrationData->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function insertParticipant
+        ($fname, $lname, $phone, $emergency, $email, $age, $survivor, $hashotel, $prevattendences,
+         $hotelRegId, $hotelName){
+
+        $this->_newParticipant->bindParam(':fname', $fname, PDO::PARAM_STR);
+        $this->_newParticipant->bindParam(':lname', $lname, PDO::PARAM_STR);
+        $this->_newParticipant->bindParam(':phone', $phone, PDO::PARAM_STR);
+        $this->_newParticipant->bindParam(':emergency', $emergency, PDO::PARAM_STR);
+        $this->_newParticipant->bindParam(':email', $email, PDO::PARAM_STR);
+        $this->_newParticipant->bindParam(':age', $age, PDO::PARAM_INT);
+        $this->_newParticipant->bindParam(':survivor', $survivor, PDO::PARAM_BOOL);
+        $this->_newParticipant->bindParam(':hashotel', $hashotel, PDO::PARAM_BOOL);
+        $this->_newParticipant->bindParam(':prevattendences', $prevattendences, PDO::PARAM_INT);
+
+        $this->_newParticipant->execute();
+        $id = $this->_newParticipant->fetchAll(PDO::FETCH_ASSOC);
+        $id = $id['@@identity'];
+        if($hashotel){
+            $this->_newHotelReg->bindParam(':id', $id, PDO::PARAM_INT);
+            $this->_newHotelReg->bindParam(':regId', $hotelRegId, PDO::PARAM_INT);
+            $this->_newHotelReg->bindParam(':hotelName', $hotelName, PDO::PARAM_STR);
+
+            $this->_newHotelReg->execute();
+            return $this->_newHotelReg->fetchAll(PDO::FETCH_ASSOC);
+        }
     }
 }
