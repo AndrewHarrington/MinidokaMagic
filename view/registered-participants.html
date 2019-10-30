@@ -26,7 +26,9 @@
         <tbody>
             <repeat group="{{@registrations}}" value="{{@row}}">
                 <tr>
-                    <td>{{@row.fname}}</td>
+                    <td>
+                        {{@row.fname}}
+                    </td>
                     <td>{{@row.lname}}</td>
                     <!--phone1-->
                     <check if="{{@row.phone == null}}">
@@ -63,10 +65,12 @@
                     <check if="{{@row.survivor == true}}">
                         <true>
                             <!--<td><img src="styles/images/yes.jpg" style="width: 50px; height: 55px;" alt="Yes"></td>-->
+                            <!--<td>Yes</td>-->
                             <td>&check;</td>
                         </true>
                         <false>
                             <!--<td><img src="styles/images/no.jpg" style="width: 50px; height: 50px;" alt="No"></td>-->
+                            <!--<td>No</td>-->
                             <td>&#88;</td>
                         </false>
                     </check>
