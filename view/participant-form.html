@@ -1,0 +1,79 @@
+<include href="view/header.html"/>
+<form method="post" action="#">
+    <div id="first">
+        <label for="fname">First Name:
+            <input type="text" name="firstname" id="fname" value="{{ @fname }}">
+        </label>
+        <check if="{{ @errors['fname'] }}">
+            <span class="error">{{ @errors['fname'] }}</span>
+        </check>
+    </div>
+    <div id="last">
+        <label for="lname">Last Name:
+            <input type="text" name="lastname" id="lname">
+        </label>
+        <check if="{{@errors['lname']}}">
+            <span class="errors">{{@errors['lname']}}</span>
+        </check>
+    </div>
+    <div id="mail">
+        <label for="email">Email:
+            <input type="email" name="email" id="email">
+        </label>
+        <check if="{{@errors['email']}}">
+            <span class="errors">{{@errors['email']}}</span>
+        </check>
+    </div>
+    <div id="phone-number">
+        <label for="phone">Phone:
+            <input type="text" name="phone" id="phone">
+        </label>
+        <check if="{{@errors['phone']}}">
+            <span class="errors">{{@errors['phone']}}</span>
+        </check>
+    </div>
+    <div id="emergency">
+        <label for="ephone">Emergency Contact Number:
+            <input type="text" name="phone" id="ephone">
+        </label>
+        <check if="{{@errors['ephone']}}">
+            <span class="errors">{{@errors['ephone']}}</span>
+        </check>
+    </div>
+    <div id="DOB">
+        <label for="age">Date of Birth:
+            <input type="date" name="age" id="age">
+        </label>
+        <check if="{{@errors['age']}}">
+            <span class="errors">{{@errors['age']}}</span>
+        </check>
+    </div>
+    <div id="survive">
+        <label>Is the guest a survivor?</label>
+            <input type="radio" name="survivor[]" id="survivor-yes" value="yes">Yes
+            <input type="radio" name="survivor[]" id="survivor-no" value="no">No
+    </div>
+    <div id="attendance">
+        <label>Has the guest previously attended?</label>
+        <input type="radio" id="prevattend-yes" name="prevattend" value="yes">Yes
+        <input type="radio" id="prevattend-no" name="prevattend" value="no">No
+    </div>
+    <div id="reservation">
+        <label for="resCheck">Check if the guest has a reservation:</label>
+            <input id="resCheck" type="checkbox">
+            <div id="res" hidden>
+                <label for="hotel">Enter the Hotel Reservation Number</label>
+                <input type="text" id="hotel">
+            </div>
+
+    </div>
+    <div id="submission">
+        <label for="submit">
+            <input type="submit" id="submit">
+        </label>
+    </div>
+</form>
+
+<script src="model/javascript/participant-form.js"></script>
+</body>
+</html>
