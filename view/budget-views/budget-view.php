@@ -63,6 +63,29 @@
     <!--    </div>-->
 
 </header>
-    <embed src="../uploads/{{@PARAMS.fileName}}" width= "500" height= "375">
+    <div id="pdfFile">
+
+    </div>
+<!--    <embed src="../uploads/{{@PARAMS.fileName}}" width= "500" height= "375">-->
+<footer>
+    <script>
+
+        //cross browser support for varying size of pdf viewer
+        let width = (window.innerWidth
+            || document.documentElement.clientWidth
+            || document.body.clientWidth) - 20;
+        let height = (window.innerHeight
+            || document.documentElement.clientHeight
+            || document.body.clientHeight);
+
+        //grab our div to print
+        let pdfView = document.getElementById('pdfFile');
+
+        //print window to given size
+        pdfView.innerHTML = '<embed src="../uploads/{{@PARAMS.fileName}}" width= "' + width + '" height= "' + height + '">';
+
+
+    </script>
+</footer>
 </body>
 </html>
