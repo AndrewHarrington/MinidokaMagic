@@ -24,7 +24,6 @@
 //    echo $view->render('view/registered-participants.html');
 //});
 
-
 //error reporting
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -113,7 +112,7 @@ $f3->route('GET /budget-view/@fileName', function (){
 
 $f3->route('GET|POST /reference-pdf', function (){
     if($_SERVER['REQUEST_METHOD'] == "POST"){
-        $target_dir = "uploads/";
+        $target_dir = "reference-docs/";
         $target_file = $target_dir . basename($_FILES["file"]["name"]);
         $uploadOk = 1;
         $file_type=$_FILES['file']['type'];
@@ -164,7 +163,7 @@ $f3->route('GET /doc-view/@fileName', function (){
     echo $view->render('view/document-views/doc-view.php');
 });
 
-$f3->route('GET|POST /new-participant', function ($f3) {
+$f3->route('GET|POST /new_user', function ($f3) {
 
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $fname = $_POST['fname'];
