@@ -17,10 +17,6 @@
 <header>
     <!--    <div class="pos-f-t">-->
     <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-        <a class="navbar-brand" href="../{{'registrations'}}">Home</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <div class="bg-dark p-4">
                 <ul class="navbar-nav justify-content-center">
@@ -34,7 +30,7 @@
                         <a class="nav-link" href="../{{'new-participant'}}">Registration</a>
                     </li>
                     <li class="nav-item border border-dark">
-                        <a class="nav-link" href="#">Volunteers</a>
+                        <a class="nav-link" href="../{{'volunteers'}}">Volunteers</a>
                     </li>
                     <li class="nav-item border border-dark">
                         <a class="nav-link" href="#">Scholarships</a>
