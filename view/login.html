@@ -7,7 +7,7 @@
 </head>
 <body>
 
-    <div class="container text-center mt-5 align-items-center" style="width: 300px; border: 1px solid deepskyblue; border-radius: 25px">
+    <div class="container text-center mt-5 align-items-center" style="width: 300px; border: 1px solid deepskyblue; border-radius: 25px; box-shadow: 0px 0px 5px darkslategrey;">
         <br>
         <img src="http://www.minidokapilgrimage.org/Minidoka08-LOGO.jpg"
              alt="Minidoka Logo"
@@ -17,7 +17,7 @@
         <div class="alert alert-danger" role="alert" {{@hidden}}>
             You have entered an invalid username or password
         </div>
-        <form action="" method="POST">
+        <form method="POST">
             <label for="username">Username</label>
             <input name="username" id="username" type="text" placeholder="Username" class="form-control" required>
             <p hidden class="text-danger" id="username-invalid">You have entered an invalid username</p>
@@ -32,6 +32,6 @@
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="../model/javascript/login-validation.js"></script>
+    <script src="model/javascript/login-validation.js"></script>
 </body>
 </html>
