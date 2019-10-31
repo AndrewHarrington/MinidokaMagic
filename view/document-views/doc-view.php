@@ -51,3 +51,6 @@
 <embed src="../uploads/{{@PARAMS.fileName}}" width= "500" height= "375">
 </body>
 </html>
+<embed src="../uploads/{{@PARAMS.fileName}}" width= "500" height= "375">
+</body>
+</html>
