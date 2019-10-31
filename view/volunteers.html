@@ -1,0 +1,82 @@
+<include href='view/header.html'/>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.jqueryui.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+<div class="ml-5">
+    <br>
+    <h3>Volunteers</h3>
+</div>
+<div class="text-left ml-5 mr-5">
+    <table id="volunteers" class="display nowrap" style="width:100%">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Position</th>
+            <th>Phone #</th>
+            <th>Email</th>
+            <th>Active</th>
+        </tr>
+        </thead>
+        <tbody>
+        <repeat group="{{@volunteers}}" value="{{@row}}">
+            <tr>
+                <td>
+                    {{@row.fname}}
+                </td>
+                <td>{{@row.lname}}</td>
+                <td>{{@row.position}}</td>
+                <!--phone#-->
+                <check if="{{@row.phone == null}}">
+                    <true>
+                        <td>none</td>
+                    </true>
+                    <false>
+                        <td>({{substr(@row.phone, 0, 3)}})-{{substr(@row.phone, 3, 3)}}-{{substr(@row.phone, 6)}}</td>
+                    </false>
+                </check>
+                <!--email-->
+                <check if="{{@row.email == null}}">
+                    <true>
+                        <td>none</td>
+                    </true>
+                    <false>
+
+                        <td><a href="mailto:{{@row.email}}">{{@row.email}}</a></td>
+                    </false>
+                </check>
+
+
+                <!--are they actively volunteering?-->
+                <check if="{{@row.active == true}}">
+                    <true>
+                        <!--<td><img src="styles/images/yes.jpg" style="width: 50px; height: 55px;" alt="Yes"></td>-->
+                        <!--<td>Yes</td>-->
+                        <td>&check;</td>
+                    </true>
+                    <false>
+                        <!--<td><img src="styles/images/no.jpg" style="width: 50px; height: 50px;" alt="No"></td>-->
+                        <!--<td>No</td>-->
+                        <td>&#88;</td>
+                    </false>
+                </check>
+            </tr>
+
+        </repeat>
+        </tbody>
+    </table>
+</div>
+<footer>
+    <!--    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>-->
+    <!--    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.20/js/dataTables.jqueryui.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.jqueryui.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.jqueryui.min.js"></script>
+    <script src="model/javascript/volunteers.js"></script>
+<!--    <script type="text/javascript" charset="utf-8" src="model/javascript/participant-table.js"></script>-->
+</footer>
+</body>
+</html>
