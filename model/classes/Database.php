@@ -1,4 +1,11 @@
 <?php
+
+/**
+ *This class establishes a connection to a database and functions that query the database
+ * Class Database
+ * @author Andrew, Kat, Ryan and Zane
+ * @copyright 2019
+ */
 class Database
 {
 
@@ -45,6 +52,7 @@ class Database
 
     /**
      * Connects to the database and stores the connection inside the class
+     * @return PDO|void
      */
     public function connect(){
         $user = $_SERVER['USER'];
@@ -65,11 +73,30 @@ class Database
 
     }
 
+    /**
+     * Function to retrieve multiple participant details
+     * @return mixed participant details
+     */
     public function getRegistrationData(){
         $this->_getRegistrationData->execute();
         return $this->_getRegistrationData->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * This function adds a participant to the registered-participant into the database
+     * @param $fname
+     * @param $lname
+     * @param $phone
+     * @param $emergency
+     * @param $email
+     * @param $age
+     * @param $survivor
+     * @param $hashotel
+     * @param $prevattendences
+     * @param $hotelRegId
+     * @param $hotelName
+     * @return mixed void
+     */
     public function insertParticipant
         ($fname, $lname, $phone, $emergency, $email, $age, $survivor, $hashotel, $prevattendences,
          $hotelRegId, $hotelName){
