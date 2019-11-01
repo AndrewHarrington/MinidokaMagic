@@ -11,17 +11,17 @@ function validForm(){
 
     if(!validName($f3->get('lname'))){
         $isValid = false;
-        $f3->set("errors['lname']", "Not a valid last name, please reenter");
+        $f3->set("errors['lname']", "Not a valid last name, please reenter!");
     }
 
     if(!validPhone($f3->get('phone'))){
         $isValid = false;
-        $f3->set("errors['phone']", "Not a valid phone number, please reenter");
+        $f3->set("errors['phone']", "Not a valid phone number, please reenter!");
     }
 
     if(!validPhone($f3->get('ephone'))){
         $isValid = false;
-        $f3->set("errors['ephone']", "Not a valid phone number, please reenter");
+        $f3->set("errors['ephone']", "Not a valid phone number, please reenter!");
     }
 
     if (!validAge($f3->get('age'))) {
@@ -33,17 +33,15 @@ function validForm(){
         $isValid = false;
         $f3->set("errors['email']", "Please enter a valid email.");
     }
-
     return $isValid;
-
 }
 
 function validName($name){
-    return (!empty($name) && ctype_alpha($name));
+    return  !empty($name) && ctype_alpha($name);//preg_match('/[^A-Za-z]/', $name);
 }
 
 function validAge($age){
-    return (!empty($age) && ctype_digit($age));
+    return !empty($age) && preg_match('/[0-9]/', $age);
 }
 
 function validPhone($phone){
@@ -57,13 +55,13 @@ function validEmail($email){
 }
 
 function validHotelRes($hotel){
-    return (!empty($hotel)) && ctype_alnum($hotel);
+    return !empty($hotel) && ctype_alnum($hotel);
 }
 
 function validUsername($username){
-    return (!empty($username)) && ctype_alpha($username);
+    return !empty($username) && ctype_alpha($username);
 }
 
 function validPassword($password){
-    return (!empty($password));
+    return  (!empty($password));
 }

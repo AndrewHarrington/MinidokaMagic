@@ -1,40 +1,18 @@
 <?php
-//require_once('vendor/autoload.php');
-////start the session
-//session_start();
-////error reporting
-//ini_set('display_errors', 1);
-//error_reporting(E_ALL);
-//
-//$f3 = Base::instance();
-//global $db;
-
-//$f3->route('GET|POST /', function()
-//{
-//    session_destroy();
-//    $view = new Template();
-//    echo $view->render('view/login.html');
-//});
-
-//$f3->route('GET|POST /', function ($f3){
-//    $db = new Database();
-//    $data = $db->getRegistrationData();
-//    $f3->set('registrations', $data);
-//    $view = new Template();
-//    echo $view->render('view/registered-participants.html');
-//});
-
+session_start();
+require_once('vendor/autoload.php');
 //error reporting
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-require_once('vendor/autoload.php');
-require('model/validation.php');
+
+require_once('model/validation.php');
 
 $f3 = Base::instance();
 global $db;
 
 $f3->route('GET|POST /', function ($f3) {
+    session_destroy();
     $f3->set('hidden', "hidden");
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if($_POST['username'] == "volunteer" && $_POST['password'] == "MinidokaPilgrimage"){
@@ -165,25 +143,39 @@ $f3->route('GET /doc-view/@fileName', function (){
 
 $f3->route('GET|POST /new-participant', function ($f3) {
 
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if(!empty($_POST)){
+//    if (!$_SERVER['REQUEST_METHOD'] == "POST") {
         $fname = $_POST['fname'];
         $lname = $_POST['lname'];
+        $email = $_POST['email'];
         $phone = $_POST['phone'];
         $ephone = $_POST['ephone'];
         $age = $_POST['age'];
         $survivor = $_POST['survivor'];
         $attended = $_POST['prevattend'];
+        $resCheck = $_POST['resCheck'];
 
         $f3->set('fname', $fname);
         $f3->set('lname', $lname);
+        $f3->set('email', $email);
         $f3->set('phone', $phone);
         $f3->set('ephone', $ephone);
         $f3->set('age', $age);
         $f3->set('survivor', $survivor);
         $f3->set('attended', $attended);
+        $f3->set('resCheck', $resCheck);
 
         if (validForm()) {
-            echo "Hello World";
+            $_SESSION['fname'] = $fname;
+            $_SESSION['lname'] = $lname;
+            $_SESSION['email'] = $email;
+            $_SESSION['phone'] = $phone;
+            $_SESSION['ephone'] = $ephone;
+            $_SESSION['age'] = $age;
+            $_SESSION['survivor'] = $survivor;
+            $_SESSION['attended'] = $attended;
+            $_SESSION['resCheck'] = $resCheck;
+            $f3->reroute('/registrations');
         }
     }
 

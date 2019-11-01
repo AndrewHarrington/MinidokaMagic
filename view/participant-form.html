@@ -1,8 +1,8 @@
 <include href="view/header.html"/>
-<form method="post" action="#">
+<form method="POST" action="#">
     <div id="first">
         <label for="fname">First Name:
-            <input type="text" name="firstname" id="fname" value="{{ @fname }}">
+            <input type="text" name="fname" id="fname" value="{{ @fname }}">
         </label>
         <check if="{{ @errors['fname'] }}">
             <span class="error">{{ @errors['fname'] }}</span>
@@ -10,7 +10,7 @@
     </div>
     <div id="last">
         <label for="lname">Last Name:
-            <input type="text" name="lastname" id="lname">
+            <input type="text" name="lname" id="lname" value="{{ @lname}}">
         </label>
         <check if="{{@errors['lname']}}">
             <span class="errors">{{@errors['lname']}}</span>
@@ -18,7 +18,7 @@
     </div>
     <div id="mail">
         <label for="email">Email:
-            <input type="email" name="email" id="email">
+            <input type="email" name="email" id="email" value="{{ @email }}">
         </label>
         <check if="{{@errors['email']}}">
             <span class="errors">{{@errors['email']}}</span>
@@ -26,7 +26,7 @@
     </div>
     <div id="phone-number">
         <label for="phone">Phone:
-            <input type="text" name="phone" id="phone">
+            <input type="text" name="phone" id="phone" value="{{ @phone }}">
         </label>
         <check if="{{@errors['phone']}}">
             <span class="errors">{{@errors['phone']}}</span>
@@ -34,7 +34,7 @@
     </div>
     <div id="emergency">
         <label for="ephone">Emergency Contact Number:
-            <input type="text" name="phone" id="ephone">
+            <input type="text" name="ephone" id="ephone" value="{{ @ephone }}">
         </label>
         <check if="{{@errors['ephone']}}">
             <span class="errors">{{@errors['ephone']}}</span>
@@ -42,7 +42,7 @@
     </div>
     <div id="DOB">
         <label for="age">Date of Birth:
-            <input type="date" name="age" id="age">
+            <input type="date" name="age" id="age" value="{{ @age }}">
         </label>
         <check if="{{@errors['age']}}">
             <span class="errors">{{@errors['age']}}</span>
@@ -50,17 +50,17 @@
     </div>
     <div id="survive">
         <label>Is the guest a survivor?</label>
-            <input type="radio" name="survivor[]" id="survivor-yes" value="yes">Yes
-            <input type="radio" name="survivor[]" id="survivor-no" value="no">No
+            <input type="radio" name="survivor[]" id="survivor-yes" value="{{ @survivor}}">Yes
+            <input type="radio" name="survivor[]" id="survivor-no" value="{{ @survivor}}">No
     </div>
     <div id="attendance">
         <label>Has the guest previously attended?</label>
-        <input type="radio" id="prevattend-yes" name="prevattend" value="yes">Yes
-        <input type="radio" id="prevattend-no" name="prevattend" value="no">No
+        <input type="radio" id="prevattend-yes" name="prevattend" value="{{ @prevattend }}">Yes
+        <input type="radio" id="prevattend-no" name="prevattend" value="{{ @prevattend }}">No
     </div>
     <div id="reservation">
         <label for="resCheck">Check if the guest has a reservation:</label>
-            <input id="resCheck" type="checkbox">
+            <input id="resCheck" name="resCheck" type="checkbox" value="{{ @resCheck }} ">
             <div id="res" hidden>
                 <label for="hotel">Enter the Hotel Reservation Number</label>
                 <input type="text" id="hotel">
