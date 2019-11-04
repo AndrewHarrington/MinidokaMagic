@@ -12,16 +12,26 @@ $f3 = Base::instance();
 $db = new Database();
 
 $f3->route('GET|POST /', function ($f3) {
+    global $db;
     session_destroy();
     $f3->set('hidden', "hidden");
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        if($_POST['username'] == "volunteer" && $_POST['password'] == "MinidokaPilgrimage"){
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        if($db->isValidUser($username, $password)){
             $f3->reroute("/registrations");
         }
         else{
             //ERROR OUT
             $f3->set('hidden', "");
         }
+//        if($_POST['username'] == "volunteer" && $_POST['password'] == "MinidokaPilgrimage"){
+//            $f3->reroute("/registrations");
+//        }
+//        else{
+//            //ERROR OUT
+//            $f3->set('hidden', "");
+//        }
     }
     $view = new Template();
     echo $view->render('view/login.html');
@@ -104,14 +114,14 @@ $f3->route('GET|POST /reference-pdf', function (){
         //if we are trying to delete a file
         if(isset($_POST['file'])){
             // Check file exist or not
-            if( file_exists('uploads/'.$_POST['file']) ){
+            if( file_exists('reference-docs/'.$_POST['file']) ){
                 // Remove file
-                unlink('uploads/'.$_POST['file']);
+                unlink('reference-docs/'.$_POST['file']);
             }
         }
 
         //if we are uploading
-        $target_dir = "uploads/";
+        $target_dir = "reference-docs/";
         $target_file = $target_dir . basename($_FILES["file"]["name"]);
         $uploadOk = 1;
         $file_type=$_FILES['file']['type'];
@@ -243,13 +253,18 @@ $f3->route('GET|POST /add-volunteer', function ($f3){
     }
         $view = new Template();
         echo $view->render('view/user-form.html');
-
 });
 
 $f3->route('GET|POST /volunteers', function ($f3){
+    global $db;
+
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+        //get the thing to be deleted
+        $id = $_POST['uuid'];
+        $db->removeUser($id);
+    }
 
     //get the volunteers
-    global $db;
     $volunteers = $db->getVolunteers();
 
     //set the volunteers to the hive
