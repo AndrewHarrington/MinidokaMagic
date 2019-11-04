@@ -9,6 +9,20 @@
 class Database
 {
 
+    const DEACTIVATE_USER =
+    "
+        UPDATE users
+        SET active = 0
+        WHERE UUID = :uuid
+    ";
+
+    const INSERT_NEW_USER =
+    "
+        INSERT INTO users
+        (username, password, fname, lname, email, phone, editusers, editreg, editbudget)
+        VALUES (:username, :password, :fname, :lname, :email, :phone, :editusers, :editreg, :editbudget)
+    ";
+
     const GET_REGISTRATION_DATA_1 =
     "
           SELECT * 
@@ -47,6 +61,8 @@ class Database
     private $_newParticipant;
     private $_newHotelReg;
     private $_getUsers;
+    private $_newUser;
+    private $_deactivateUser;
     private $_dbc;
 
     /**
@@ -78,6 +94,8 @@ class Database
         $this->_newParticipant = $this->_dbc->prepare(self::NEW_PARTICIPANT);
         $this->_newHotelReg = $this->_dbc->prepare(self::NEW_HOTEL_REG);
         $this->_getUsers = $this->_dbc->prepare(self::GET_VOLUNTEERS);
+        $this->_newUser = $this->_dbc->prepare(self::INSERT_NEW_USER);
+        $this->_deactivateUser = $this->_dbc->prepare(self::DEACTIVATE_USER);
 
     }
 
@@ -135,5 +153,26 @@ class Database
     public function getVolunteers(){
         $this->_getUsers->execute();
         return $this->_getUsers->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function addUser($username, $password, $fname, $lname, $email, $phone, $editusers, $editreg, $editbudget){
+
+        $this->_newUser->bindParam(':username', $username, PDO::PARAM_STR);
+        $this->_newUser->bindParam(':password', $password, PDO::PARAM_STR);
+        $this->_newUser->bindParam(':fname', $fname, PDO::PARAM_STR);
+        $this->_newUser->bindParam(':lname', $lname, PDO::PARAM_STR);
+        $this->_newUser->bindParam(':phone', $phone, PDO::PARAM_STR);
+        $this->_newUser->bindParam(':email', $email, PDO::PARAM_STR);
+        $this->_newUser->bindParam(':editusers', $editusers, PDO::PARAM_STR);
+        $this->_newUser->bindParam(':editreg', $editreg, PDO::PARAM_STR);
+        $this->_newUser->bindParam(':editbudget', $editbudget, PDO::PARAM_STR);
+
+        $this->_newParticipant->execute();
+        return $this->_newParticipant->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+    public function removeUser(){
+
     }
 }
