@@ -13,7 +13,7 @@ class Database
     "
         SELECT UUID
         FROM users
-        WHERE username = :username AND password = :password
+        WHERE username = :username AND password = :password AND active = 1
     ";
 
     const DEACTIVATE_USER =
