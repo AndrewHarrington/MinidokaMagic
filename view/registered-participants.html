@@ -32,7 +32,7 @@
                     <!--phone1-->
                     <check if="{{@row.phone == null}}">
                         <true>
-                            <td>none</td>
+                            <td></td>
                         </true>
                         <false>
                             <td>({{substr(@row.phone, 0, 3)}})-{{substr(@row.phone, 3, 3)}}-{{substr(@row.phone, 6)}}</td>
@@ -41,7 +41,7 @@
                     <!--phone2-->
                     <check if="{{@row.emergency == null}}">
                         <true>
-                            <td>none</td>
+                            <td></td>
                         </true>
                         <false>
                             <td>({{substr(@row.emergency, 0, 3)}})-{{substr(@row.emergency, 3, 3)}}-{{substr(@row.emergency, 6)}}</td>
@@ -50,7 +50,7 @@
                     <!--email-->
                     <check if="{{@row.email == null}}">
                         <true>
-                            <td>none</td>
+                            <td></td>
                         </true>
                         <false>
 
@@ -76,7 +76,7 @@
                     <!--hotel registration id-->
                     <check if="{{@row.hotelResID == null}}">
                         <true>
-                            <td>none</td>
+                            <td></td>
                         </true>
                         <false>
                             <td>{{@row.hotelResID}}</td>
