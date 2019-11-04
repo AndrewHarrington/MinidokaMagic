@@ -246,9 +246,15 @@ $f3->route('GET|POST /add-volunteer', function ($f3){
 });
 
 $f3->route('GET|POST /volunteers', function ($f3){
+    global $db;
+
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+        //get the thing to be deleted
+        $id = $_POST['uuid'];
+        $db->removeUser($id);
+    }
 
     //get the volunteers
-    global $db;
     $volunteers = $db->getVolunteers();
 
     //set the volunteers to the hive

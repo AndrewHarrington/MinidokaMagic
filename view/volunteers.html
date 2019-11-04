@@ -77,8 +77,11 @@
                     </false>
                 </check>
                 <!--Delete Field-->
-                <td>Delete</td>
-
+                <td>
+                    <form method="post" action="">
+                        <button name="uuid" type="submit" value="{{@row.UUID}}">X</button>
+                    </form>
+                </td>
             </tr>
 
         </repeat>
