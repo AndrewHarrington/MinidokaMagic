@@ -204,6 +204,47 @@ $f3->route('GET|POST /new-participant', function ($f3) {
     echo $view->render('view/participant-form.html');
 });
 
+$f3->route('GET|POST /add-volunteer', function ($f3){
+    if(!empty($_POST)) {
+//    if (!$_SERVER['REQUEST_METHOD'] == "POST") {
+        $fname = $_POST['fname'];
+        $lname = $_POST['lname'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $editusers = $_POST['editusers'];
+        $editreg = $_POST['editreg'];
+        $editbudget = $_POST['editbudget'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        $f3->set('fname', $fname);
+        $f3->set('lname', $lname);
+        $f3->set('email', $email);
+        $f3->set('phone', $phone);
+        $f3->set('editusers', $editusers);
+        $f3->set('editreg', $editreg);
+        $f3->set('editbudget', $editbudget);
+        $f3->set('username', $username);
+        $f3->set('password', $password);
+
+        if (validForm2()) {
+            $_SESSION['fname'] = $fname;
+            $_SESSION['lname'] = $lname;
+            $_SESSION['email'] = $email;
+            $_SESSION['phone'] = $phone;
+            $_SESSION['editusers'] = $editusers;
+            $_SESSION['editreg'] = $editreg;
+            $_SESSION['editbudget'] = $editbudget;
+            $_SESSION['username'] = $username;
+            $_SESSION['password'] = $password;
+
+            $f3->reroute('/volunteers');
+        }
+        $view = new Template();
+        echo $view->render('view/user-form.html');
+    }
+});
+
 $f3->route('GET|POST /volunteers', function ($f3){
 
     //get the volunteers
@@ -216,6 +257,5 @@ $f3->route('GET|POST /volunteers', function ($f3){
     $view = new Template();
     echo $view->render('view/volunteers.html');
 });
-
 
 $f3->run();

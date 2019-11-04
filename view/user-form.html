@@ -1,0 +1,62 @@
+<include href="view/header.html"/>
+<body>
+<div class="jumbotron">
+
+
+    <form action= "#" method ="POST">
+       <div class = "column">
+           <div class="row">
+           <label for = "fname">
+               First Name:
+               <input id="fname" name="fname" value="{{ @fname }}">
+           </label>
+           </div>
+           <div class="row">
+               <label for = "lname">
+                   Last Name:
+                   <input id="lname" name="lname" value="{{ @lname }}">
+               </label>
+           </div>
+           <div class="row">
+               <label for = "email">
+                   Email:
+                   <input id="email" name="email" value="{{ @email }}">
+               </label>
+           </div>
+           <div class="row">
+               <label for = "phone">
+                   Email:
+                   <input id="phone" name="phone" value="{{ @phone }}">
+               </label>
+           </div>
+           <div class="row">
+               <label for = "editusers">
+                   Edit Users:
+                   <input type="checkbox" id="editusers" name="editusers" value="{{ @editusers }}">
+               </label>
+               <label for = "editreg">
+                   Edit Registrations:
+                   <input type="checkbox" id="editreg" name="editreg" value="{{ @editreg }}">
+               </label>
+               <label for = "editbudget">
+                   Edit Budget:
+                   <input type="checkbox" id="editbudget" name="editbudget" value="{{ @editbudget }}">
+               </label>
+           </div>
+           <div class="row">
+               <label for = "username">
+                   Username:
+                   <input id="username" name="username" value="{{ @username }}">
+               </label>
+           </div>
+           <div class="row">
+               <label for = "password">
+                   Password:
+                   <input id="password" name="password" value="{{ @password }}">
+               </label>
+           </div>
+       </div>
+    </form>
+</div>
+</body>
+</html>

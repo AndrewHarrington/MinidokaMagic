@@ -35,6 +35,37 @@ function validForm(){
     }
     return $isValid;
 }
+function validForm2(){
+    global $f3;
+    $isValid = true;
+
+    if(!validName($f3->get('fname'))){
+        $isValid = false;
+        $f3->set("errors['fname']", "Not a valid first name, please reenter!");
+    }
+
+    if(!validName($f3->get('lname'))){
+        $isValid = false;
+        $f3->set("errors['lname']", "Not a valid last name, please reenter!");
+    }
+    if(!validEmail($f3->get('email'))){
+        $isValid = false;
+        $f3->set("errors['email']", "Please enter a valid email.");
+    }
+    if(!validPhone($f3->get('phone'))){
+        $isValid = false;
+        $f3->set("errors['phone']", "Please enter a valid phone number");
+    }
+    if(!validUsername($f3->get('username'))){
+        $isValid = false;
+        $f3->set("errors['username']", "Please enter a valid username.");
+    }
+    if(!validPassword($f3->get('password'))){
+        $isValid = false;
+        $f3->set("errors['password']", "Please enter a valid password");
+    }
+    return $isValid;
+}
 
 function validName($name){
     return  !empty($name) && ctype_alpha($name);//preg_match('/[^A-Za-z]/', $name);
