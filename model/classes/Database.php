@@ -172,12 +172,12 @@ class Database
         $this->_newUser->bindParam(':lname', $lname, PDO::PARAM_STR);
         $this->_newUser->bindParam(':phone', $phone, PDO::PARAM_STR);
         $this->_newUser->bindParam(':email', $email, PDO::PARAM_STR);
-        $this->_newUser->bindParam(':editusers', $editusers, PDO::PARAM_STR);
-        $this->_newUser->bindParam(':editreg', $editreg, PDO::PARAM_STR);
-        $this->_newUser->bindParam(':editbudget', $editbudget, PDO::PARAM_STR);
+        $this->_newUser->bindParam(':editusers', $editusers, PDO::PARAM_BOOL);
+        $this->_newUser->bindParam(':editreg', $editreg, PDO::PARAM_BOOL);
+        $this->_newUser->bindParam(':editbudget', $editbudget, PDO::PARAM_BOOL);
 
-        $this->_newParticipant->execute();
-        return $this->_newParticipant->fetchAll(PDO::FETCH_ASSOC);
+        $this->_newUser->execute();
+        return $this->_newUser->fetchAll(PDO::FETCH_ASSOC);
 
     }
 

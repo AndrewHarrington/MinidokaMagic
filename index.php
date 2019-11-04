@@ -221,9 +221,24 @@ $f3->route('GET|POST /add-volunteer', function ($f3){
         $lname = $_POST['lname'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];
-        $editusers = $_POST['editusers'];
-        $editreg = $_POST['editreg'];
-        $editbudget = $_POST['editbudget'];
+        if(isset($_POST['editusers']))
+        {
+            $editusers = true;
+        }else{
+            $editusers = false;
+        }
+        if(isset($_POST['editreg']))
+        {
+            $editreg = true;
+        }else{
+            $editreg = false;
+        }
+        if(isset($_POST['editbudget']))
+        {
+            $editbudget = true;
+        }else{
+            $editbudget = false;
+        }
         $username = $_POST['username'];
         $password = $_POST['password'];
 
@@ -248,6 +263,8 @@ $f3->route('GET|POST /add-volunteer', function ($f3){
             $_SESSION['username'] = $username;
             $_SESSION['password'] = $password;
 
+            global $db;
+            $db->addUser($username,$password,$fname,$lname,$email,$phone,$editusers,$editreg,$editbudget);
             $f3->reroute('/volunteers');
         }
     }
