@@ -37,6 +37,17 @@ $f3->route('GET|POST /registrations', function ($f3) {
 
 $f3->route('GET|POST /budget-pdf', function (){
     if($_SERVER['REQUEST_METHOD'] == "POST"){
+        //if we are trying to delete a file
+        if(isset($_POST['file'])){
+            // Check file exist or not
+            if( file_exists('uploads/'.$_POST['file']) ){
+                // Remove file
+                unlink('uploads/'.$_POST['file']);
+
+            }
+        }
+
+        //if we are trying to upload a new file
         $target_dir = "uploads/";
         $target_file = $target_dir . basename($_FILES["file"]["name"]);
         $uploadOk = 1;
@@ -90,6 +101,16 @@ $f3->route('GET /budget-view/@fileName', function (){
 
 $f3->route('GET|POST /reference-pdf', function (){
     if($_SERVER['REQUEST_METHOD'] == "POST"){
+        //if we are trying to delete a file
+        if(isset($_POST['file'])){
+            // Check file exist or not
+            if( file_exists('uploads/'.$_POST['file']) ){
+                // Remove file
+                unlink('uploads/'.$_POST['file']);
+            }
+        }
+
+        //if we are uploading
         $target_dir = "uploads/";
         $target_file = $target_dir . basename($_FILES["file"]["name"]);
         $uploadOk = 1;
