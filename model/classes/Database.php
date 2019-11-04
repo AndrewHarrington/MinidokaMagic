@@ -9,6 +9,13 @@
 class Database
 {
 
+    const IS_VALID_USER =
+    "
+        SELECT UUID
+        FROM users
+        WHERE username = :username AND password = :password
+    ";
+
     const DEACTIVATE_USER =
     "
         UPDATE users
@@ -63,6 +70,7 @@ class Database
     private $_getUsers;
     private $_newUser;
     private $_deactivateUser;
+    private $_isValidUser;
     private $_dbc;
 
     /**
@@ -96,6 +104,7 @@ class Database
         $this->_getUsers = $this->_dbc->prepare(self::GET_VOLUNTEERS);
         $this->_newUser = $this->_dbc->prepare(self::INSERT_NEW_USER);
         $this->_deactivateUser = $this->_dbc->prepare(self::DEACTIVATE_USER);
+        $this->_isValidUser = $this->_dbc->prepare(self::IS_VALID_USER);
 
     }
 
@@ -175,7 +184,15 @@ class Database
     public function removeUser($uuid){
         $this->_deactivateUser->bindParam(':uuid', $uuid, PDO::PARAM_INT);
 
-        $this->_newParticipant->execute();
-        return $this->_newParticipant->fetchAll(PDO::FETCH_ASSOC);
+        $this->_deactivateUser->execute();
+        return $this->_deactivateUser->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function isValidUser($username, $password){
+        $this->_isValidUser->bindParam(':username', $username, PDO::PARAM_STR);
+        $this->_isValidUser->bindParam(':password', $password, PDO::PARAM_STR);
+
+        $this->_isValidUser->execute();
+        return $this->_isValidUser->fetchAll(PDO::FETCH_ASSOC);
     }
 }

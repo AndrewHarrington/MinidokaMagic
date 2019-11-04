@@ -12,16 +12,26 @@ $f3 = Base::instance();
 $db = new Database();
 
 $f3->route('GET|POST /', function ($f3) {
+    global $db;
     session_destroy();
     $f3->set('hidden', "hidden");
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        if($_POST['username'] == "volunteer" && $_POST['password'] == "MinidokaPilgrimage"){
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        if($db->isValidUser($username, $password)){
             $f3->reroute("/registrations");
         }
         else{
             //ERROR OUT
             $f3->set('hidden', "");
         }
+//        if($_POST['username'] == "volunteer" && $_POST['password'] == "MinidokaPilgrimage"){
+//            $f3->reroute("/registrations");
+//        }
+//        else{
+//            //ERROR OUT
+//            $f3->set('hidden', "");
+//        }
     }
     $view = new Template();
     echo $view->render('view/login.html');
