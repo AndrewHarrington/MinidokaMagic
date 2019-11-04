@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 require_once('model/validation.php');
 
 $f3 = Base::instance();
-global $db;
+$db = new Database();
 
 $f3->route('GET|POST /', function ($f3) {
     session_destroy();
@@ -28,7 +28,7 @@ $f3->route('GET|POST /', function ($f3) {
 });
 
 $f3->route('GET|POST /registrations', function ($f3) {
-    $db = new Database();
+    global $db;
     $data = $db->getRegistrationData();
     $f3->set('registrations', $data);
     $view = new Template();
@@ -205,6 +205,14 @@ $f3->route('GET|POST /new-participant', function ($f3) {
 });
 
 $f3->route('GET|POST /volunteers', function ($f3){
+
+    //get the volunteers
+    global $db;
+    $volunteers = $db->getVolunteers();
+
+    //set the volunteers to the hive
+    $f3->set('volunteers', $volunteers);
+
     $view = new Template();
     echo $view->render('view/volunteers.html');
 });

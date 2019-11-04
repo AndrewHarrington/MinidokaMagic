@@ -37,9 +37,16 @@ class Database
         VALUES (:id, :resId, :hotelName)
     ";
 
+    const GET_VOLUNTEERS =
+    "
+        SELECT * FROM users
+        WHERE active = 1
+    ";
+
     private $_getRegistrationData;
     private $_newParticipant;
     private $_newHotelReg;
+    private $_getUsers;
     private $_dbc;
 
     /**
@@ -70,6 +77,7 @@ class Database
         $this->_getRegistrationData = $this->_dbc->prepare(self::GET_REGISTRATION_DATA_1);
         $this->_newParticipant = $this->_dbc->prepare(self::NEW_PARTICIPANT);
         $this->_newHotelReg = $this->_dbc->prepare(self::NEW_HOTEL_REG);
+        $this->_getUsers = $this->_dbc->prepare(self::GET_VOLUNTEERS);
 
     }
 
@@ -122,5 +130,10 @@ class Database
             $this->_newHotelReg->execute();
             return $this->_newHotelReg->fetchAll(PDO::FETCH_ASSOC);
         }
+    }
+
+    public function getVolunteers(){
+        $this->_getUsers->execute();
+        return $this->_getUsers->fetchAll(PDO::FETCH_ASSOC);
     }
 }
