@@ -51,9 +51,6 @@
     </nav>
 
 </header>
-<embed src="../uploads/{{@PARAMS.fileName}}" width= "500" height= "375">
-</body>
-</html>
-<embed src="../uploads/{{@PARAMS.fileName}}" width= "500" height= "375">
+<embed src="../reference-docs/{{@PARAMS.fileName}}" width= "500" height= "375">
 </body>
 </html>
