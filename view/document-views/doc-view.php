@@ -39,7 +39,7 @@
                         <a class="nav-link" href="#">Scholarships</a>
                     </li>
                     <li class="nav-item border border-dark">
-                        <a class="nav-link" href="#">Reference Documents</a>
+                        <a class="nav-link" href="../">Reference Documents</a>
                     </li>
                     <li class="nav-item border border-dark">
                         <a class="nav-link" href="../../">Logout</a>
