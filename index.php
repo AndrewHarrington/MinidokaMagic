@@ -12,26 +12,16 @@ $f3 = Base::instance();
 $db = new Database();
 
 $f3->route('GET|POST /', function ($f3) {
-    global $db;
     session_destroy();
     $f3->set('hidden', "hidden");
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        if($db->isValidUser($username, $password)){
+        if($_POST['username'] == "volunteer" && $_POST['password'] == "MinidokaPilgrimage"){
             $f3->reroute("/registrations");
         }
         else{
             //ERROR OUT
             $f3->set('hidden', "");
         }
-//        if($_POST['username'] == "volunteer" && $_POST['password'] == "MinidokaPilgrimage"){
-//            $f3->reroute("/registrations");
-//        }
-//        else{
-//            //ERROR OUT
-//            $f3->set('hidden', "");
-//        }
     }
     $view = new Template();
     echo $view->render('view/login.html');
@@ -250,21 +240,16 @@ $f3->route('GET|POST /add-volunteer', function ($f3){
 
             $f3->reroute('/volunteers');
         }
+    }
         $view = new Template();
         echo $view->render('view/user-form.html');
-    }
+
 });
 
 $f3->route('GET|POST /volunteers', function ($f3){
-    global $db;
-
-    if($_SERVER['REQUEST_METHOD'] == "POST"){
-        //get the thing to be deleted
-        $id = $_POST['uuid'];
-        $db->removeUser($id);
-    }
 
     //get the volunteers
+    global $db;
     $volunteers = $db->getVolunteers();
 
     //set the volunteers to the hive

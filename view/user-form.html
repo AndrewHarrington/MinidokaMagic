@@ -1,29 +1,39 @@
 <include href="view/header.html"/>
-<body>
 <div class="jumbotron">
-
-
     <form action= "#" method ="POST">
        <div class = "column">
            <div class="row">
-           <label for = "fname">
-               First Name:
-               <input id="fname" name="fname" value="{{ @fname }}">
-           </label>
+               <check if="{{ @errors['fname'] }}">
+                   <span class="error">{{ @errors['fname'] }}</span>
+               </check>
+               <label for = "fname">
+                   First Name:
+                   <input id="fname" name="fname" value="{{ @fname }}">
+               </label>
            </div>
            <div class="row">
+               <check if="{{@errors['lname']}}">
+                   <span class="errors">{{@errors['lname']}}</span>
+               </check>
                <label for = "lname">
                    Last Name:
                    <input id="lname" name="lname" value="{{ @lname }}">
                </label>
            </div>
            <div class="row">
+               <check if="{{@errors['email']}}">
+                   <span class="errors">{{@errors['email']}}</span>
+               </check>
                <label for = "email">
                    Email:
                    <input id="email" name="email" value="{{ @email }}">
                </label>
            </div>
+
            <div class="row">
+               <check if="{{@errors['phone']}}">
+                   <span class="errors">{{@errors['phone']}}</span>
+               </check>
                <label for = "phone">
                    Email:
                    <input id="phone" name="phone" value="{{ @phone }}">
@@ -44,15 +54,26 @@
                </label>
            </div>
            <div class="row">
+               <check if="{{ @errors['username'] }}">
+                   <span class="error">{{ @errors['username'] }}</span>
+               </check>
                <label for = "username">
                    Username:
                    <input id="username" name="username" value="{{ @username }}">
                </label>
            </div>
            <div class="row">
+               <check if="{{ @errors['password'] }}">
+                   <span class="error">{{ @errors['password'] }}</span>
+               </check>
                <label for = "password">
                    Password:
                    <input id="password" name="password" value="{{ @password }}">
+               </label>
+           </div>
+           <div id="submission">
+               <label for="submit">
+                   <input type="submit" id="submit">
                </label>
            </div>
        </div>

@@ -43,6 +43,9 @@
                         <a class="nav-link" href="../{{'volunteers'}}">Volunteers</a>
                     </li>
                     <li class="nav-item border border-dark">
+                        <a class="nav-link" href="../{{'add-volunteer'}}">Add Volunteer</a>
+                    </li>
+                    <li class="nav-item border border-dark">
                         <a class="nav-link" href="#">Scholarships</a>
                     </li>
                     <li class="nav-item border border-dark">

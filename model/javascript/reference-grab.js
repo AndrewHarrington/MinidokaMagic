@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var pdfFilesDirectory = 'uploads/';
+    var pdfFilesDirectory = 'reference-docs/';
 
     // get auto-generated page
     $.ajax({url: pdfFilesDirectory}).then(function(html) {
