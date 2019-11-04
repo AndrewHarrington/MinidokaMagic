@@ -172,7 +172,10 @@ class Database
 
     }
 
-    public function removeUser(){
+    public function removeUser($uuid){
+        $this->_deactivateUser->bindParam(':uuid', $uuid, PDO::PARAM_INT);
 
+        $this->_newParticipant->execute();
+        return $this->_newParticipant->fetchAll(PDO::FETCH_ASSOC);
     }
 }
