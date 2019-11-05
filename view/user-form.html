@@ -1,6 +1,6 @@
 <include href="view/header.html"/>
 <div class="jumbotron">
-    <form action= "#" method ="POST">
+    <form action= "#" method ="POST" onsubmit="validateForm()">
        <div class = "column">
            <div class="row">
                <check if="{{ @errors['fname'] }}">
@@ -80,4 +80,5 @@
     </form>
 </div>
 </body>
+<script src="../model/javascript/user-form.js"></script>
 </html>
