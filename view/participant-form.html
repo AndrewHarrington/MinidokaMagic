@@ -50,8 +50,8 @@
     </div>
     <div id="survive">
         <label>Is the guest a survivor?</label>
-            <input type="radio" name="survivor[]" id="survivor-yes" value="{{ @survivor}}">Yes
-            <input type="radio" name="survivor[]" id="survivor-no" value="{{ @survivor}}">No
+            <input type="radio" name="survivor[]" id="survivor-yes" value="{{ @survivor }}">Yes
+            <input type="radio" name="survivor[]" id="survivor-no" value="{{ @survivor }}">No
     </div>
     <div id="attendance">
         <label>Has the guest previously attended?</label>
@@ -71,6 +71,25 @@
         <label for="submit">
             <input type="submit" id="submit">
         </label>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Participant Added!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Participant successfully added to the database!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 </form>
 
