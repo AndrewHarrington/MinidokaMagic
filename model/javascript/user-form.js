@@ -1,18 +1,18 @@
 function validateForm() {
-    let x = document.forms["participant"]["fname"].value;
+    let x = document.forms["user"]["fname"].value;
     if (x === "") {
         alert("First name must be filled out.");
         return false;
     }
-    x = document.forms["participant"]["lname"].value;
+    x = document.forms["user"]["lname"].value;
     if(x === ""){
         alert("Last name must be filled out.");
     }
-    x = document.forms["participant"]["email"].value;
+    x = document.forms["user"]["email"].value;
     if(x === ""){
         alert("Email must be entered.");
     }
-    x = document.forms["participant"]["phone"].value;
+    x = document.forms["user"]["phone"].value;
     if(x === ""){
         alert("Phone number must be filled out.");
     }
