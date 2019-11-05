@@ -1,5 +1,5 @@
 <include href="view/header.html"/>
-<form method="POST" action="#">
+<form name="participant" method="POST" action="#" onsubmit="return validateForm()">
     <div id="first">
         <label for="fname">First Name:
             <input type="text" name="fname" id="fname" value="{{ @fname }}">
@@ -69,11 +69,11 @@
     </div>
     <div id="submission">
         <label for="submit">
-            <input type="submit" id="submit">
+            <input class="submit" type="submit" id="submit">
         </label>
     </div>
 
-    <div class="modal" tabindex="-1" role="dialog">
+    <div class="modal" tabindex="-1" role="dialog" hidden>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
