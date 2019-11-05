@@ -2,94 +2,119 @@
 <div class="jumbotron">
     <form action= "#" method ="POST" class="form-horizontal">
        <div class = "form-group">
-           <div class="form-group row">
-               <div>
+           <div class="form-group col">
+               <div class="row">
                    <check if="{{ @errors['fname'] }}">
-                    <span class="error">{{ @errors['fname'] }}</span>
+                       <div class="alert alert-danger" role="alert">
+                           <span class="error">{{ @errors['fname'] }}</span>
+                       </div>
                    </check>
                </div>
+               <div class="row">
                <label for="fname" class="col-sm-3 col-form-label-lg">First Name:</label>
                <div class="col-sm-6">
                    <input type="text" class="form-control" id="fname" name="fname" value="{{ @fname }}">
                </div>
+               </div>
            </div>
-           <div class="form-group row">
-               <div>
+           <div class="form-group col">
+               <div class="row">
                    <check if="{{ @errors['lname'] }}">
-                       <span class="error">{{ @errors['lname'] }}</span>
+                       <div class="alert alert-danger" role="alert">
+                           <span class="error">{{ @errors['lname'] }}</span>
+                       </div>
                    </check>
                </div>
+               <div class="row">
                <label for = "lname" class="col-sm-3 col-form-label-lg">Last Name:</label>
                <div class="col-sm-6">
                    <input type="text" class="form-control" id="lname" name="lname" value="{{ @lname }}">
                </div>
+               </div>
            </div>
-           <div class="form-group row">
-               <div>
+           <div class="form-group col">
+               <div class="row">
                    <check if="{{ @errors['email'] }}">
-                       <span class="error">{{ @errors['email'] }}</span>
+                       <div class="alert alert-danger" role="alert">
+                           <span class="error">{{ @errors['email'] }}</span>
+                       </div>
                    </check>
                </div>
+               <div class="row">
                <label for = "email" class="col-sm-3 col-form-label-lg">Email:</label>
                <div class="col-sm-6">
                     <input id="email" name="email" class="form-control" value="{{ @email }}">
                </div>
+               </div>
 
            </div>
 
-           <div class="form-group row">
-               <div>
+           <div class="form-group col">
+               <div class="row">
                    <check if="{{ @errors['phone'] }}">
-                       <span class="error">{{ @errors['phone'] }}</span>
+                       <div class="alert alert-danger" role="alert">
+                           <span class="error">{{ @errors['phone'] }}</span>
+                       </div>
                    </check>
                </div>
+               <div class="row">
                <label for = "phone" class="col-sm-3 col-form-label-lg">Phone:</label>
                <div class="col-sm-6">
                <input id="phone" name="phone" class="form-control" value="{{ @phone }}">
                </div>
+               </div>
            </div>
 
+            <div class="form-group col">
 
+               <div class="form-group row">
+                   <label class="col-sm-3 col-form-label-lg">Permissions:</label>
 
-           <div class="form-group row">
-               <label for = "editusers" class="col-sm-3 col-form-label-lg">
-                   Edit Users:
-                   <input type="checkbox" class="form-check-label" id="editusers" name="editusers" value="{{ @editusers }}">
-               </label>
-               <label for = "editreg" class="col-sm-3 col-form-label-lg">
-                   Edit Registrations:
-                   <input type="checkbox" class="form-check-label" id="editreg" name="editreg" value="{{ @editreg }}">
-               </label>
-               <label for = "editbudget" class="col-sm-3 col-form-label-lg">
-                   Edit Budget:
-                   <input type="checkbox" class="form-check-label" id="editbudget" name="editbudget" value="{{ @editbudget }}">
-               </label>
-           </div>
+                   <label for = "editusers" class="col-sm-2 col-form-label-lg">
+                       Edit Users:
+                       <input type="checkbox" class="form-check-label" id="editusers" name="editusers" value="{{ @editusers }}">
+                   </label>
+                   <label for = "editreg" class="col-sm-2 col-form-label-lg">
+                       Edit Registrations:
+                       <input type="checkbox" class="form-check-label" id="editreg" name="editreg" value="{{ @editreg }}">
+                   </label>
+                   <label for = "editbudget" class="col-sm-2 col-form-label-lg">
+                       Edit Budget:
+                       <input type="checkbox" class="form-check-label" id="editbudget" name="editbudget" value="{{ @editbudget }}">
+                   </label>
+               </div>
+            </div>
 
-<!--           <div class="form-check">-->
-<!--               <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">-->
-<!--               <label class="form-check-label" for="defaultCheck1">-->
-<!--                   Default checkbox-->
-<!--               </label>-->
-<!--           </div>-->
-
-           <div class="form-group row">
+           <div class="form-group col">
+               <div  class="row">
                <check if="{{ @errors['username'] }}">
-                   <span class="error">{{ @errors['username'] }}</span>
-               </check>
+                   <div class="alert alert-danger" role="alert">
+                       <span class="error">{{ @errors['username'] }}</span>
+                   </div>
+                   </check>
+               </div>
+               <div class="row">
                <label for = "username" class="col-sm-3 col-form-label-lg">Username:</label>
                    <div class="col-sm-6">
                    <input id="username" name="username" class="form-control" value="{{ @username }}">
                    </div>
+               </div>
            </div>
-           <div class="form-group row">
+
+           <div class="form-group col">
+               <div class="row">
                <check if="{{ @errors['password'] }}">
-                   <span class="error">{{ @errors['password'] }}</span>
+                   <div class="alert alert-danger" role="alert">
+                       <span class="error">{{ @errors['password'] }}</span>
+                   </div>
                </check>
+               </div>
+               <div class="row">
                <label for = "password" class="col-sm-3 col-form-label-lg">Password:</label>
                    <div class="col-sm-6">
                    <input id="password" name="password" class="form-control" value="{{ @password }}">
                    </div>
+               </div>
 
            </div>
            <div id="submission">
