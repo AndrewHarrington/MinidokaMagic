@@ -119,18 +119,18 @@ class Database
 
     /**
      * This function adds a participant to the registered-participant into the database
-     * @param $fname
-     * @param $lname
-     * @param $phone
-     * @param $emergency
-     * @param $email
-     * @param $age
-     * @param $survivor
-     * @param $hashotel
-     * @param $prevattendences
-     * @param $hotelRegId
-     * @param $hotelName
-     * @return mixed void
+     * @param $fname Database column participant first name
+     * @param $lname Database column participant last name
+     * @param $phone Database column participant phone number
+     * @param $emergency Database column participant emergency number
+     * @param $email Database column participant email
+     * @param $age Database column participant age
+     * @param $survivor Database column participant is a survivor or not
+     * @param $hashotel Database column participant has a hotel reservation
+     * @param $prevattendences Database column participant has attended pilgrimage before
+     * @param $hotelRegId Database column participant hotel confirmation number
+     * @param $hotelName Database column participant hotel name
+     * @return mixed void Database column participant data
      */
     public function insertParticipant
         ($fname, $lname, $phone, $emergency, $email, $age, $survivor, $hashotel, $prevattendences,
@@ -159,11 +159,28 @@ class Database
         }
     }
 
+    /**
+     * This function gets volunteers that are stored in the users table
+     * @return mixed
+     */
     public function getVolunteers(){
         $this->_getUsers->execute();
         return $this->_getUsers->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * This function adds users to the user table
+     * @param $username Database column for user's username
+     * @param $password Database column for user's password
+     * @param $fname Database column for user's first name
+     * @param $lname Database column for user's last name
+     * @param $email Database column for user's email
+     * @param $phone Database column for user's phone number
+     * @param $editusers Database column for user's permission to update user table
+     * @param $editreg Database column for user's permission to update registrations
+     * @param $editbudget Database column for user's permission to update budget documents
+     * @return mixed
+     */
     public function addUser($username, $password, $fname, $lname, $email, $phone, $editusers, $editreg, $editbudget){
 
         $this->_newUser->bindParam(':username', $username, PDO::PARAM_STR);
@@ -181,6 +198,11 @@ class Database
 
     }
 
+    /**
+     * This function removes user's from the user table
+     * @param $uuid Database column for deleting user id
+     * @return mixed
+     */
     public function removeUser($uuid){
         $this->_deactivateUser->bindParam(':uuid', $uuid, PDO::PARAM_INT);
 
@@ -188,6 +210,12 @@ class Database
         return $this->_deactivateUser->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * This function validates a user's login credentials
+     * @param $username Database column to check if username in the table
+     * @param $password Database column to check the user password
+     * @return mixed
+     */
     public function isValidUser($username, $password){
         $this->_isValidUser->bindParam(':username', $username, PDO::PARAM_STR);
         $this->_isValidUser->bindParam(':password', $password, PDO::PARAM_STR);
