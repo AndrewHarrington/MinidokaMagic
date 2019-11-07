@@ -1,6 +1,6 @@
 <?php
 
-function validForm(){
+function validateParticipantForm(){
     global $f3;
     $isValid = true;
 
@@ -35,7 +35,7 @@ function validForm(){
     }
     return $isValid;
 }
-function validForm2(){
+function validateUserForm(){
     global $f3;
     $isValid = true;
 

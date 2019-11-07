@@ -196,7 +196,7 @@ $f3->route('GET|POST /new-participant', function ($f3) {
         $f3->set('attended', $attended);
         $f3->set('resCheck', $resCheck);
 
-        if (validForm()) {
+        if (validateParticipantForm()) {
             $_SESSION['fname'] = $fname;
             $_SESSION['lname'] = $lname;
             $_SESSION['email'] = $email;
@@ -252,7 +252,7 @@ $f3->route('GET|POST /add-volunteer', function ($f3){
         $f3->set('username', $username);
         $f3->set('password', $password);
 
-        if (validForm2()) {
+        if (validateUserForm()) {
             $_SESSION['fname'] = $fname;
             $_SESSION['lname'] = $lname;
             $_SESSION['email'] = $email;
