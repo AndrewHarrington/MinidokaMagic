@@ -11,10 +11,10 @@
                    </check>
                </div>
                <div class="row">
-               <label for="fname" class="col-sm-3 col-form-label-lg">First Name:</label>
-               <div class="col-sm-6">
-                   <input type="text" class="form-control" id="fname" name="fname" value="{{ @fname }}">
-               </div>
+                   <label for="fname" class="col-sm-3 col-form-label-lg">First Name:</label>
+                   <div class="col-sm-6">
+                       <input type="text" class="form-control" id="fname" name="fname" value="{{ @fname }}">
+                   </div>
                </div>
            </div>
            <div class="form-group col">
@@ -26,10 +26,10 @@
                    </check>
                </div>
                <div class="row">
-               <label for = "lname" class="col-sm-3 col-form-label-lg">Last Name:</label>
-               <div class="col-sm-6">
-                   <input type="text" class="form-control" id="lname" name="lname" value="{{ @lname }}">
-               </div>
+                   <label for = "lname" class="col-sm-3 col-form-label-lg">Last Name:</label>
+                   <div class="col-sm-6">
+                       <input type="text" class="form-control" id="lname" name="lname" value="{{ @lname }}">
+                   </div>
                </div>
            </div>
            <div class="form-group col">
@@ -41,10 +41,10 @@
                    </check>
                </div>
                <div class="row">
-               <label for = "email" class="col-sm-3 col-form-label-lg">Email:</label>
-               <div class="col-sm-6">
-                    <input id="email" name="email" class="form-control" value="{{ @email }}">
-               </div>
+                   <label for = "email" class="col-sm-3 col-form-label-lg">Email:</label>
+                   <div class="col-sm-6">
+                        <input id="email" name="email" class="form-control" value="{{ @email }}">
+                   </div>
                </div>
 
            </div>
@@ -58,10 +58,10 @@
                    </check>
                </div>
                <div class="row">
-               <label for = "phone" class="col-sm-3 col-form-label-lg">Phone:</label>
-               <div class="col-sm-6">
-               <input id="phone" name="phone" class="form-control" value="{{ @phone }}">
-               </div>
+                   <label for = "phone" class="col-sm-3 col-form-label-lg">Phone:</label>
+                   <div class="col-sm-6">
+                       <input id="phone" name="phone" class="form-control" value="{{ @phone }}">
+                   </div>
                </div>
            </div>
 
@@ -87,32 +87,32 @@
 
            <div class="form-group col">
                <div  class="row">
-               <check if="{{ @errors['username'] }}">
-                   <div class="alert alert-danger" role="alert">
-                       <span class="error">{{ @errors['username'] }}</span>
-                   </div>
+                   <check if="{{ @errors['username'] }}">
+                       <div class="alert alert-danger" role="alert">
+                           <span class="error">{{ @errors['username'] }}</span>
+                       </div>
                    </check>
                </div>
                <div class="row">
-               <label for = "username" class="col-sm-3 col-form-label-lg">Username:</label>
+                   <label for = "username" class="col-sm-3 col-form-label-lg">Username:</label>
                    <div class="col-sm-6">
-                   <input id="username" name="username" class="form-control" value="{{ @username }}">
+                       <input id="username" name="username" class="form-control" value="{{ @username }}">
                    </div>
                </div>
            </div>
 
            <div class="form-group col">
                <div class="row">
-               <check if="{{ @errors['password'] }}">
-                   <div class="alert alert-danger" role="alert">
-                       <span class="error">{{ @errors['password'] }}</span>
-                   </div>
-               </check>
+                   <check if="{{ @errors['password'] }}">
+                       <div class="alert alert-danger" role="alert">
+                           <span class="error">{{ @errors['password'] }}</span>
+                       </div>
+                   </check>
                </div>
                <div class="row">
                <label for = "password" class="col-sm-3 col-form-label-lg">Password:</label>
                    <div class="col-sm-6">
-                   <input id="password" name="password" class="form-control" value="{{ @password }}">
+                       <input id="password" name="password" class="form-control" value="{{ @password }}">
                    </div>
                </div>
 
