@@ -1,97 +1,173 @@
 <include href="view/header.html"/>
-<form name="participant" method="POST" action="#" onsubmit="return validateForm()">
-    <div id="first">
-        <label for="fname">First Name:
-            <input type="text" name="fname" id="fname" value="{{ @fname }}">
-        </label>
-        <check if="{{ @errors['fname'] }}">
-            <span class="error">{{ @errors['fname'] }}</span>
-        </check>
-    </div>
-    <div id="last">
-        <label for="lname">Last Name:
-            <input type="text" name="lname" id="lname" value="{{ @lname}}">
-        </label>
-        <check if="{{@errors['lname']}}">
-            <span class="errors">{{@errors['lname']}}</span>
-        </check>
-    </div>
-    <div id="mail">
-        <label for="email">Email:
-            <input type="email" name="email" id="email" value="{{ @email }}">
-        </label>
-        <check if="{{@errors['email']}}">
-            <span class="errors">{{@errors['email']}}</span>
-        </check>
-    </div>
-    <div id="phone-number">
-        <label for="phone">Phone:
-            <input type="text" name="phone" id="phone" value="{{ @phone }}">
-        </label>
-        <check if="{{@errors['phone']}}">
-            <span class="errors">{{@errors['phone']}}</span>
-        </check>
-    </div>
-    <div id="emergency">
-        <label for="ephone">Emergency Contact Number:
-            <input type="text" name="ephone" id="ephone" value="{{ @ephone }}">
-        </label>
-        <check if="{{@errors['ephone']}}">
-            <span class="errors">{{@errors['ephone']}}</span>
-        </check>
-    </div>
-    <div id="DOB">
-        <label for="age">Date of Birth:
-            <input type="date" name="age" id="age" value="{{ @age }}">
-        </label>
-        <check if="{{@errors['age']}}">
-            <span class="errors">{{@errors['age']}}</span>
-        </check>
-    </div>
-    <div id="survive">
-        <label>Is the guest a survivor?</label>
-            <input type="radio" name="survivor[]" id="survivor-yes" value="{{ @survivor }}">Yes
-            <input type="radio" name="survivor[]" id="survivor-no" value="{{ @survivor }}">No
-    </div>
-    <div id="attendance">
-        <label>Has the guest previously attended?</label>
-        <input type="radio" id="prevattend-yes" name="prevattend" value="{{ @prevattend }}">Yes
-        <input type="radio" id="prevattend-no" name="prevattend" value="{{ @prevattend }}">No
-    </div>
-    <div id="reservation">
-        <label for="resCheck">Check if the guest has a reservation:</label>
-            <input id="resCheck" name="resCheck" type="checkbox" value="{{ @resCheck }} ">
-            <div id="res" hidden>
-                <label for="hotel">Enter the Hotel Reservation Number</label>
-                <input type="text" id="hotel">
-            </div>
-
-    </div>
-    <div id="submission">
-        <label for="submit">
-            <input class="submit" type="submit" id="submit">
-        </label>
-    </div>
-
-    <div class="modal" tabindex="-1" role="dialog" hidden>
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Participant Added!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+<div class="jumbotron">
+    <form name="participant" method="POST" action="#" onsubmit="return validateForm()" class="form-horizontal">
+        <div class = "form-group">
+            <div id="first" class="form-group col">
+                <div class="row">
+                    <check if="{{ @errors['fname'] }}">
+                        <div class="alert alert-danger" role="alert">
+                            <span class="error">{{ @errors['fname'] }}</span>
+                        </div>
+                    </check>
                 </div>
-                <div class="modal-body">
-                    <p>Participant successfully added to the database!</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div class="row">
+                    <label for="fname" class="col-sm-3 col-form-label-lg">First Name:</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="fname" name="fname" value="{{ @fname }}">
+                    </div>
                 </div>
             </div>
+            <div id="last" class="form-group col">
+                <div class="row">
+                    <check if="{{ @errors['lname'] }}">
+                        <div class="alert alert-danger" role="alert">
+                            <span class="error">{{ @errors['lname'] }}</span>
+                        </div>
+                    </check>
+                </div>
+                <div class="row">
+                    <label for = "lname" class="col-sm-3 col-form-label-lg">Last Name:</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="lname" name="lname" value="{{ @lname }}">
+                    </div>
+                </div>
+            </div>
+            <div id="mail" class="form-group col">
+                <div class="row">
+                    <check if="{{ @errors['email'] }}">
+                        <div class="alert alert-danger" role="alert">
+                            <span class="error">{{ @errors['email'] }}</span>
+                        </div>
+                    </check>
+                </div>
+                <div class="row">
+                    <label for = "email" class="col-sm-3 col-form-label-lg">Email:</label>
+                    <div class="col-sm-6">
+                        <input id="email" name="email" class="form-control" value="{{ @email }}">
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="phone-number" class="form-group col">
+                <div class="row">
+                    <check if="{{ @errors['phone'] }}">
+                        <div class="alert alert-danger" role="alert">
+                            <span class="error">{{ @errors['phone'] }}</span>
+                        </div>
+                    </check>
+                </div>
+                <div class="row">
+                    <label for = "phone" class="col-sm-3 col-form-label-lg">Phone:</label>
+                    <div class="col-sm-6">
+                        <input id="phone" name="phone" class="form-control" value="{{ @phone }}">
+                    </div>
+                </div>
+            </div>
+
+            <div id="emergency" class="form-group col">
+                <div class="row">
+                    <check if="{{ @errors['phone'] }}">
+                        <div class="alert alert-danger" role="alert">
+                            <span class="error">{{ @errors['phone'] }}</span>
+                        </div>
+                    </check>
+                </div>
+                <div class="row">
+                    <label for = "phone" class="col-sm-3 col-form-label-lg">Emergency Contact:</label>
+                    <div class="col-sm-6">
+                        <input id="phone" name="phone" class="form-control" value="{{ @phone }}">
+                    </div>
+                </div>
+            </div>
+
+            <div id="DOB" class="form-group col">
+                <div class="row">
+                    <check if="{{@errors['age']}}">
+                        <div class="alert alert-danger" role="alert">
+                            <span class="errors">{{@errors['age']}}</span>
+                        </div>
+                    </check>
+                </div>
+                <div class="row">
+                    <label for="age" class="col-sm-3 col-form-label-lg">Date of Birth:</label>
+                    <div class="col-sm-6">
+                        <input type="date" name="age" id="age" value="{{ @age }}">
+                    </div>
+                </div>
+            </div>
+
+            <div id="survive" class="form-group row">
+                <label class="col-sm-3 col-form-label-lg">Is the guest a survivor?</label>
+                <div class="col-sm-6">
+                    <input type="radio" class="form-check-label" name="survivor[]" id="survivor-yes" value="{{ @survivor }}">
+                    <label class="form-check-label" for="survivor-yes">
+                        Yes
+                    </label>
+                    <input type="radio" class="form-check-label" name="survivor[]" id="survivor-no" value="{{ @survivor }}">
+                    <label class="form-check-label" for="survivor-no">
+                        No
+                    </label>
+                </div>
+            </div>
+            <div id="attendance" class="form-group row">
+                <label class="col-sm-3 col-form-label-lg">Has the guest previously attended?</label>
+                <div class="col-sm-6">
+                    <input type="radio" class="form-check-label" id="prevattend-yes" name="prevattend" value="{{ @prevattend }}">
+                    <label class="form-check-label" for="prevattend-yes">
+                        Yes
+                    </label>
+                    <input type="radio" class="form-check-label" id="prevattend-no" name="prevattend" value="{{ @prevattend }}">
+                    <label class="form-check-label" for="prevattend-no">
+                        No
+                    </label>
+                </div>
+            </div>
+            <div id="reservation">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label-lg" for="resCheck">Check if the guest has a reservation:</label>
+                    <div class="col-sm-6">
+                        <input id="resCheck" class="form-check-label" name="resCheck" type="checkbox" value="{{ @resCheck }} ">
+                    </div>
+                </div>
+                <div class="form-group col">
+
+                    <div class="row" id="res" hidden>
+                        <label for="hotel" class="col-sm-3 col-form-label-lg">Enter the Hotel Reservation Number</label>
+                        <div class="col-sm-6">
+                            <input type="text" id="hotel" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="submission">
+                <label for="submit">
+                    <input class="submit" type="submit" id="submit">
+                </label>
+            </div>
+
+            <div class="modal" tabindex="-1" role="dialog" hidden>
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Participant Added!</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Participant successfully added to the database!</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </div>
-</form>
+    </form>
+</div>
 
 <script src="model/javascript/participant-form.js"></script>
 </body>
