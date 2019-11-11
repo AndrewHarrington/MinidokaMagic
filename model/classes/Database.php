@@ -33,8 +33,8 @@ class Database
     const INSERT_NEW_USER =
     "
         INSERT INTO users
-        (username, password, fname, lname, email, phone, editusers, editreg, editbudget)
-        VALUES (:username, :password, :fname, :lname, :email, :phone, :editusers, :editreg, :editbudget)
+        (username, password, fname, lname, email, phone, admin)
+        VALUES (:username, :password, :fname, :lname, :email, :phone, :admin)
     ";
 
     const GET_REGISTRATION_DATA_1 =
@@ -190,7 +190,7 @@ class Database
      * @param $editbudget Database column for user's permission to update budget documents
      * @return mixed
      */
-    public function addUser($username, $password, $fname, $lname, $email, $phone, $editusers, $editreg, $editbudget){
+    public function addUser($username, $password, $fname, $lname, $email, $phone, $admin){
 
         $this->_newUser->bindParam(':username', $username, PDO::PARAM_STR);
         $this->_newUser->bindParam(':password', $password, PDO::PARAM_STR);
@@ -198,9 +198,7 @@ class Database
         $this->_newUser->bindParam(':lname', $lname, PDO::PARAM_STR);
         $this->_newUser->bindParam(':phone', $phone, PDO::PARAM_STR);
         $this->_newUser->bindParam(':email', $email, PDO::PARAM_STR);
-        $this->_newUser->bindParam(':editusers', $editusers, PDO::PARAM_BOOL);
-        $this->_newUser->bindParam(':editreg', $editreg, PDO::PARAM_BOOL);
-        $this->_newUser->bindParam(':editbudget', $editbudget, PDO::PARAM_BOOL);
+        $this->_newUser->bindParam(':admin', $admin, PDO::PARAM_BOOL);
 
         $this->_newUser->execute();
         return $this->_newUser->fetchAll(PDO::FETCH_ASSOC);

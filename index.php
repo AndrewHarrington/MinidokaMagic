@@ -221,34 +221,17 @@ $f3->route('GET|POST /add-volunteer', function ($f3){
         $lname = $_POST['lname'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];
-        if(isset($_POST['editusers']))
-        {
-            $editusers = true;
-        }else{
-            $editusers = false;
-        }
-        if(isset($_POST['editreg']))
-        {
-            $editreg = true;
-        }else{
-            $editreg = false;
-        }
-        if(isset($_POST['editbudget']))
-        {
-            $editbudget = true;
-        }else{
-            $editbudget = false;
-        }
         $username = $_POST['username'];
         $password = $_POST['password'];
+        $admin = $_POST['admin'];
+        $admin = $admin[0];
+        var_dump($admin);
 
         $f3->set('fname', $fname);
         $f3->set('lname', $lname);
         $f3->set('email', $email);
         $f3->set('phone', $phone);
-        $f3->set('editusers', $editusers);
-        $f3->set('editreg', $editreg);
-        $f3->set('editbudget', $editbudget);
+        $f3->set('admin', $admin);
         $f3->set('username', $username);
         $f3->set('password', $password);
 
@@ -257,15 +240,13 @@ $f3->route('GET|POST /add-volunteer', function ($f3){
             $_SESSION['lname'] = $lname;
             $_SESSION['email'] = $email;
             $_SESSION['phone'] = $phone;
-            $_SESSION['editusers'] = $editusers;
-            $_SESSION['editreg'] = $editreg;
-            $_SESSION['editbudget'] = $editbudget;
             $_SESSION['username'] = $username;
             $_SESSION['password'] = $password;
+            $_SESSION['admin'] = $admin;
 
-            global $db;
-            $db->addUser($username,$password,$fname,$lname,$email,$phone,$editusers,$editreg,$editbudget);
-            $f3->reroute('/volunteers');
+//            global $db;
+//            $db->addUser($username,$password,$fname,$lname,$email,$phone,$admin);
+//            $f3->reroute('/volunteers');
         }
     }
         $view = new Template();
