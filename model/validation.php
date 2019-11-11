@@ -69,6 +69,13 @@ function validateUserForm(){
         $isValid = false;
         $f3->set("errors['phone']", "Please enter a valid phone number");
     }
+    //check username already exists
+    global $db;
+    $rows = $db->isValidUsername($f3->get('username'));
+    if($rows > 0){
+        $isValid = false;
+        $f3->set("errors['username']", "Please enter a unique username.");
+    }
     if(!validUsername($f3->get('username'))){
         $isValid = false;
         $f3->set("errors['username']", "Please enter a valid username.");

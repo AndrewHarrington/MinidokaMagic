@@ -9,9 +9,16 @@
 class Database
 {
 
+    const IS_VALID_USERNAME =
+    "
+        SELECT *
+        FROM users
+        WHERE username = :username AND active = 1
+    ";
+
     const IS_VALID_USER =
     "
-        SELECT UUID
+        SELECT *
         FROM users
         WHERE username = :username AND password = :password AND active = 1
     ";
@@ -71,6 +78,7 @@ class Database
     private $_newUser;
     private $_deactivateUser;
     private $_isValidUser;
+    private $_isValidUsername;
     private $_dbc;
 
     /**
@@ -105,6 +113,7 @@ class Database
         $this->_newUser = $this->_dbc->prepare(self::INSERT_NEW_USER);
         $this->_deactivateUser = $this->_dbc->prepare(self::DEACTIVATE_USER);
         $this->_isValidUser = $this->_dbc->prepare(self::IS_VALID_USER);
+        $this->_isValidUsername = $this->_dbc->prepare(self::IS_VALID_USERNAME);
 
     }
 
@@ -222,5 +231,17 @@ class Database
 
         $this->_isValidUser->execute();
         return $this->_isValidUser->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * This function validates that a new user will have a unique username
+     * @param $username Database column to check if username in the table
+     * @return mixed
+     */
+    public function isValidUsername($username){
+        $this->_isValidUsername->bindParam(':username', $username, PDO::PARAM_STR);
+
+        $this->_isValidUsername->execute();
+        return $this->_isValidUsername->rowCount(PDO::FETCH_ASSOC);
     }
 }
