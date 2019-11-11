@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
 <div class="ml-5">
     <br>
-    <h3>Volunteers</h3>
+    <h3>Members</h3>
 </div>
 <div class="text-left ml-5 mr-5">
     <table id="volunteers" class="display nowrap" style="width:100%">
@@ -15,10 +15,9 @@
             <th>Phone #</th>
             <th>Email</th>
             <th>Username</th>
-            <th>Edit Users</th>
-            <th>Edit Registrations</th>
-            <th>Edit Budget</th>
+            <th>Admin</th>
             <th>Delete User</th>
+
         </tr>
         </thead>
         <tbody>
@@ -48,7 +47,7 @@
 
                 <td>{{@row.username}}</td>
                 <!--can they add and remove users?-->
-                <check if="{{@row.editusers == true}}">
+                <check if="{{@row.admin == true}}">
                     <true>
                         <td>&check;</td>
                     </true>
@@ -57,25 +56,25 @@
                     </false>
                 </check>
 
-                <!--can they add and remove registrants?-->
-                <check if="{{@row.editreg == true}}">
-                    <true>
-                        <td>&check;</td>
-                    </true>
-                    <false>
-                        <td>&#88;</td>
-                    </false>
-                </check>
+<!--                &lt;!&ndash;can they add and remove registrants?&ndash;&gt;-->
+<!--                <check if="{{@row.editreg == true}}">-->
+<!--                    <true>-->
+<!--                        <td>&check;</td>-->
+<!--                    </true>-->
+<!--                    <false>-->
+<!--                        <td>&#88;</td>-->
+<!--                    </false>-->
+<!--                </check>-->
 
-                <!--can they add and remove budget files?-->
-                <check if="{{@row.editbudget == true}}">
-                    <true>
-                        <td>&check;</td>
-                    </true>
-                    <false>
-                        <td>&#88;</td>
-                    </false>
-                </check>
+<!--                &lt;!&ndash;can they add and remove budget files?&ndash;&gt;-->
+<!--                <check if="{{@row.editbudget == true}}">-->
+<!--                    <true>-->
+<!--                        <td>&check;</td>-->
+<!--                    </true>-->
+<!--                    <false>-->
+<!--                        <td>&#88;</td>-->
+<!--                    </false>-->
+<!--                </check>-->
                 <!--Delete Field-->
                 <td>
                     <form method="post" action="">

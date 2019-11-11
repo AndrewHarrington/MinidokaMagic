@@ -13,12 +13,17 @@ $db = new Database();
 
 $f3->route('GET|POST /', function ($f3) {
     global $db;
-    session_destroy();
+//    session_destroy();
     $f3->set('hidden', "hidden");
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $username = $_POST['username'];
         $password = $_POST['password'];
-        if($db->isValidUser($username, $password)){
+        $user = $db->isValidUser($username, $password);
+        if($user){
+            $_SESSION['fname'] = $user[0]['fname'];
+            $_SESSION['lname'] = $user[0]['lname'];
+            $_SESSION['admin'] = $user[0]['admin'];
+//var_dump($_SESSION);
             $f3->reroute("/registrations");
         }
         else{
@@ -35,6 +40,12 @@ $f3->route('GET|POST /', function ($f3) {
     }
     $view = new Template();
     echo $view->render('view/login.html');
+});
+$f3->route('GET|POST /logout', function  ($f3){
+
+    session_destroy();
+    $f3->reroute('/');
+
 });
 
 $f3->route('GET|POST /registrations', function ($f3) {
@@ -56,7 +67,6 @@ $f3->route('GET|POST /budget-pdf', function (){
 
             }
         }
-
         //if we are trying to upload a new file
         $target_dir = "uploads/";
         $target_file = $target_dir . basename($_FILES["file"]["name"]);
