@@ -24,7 +24,7 @@ $(document).ready(function(){
 
             //check to add delete button
             if($("#isAdmin").val() == 1 ){
-                toAppend += "<form method='post' action=''><button name='file' value='" + pdfName + "' type='submit'>X</button></form>";
+                toAppend += "<form method='post' action=''><button class='button btn warning'name='file' value='" + pdfName + "' type='submit'>Remove</button></form>";
             }
 
             toAppend += "</li>";

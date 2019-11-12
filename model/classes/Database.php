@@ -158,7 +158,7 @@ class Database
         $this->_newParticipant->execute();
         $id = $this->_newParticipant->fetchAll(PDO::FETCH_ASSOC);
         $id = $id['@@identity'];
-        if($hashotel){
+        if($hashotel == 1){
             $this->_newHotelReg->bindParam(':id', $id, PDO::PARAM_INT);
             $this->_newHotelReg->bindParam(':regId', $hotelRegId, PDO::PARAM_INT);
             $this->_newHotelReg->bindParam(':hotelName', $hotelName, PDO::PARAM_STR);
@@ -185,9 +185,6 @@ class Database
      * @param $lname Database column for user's last name
      * @param $email Database column for user's email
      * @param $phone Database column for user's phone number
-     * @param $editusers Database column for user's permission to update user table
-     * @param $editreg Database column for user's permission to update registrations
-     * @param $editbudget Database column for user's permission to update budget documents
      * @return mixed
      */
     public function addUser($username, $password, $fname, $lname, $email, $phone, $admin){
@@ -224,6 +221,8 @@ class Database
      * @return mixed
      */
     public function isValidUser($username, $password){
+        $hash = password_hash($password,PASSWORD_DEFAULT);
+
         $this->_isValidUser->bindParam(':username', $username, PDO::PARAM_STR);
         $this->_isValidUser->bindParam(':password', $password, PDO::PARAM_STR);
 
