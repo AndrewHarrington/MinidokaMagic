@@ -50,6 +50,10 @@ $f3->route('GET /logout', function  ($f3){
 });
 
 $f3->route('GET|POST /registrations', function ($f3) {
+    if((!isset($_SESSION['fname'])) || (!isset($_SESSION['lname'])) ||
+        (!isset($_SESSION['admin']))){
+        $f3->reroute('/');
+    };
     global $db;
     $data = $db->getRegistrationData();
     $f3->set('registrations', $data);
@@ -57,7 +61,12 @@ $f3->route('GET|POST /registrations', function ($f3) {
     echo $view->render('view/registered-participants.html');
 });
 
-$f3->route('GET|POST /budget-pdf', function (){
+$f3->route('GET|POST /budget-pdf', function ($f3){
+    if((!isset($_SESSION['fname'])) || (!isset($_SESSION['lname'])) ||
+        (!isset($_SESSION['admin']))){
+        $f3->reroute('/');
+    };
+
     if($_SERVER['REQUEST_METHOD'] == "POST"){
         //if we are trying to delete a file
         if(isset($_POST['file'])){
@@ -115,12 +124,20 @@ $f3->route('GET|POST /budget-pdf', function (){
     echo $view->render('view/budget-views/budget-upload.php');
 });
 
-$f3->route('GET /budget-view/@fileName', function (){
+$f3->route('GET /budget-view/@fileName', function ($f3){
+    if((!isset($_SESSION['fname'])) || (!isset($_SESSION['lname'])) ||
+        (!isset($_SESSION['admin']))){
+        $f3->reroute('/');
+    };
     $view = new Template();
     echo $view->render('view/budget-views/budget-view.php');
 });
 
-$f3->route('GET|POST /reference-pdf', function (){
+$f3->route('GET|POST /reference-pdf', function ($f3){
+    if((!isset($_SESSION['fname'])) || (!isset($_SESSION['lname'])) ||
+        (!isset($_SESSION['admin']))){
+        $f3->reroute('/');
+    };
     if($_SERVER['REQUEST_METHOD'] == "POST"){
         //if we are trying to delete a file
         if(isset($_POST['file'])){
@@ -178,12 +195,20 @@ $f3->route('GET|POST /reference-pdf', function (){
     echo $view->render('view/document-views/doc-upload.php');
 });
 
-$f3->route('GET /doc-view/@fileName', function (){
+$f3->route('GET /doc-view/@fileName', function ($f3){
+    if((!isset($_SESSION['fname'])) || (!isset($_SESSION['lname'])) ||
+        (!isset($_SESSION['admin']))){
+        $f3->reroute('/');
+    };
     $view = new Template();
     echo $view->render('view/document-views/doc-view.php');
 });
 
 $f3->route('GET|POST /new-participant', function ($f3) {
+    if((!isset($_SESSION['fname'])) || (!isset($_SESSION['lname'])) ||
+        (!isset($_SESSION['admin']))){
+        $f3->reroute('/');
+    };
 
     if(!empty($_POST)){
 //    if (!$_SERVER['REQUEST_METHOD'] == "POST") {
@@ -196,7 +221,16 @@ $f3->route('GET|POST /new-participant', function ($f3) {
         $survivor = $_POST['survivor'];
         $survivor = $survivor[0];
         $attended = $_POST['prevattend'];
-        $resCheck = $_POST['resCheck'];
+        $hasHotel = isset($_POST['hasHotel']);
+        $hotelResID = $_POST['hotelResID'];
+        $hotelName = $_POST['hotelName'];
+        $filterPhone = filter_var($phone,FILTER_SANITIZE_NUMBER_INT);
+        $stripPhone = str_replace("-","",$filterPhone);
+        $phone = $stripPhone;
+
+        $filterEphone = filter_var($ephone,FILTER_SANITIZE_NUMBER_INT);
+        $stripEPhone = str_replace("-","",$filterEphone);
+        $ephone = $stripEPhone;
 
         $f3->set('fname', $fname);
         $f3->set('lname', $lname);
@@ -206,21 +240,28 @@ $f3->route('GET|POST /new-participant', function ($f3) {
         $f3->set('age', $age);
         $f3->set('survivor', $survivor);
         $f3->set('attended', $attended);
-        $f3->set('resCheck', $resCheck);
+        $f3->set('hasHotel',$hasHotel);
+        $f3->set('hotelResID', $hotelResID);
+        $f3->set('hotelName', $hotelName);
+        var_dump($hasHotel);
+
 
         if (validateParticipantForm()) {
+
             $_SESSION['fname'] = $fname;
             $_SESSION['lname'] = $lname;
             $_SESSION['email'] = $email;
-            $_SESSION['phone'] = $phone;
+            $_SESSION['phone'] = $filterPhone;
             $_SESSION['ephone'] = $ephone;
             $_SESSION['age'] = $age;
             $_SESSION['survivor'] = $survivor;
             $_SESSION['attended'] = $attended;
-            $_SESSION['resCheck'] = $resCheck;
+            $_SESSION['hasHotel'] = $hasHotel;
+            $_SESSION['hotelResID'] = $hotelResID;
+            $_SESSION['hotelName'] = $hotelName;
 
             global $db;
-            $db->insertParticipant($fname, $lname, $email, $phone, $ephone, $age, $survivor, $attended, $resCheck);
+            $db->insertParticipant($fname, $lname, $phone, $ephone, $email, $age, $survivor, $hasHotel, $attended, $hotelResID, $hotelName);
             $f3->reroute('/registrations');
         }
     }
@@ -230,6 +271,10 @@ $f3->route('GET|POST /new-participant', function ($f3) {
 });
 
 $f3->route('GET|POST /add-volunteer', function ($f3){
+    if((!isset($_SESSION['fname'])) || (!isset($_SESSION['lname'])) ||
+        (!isset($_SESSION['admin']))){
+        $f3->reroute('/');
+    };
     if(!empty($_POST)) {
 //    if (!$_SERVER['REQUEST_METHOD'] == "POST") {
         $fname = $_POST['fname'];
@@ -268,6 +313,10 @@ $f3->route('GET|POST /add-volunteer', function ($f3){
 });
 
 $f3->route('GET|POST /volunteers', function ($f3){
+    if((!isset($_SESSION['fname'])) || (!isset($_SESSION['lname'])) ||
+        (!isset($_SESSION['admin']))){
+        $f3->reroute('/');
+    };
     global $db;
 
     if($_SERVER['REQUEST_METHOD'] == "POST"){
