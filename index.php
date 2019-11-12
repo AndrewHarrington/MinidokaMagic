@@ -194,6 +194,7 @@ $f3->route('GET|POST /new-participant', function ($f3) {
         $ephone = $_POST['ephone'];
         $age = $_POST['age'];
         $survivor = $_POST['survivor'];
+        $survivor = $survivor[0];
         $attended = $_POST['prevattend'];
         $resCheck = $_POST['resCheck'];
 
