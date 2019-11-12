@@ -76,7 +76,7 @@
                 <div class="row">
                     <label for = "ephone" class="col-sm-3 col-form-label-lg">Emergency Contact:</label>
                     <div class="col-sm-6">
-                        <input id="ephone" name="phone" class="form-control" value="{{ @ephone }}">
+                        <input id="ephone" name="ephone" class="form-control" value="{{ @ephone }}">
                     </div>
                 </div>
             </div>
@@ -97,6 +97,7 @@
                 </div>
             </div>
 
+            <div class="form-group col">
             <div id="survive" class="form-group row">
                 <label class="col-sm-3 col-form-label-lg">Is the guest a survivor?</label>
                 <div class="col-sm-6">
@@ -110,6 +111,10 @@
                     </label>
                 </div>
             </div>
+            </div>
+
+            <div class="form-group col">
+
             <div id="attendance" class="form-group row">
                 <label class="col-sm-3 col-form-label-lg">Has the guest previously attended?</label>
                 <div class="col-sm-6">
@@ -123,6 +128,10 @@
                     </label>
                 </div>
             </div>
+            </div>
+
+            <div class="form-group col">
+
             <div id="reservation">
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label-lg" for="resCheck">Check if the guest has a reservation:</label>
@@ -135,11 +144,17 @@
                     <div class="row" id="res" hidden>
                         <label for="hotel" class="col-sm-3 col-form-label-lg">Enter the Hotel Reservation Number</label>
                         <div class="col-sm-6">
-                            <input type="text" id="hotel" class="form-control">
+                            <input type="text" id="hotel" name = "hotelResID" value = "{{ @hotelResID }}" class="form-control">
+                        </div>
+                        <label for="hotel" class="col-sm-3 col-form-label-lg">Enter the Hotel Reservation Number</label>
+                        <div class="col-sm-6">
+                            <input type="text" id="hotel" name = "hotelResID" value = "{{ @hotelResID }}" class="form-control">
                         </div>
                     </div>
                 </div>
             </div>
+            </div>
+            
             <div id="submission">
                 <label for="submit">
                     <input class="submit" type="submit" id="submit">
