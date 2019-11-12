@@ -18,11 +18,17 @@ $f3->route('GET|POST /', function ($f3) {
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $username = $_POST['username'];
         $password = $_POST['password'];
+//        $hash = password_hash($password,PASSWORD_DEFAULT);
+//        $confirmPassword = password_verify($password,$hash);
         $user = $db->isValidUser($username, $password);
         if($user){
             $_SESSION['fname'] = $user[0]['fname'];
             $_SESSION['lname'] = $user[0]['lname'];
             $_SESSION['admin'] = $user[0]['admin'];
+            if($user[0]['admin'] == 0)
+            {
+                $f3->set('hidden',"");
+            }
 //var_dump($_SESSION);
             $f3->reroute("/registrations");
         }
@@ -30,21 +36,16 @@ $f3->route('GET|POST /', function ($f3) {
             //ERROR OUT
             $f3->set('hidden', "");
         }
-//        if($_POST['username'] == "volunteer" && $_POST['password'] == "MinidokaPilgrimage"){
-//            $f3->reroute("/registrations");
-//        }
-//        else{
-//            //ERROR OUT
-//            $f3->set('hidden', "");
-//        }
     }
     $view = new Template();
     echo $view->render('view/login.html');
 });
-$f3->route('GET|POST /logout', function  ($f3){
+$f3->route('GET /logout', function  ($f3){
 
+    session_unset();
     session_destroy();
-    $f3->reroute('/');
+
+   $f3->reroute('/');
 
 });
 
@@ -232,10 +233,9 @@ $f3->route('GET|POST /add-volunteer', function ($f3){
         $email = $_POST['email'];
         $phone = $_POST['phone'];
         $username = $_POST['username'];
-        $password = $_POST['password'];
+        $password = password_hash($_POST['password'],PASSWORD_DEFAULT);
         $admin = $_POST['admin'];
         $admin = $admin[0];
-        var_dump($admin);
 
         $f3->set('fname', $fname);
         $f3->set('lname', $lname);
@@ -254,9 +254,9 @@ $f3->route('GET|POST /add-volunteer', function ($f3){
             $_SESSION['password'] = $password;
             $_SESSION['admin'] = $admin;
 
-//            global $db;
-//            $db->addUser($username,$password,$fname,$lname,$email,$phone,$admin);
-//            $f3->reroute('/volunteers');
+            global $db;
+            $db->addUser($username,$password,$fname,$lname,$email,$phone,$admin);
+            $f3->reroute('/volunteers');
         }
     }
         $view = new Template();
