@@ -14,18 +14,24 @@ $(document).ready(function(){
 
             //ISSUE: PDF File names can not be longer than 20 characters
 
-
-            //write each element as a clickable image/text
-            $("#box").append("<li>" +
+            var toAppend = "<li>" +
                 "<a href='doc-view/" + pdfName + "'>" +
                 //icon
                 "<img src='styles/images/pdf-icon.png' alt='pdf-icon' style='width: 30px; height: 30px;'>" +
                 //file name
                 pdfName +
-                "</a>" +
-                //delete button
-                "<form method='post' action=''><button name='file' value='" + pdfName + "' type='submit'>X</button></form>" +
-                "</li>");
+                "</a>";
+
+            //check to add delete button
+            if($("#isAdmin").val() == 1 ){
+                toAppend += "<form method='post' action=''><button name='file' value='" + pdfName + "' type='submit'>X</button></form>";
+            }
+
+            toAppend += "</li>";
+
+            //write each element as a clickable image/text
+            $("#box").append(toAppend);
+
         })
     });
 });
