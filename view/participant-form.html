@@ -1,5 +1,5 @@
 <include href="view/header.html"/>
-<div class="jumbotron">
+<div class="jumbotron" id="capsule">
     <form name="participant" method="POST" action="#" onsubmit="return validateForm()" class="form-horizontal">
         <div class = "form-group">
             <div id="first" class="form-group col">
@@ -74,9 +74,9 @@
                     </check>
                 </div>
                 <div class="row">
-                    <label for = "phone" class="col-sm-3 col-form-label-lg">Emergency Contact:</label>
+                    <label for = "ephone" class="col-sm-3 col-form-label-lg">Emergency Contact:</label>
                     <div class="col-sm-6">
-                        <input id="phone" name="phone" class="form-control" value="{{ @phone }}">
+                        <input id="ephone" name="phone" class="form-control" value="{{ @phone }}">
                     </div>
                 </div>
             </div>
@@ -100,11 +100,11 @@
             <div id="survive" class="form-group row">
                 <label class="col-sm-3 col-form-label-lg">Is the guest a survivor?</label>
                 <div class="col-sm-6">
-                    <input type="radio" class="form-check-label" name="survivor[]" id="survivor-yes" value="{{ @survivor }}">
+                    <input type="radio" class="form-check-label" name="survivor" id="survivor-yes" value="{{ @survivor }}">
                     <label class="form-check-label" for="survivor-yes">
                         Yes
                     </label>
-                    <input type="radio" class="form-check-label" name="survivor[]" id="survivor-no" value="{{ @survivor }}">
+                    <input type="radio" class="form-check-label" name="survivor" id="survivor-no" value="{{ @survivor }}">
                     <label class="form-check-label" for="survivor-no">
                         No
                     </label>
@@ -168,7 +168,8 @@
         </div>
     </form>
 </div>
-
-<script src="model/javascript/participant-form.js"></script>
+<footer>
+    <script src="model/javascript/participant-form.js"></script>
+</footer>
 </body>
 </html>
