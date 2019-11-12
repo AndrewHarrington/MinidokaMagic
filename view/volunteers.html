@@ -14,9 +14,11 @@
             <th>Last Name</th>
             <th>Phone #</th>
             <th>Email</th>
-            <th>Username</th>
             <th>Admin</th>
-            <th>Delete User</th>
+            <check if="@SESSION.admin == 1">
+                <th>Username</th>
+                <th>Delete User</th>
+            </check>
 
         </tr>
         </thead>
@@ -44,9 +46,6 @@
                         <td><a href="mailto:{{@row.email}}">{{@row.email}}</a></td>
                     </false>
                 </check>
-
-                <td>{{@row.username}}</td>
-                <!--can they add and remove users?-->
                 <check if="{{@row.admin == true}}">
                     <true>
                         <td>&check;</td>
@@ -55,34 +54,37 @@
                         <td>&#88;</td>
                     </false>
                 </check>
+                <check if="@SESSION.admin == 1">
+                    <td>{{@row.username}}</td>
+                    <!--can they add and remove users?-->
 
-<!--                &lt;!&ndash;can they add and remove registrants?&ndash;&gt;-->
-<!--                <check if="{{@row.editreg == true}}">-->
-<!--                    <true>-->
-<!--                        <td>&check;</td>-->
-<!--                    </true>-->
-<!--                    <false>-->
-<!--                        <td>&#88;</td>-->
-<!--                    </false>-->
-<!--                </check>-->
+    <!--                &lt;!&ndash;can they add and remove registrants?&ndash;&gt;-->
+    <!--                <check if="{{@row.editreg == true}}">-->
+    <!--                    <true>-->
+    <!--                        <td>&check;</td>-->
+    <!--                    </true>-->
+    <!--                    <false>-->
+    <!--                        <td>&#88;</td>-->
+    <!--                    </false>-->
+    <!--                </check>-->
 
-<!--                &lt;!&ndash;can they add and remove budget files?&ndash;&gt;-->
-<!--                <check if="{{@row.editbudget == true}}">-->
-<!--                    <true>-->
-<!--                        <td>&check;</td>-->
-<!--                    </true>-->
-<!--                    <false>-->
-<!--                        <td>&#88;</td>-->
-<!--                    </false>-->
-<!--                </check>-->
-                <!--Delete Field-->
-                <td>
-                    <form method="post" action="">
-                        <button name="uuid" type="submit" value="{{@row.UUID}}">X</button>
-                    </form>
-                </td>
+    <!--                &lt;!&ndash;can they add and remove budget files?&ndash;&gt;-->
+    <!--                <check if="{{@row.editbudget == true}}">-->
+    <!--                    <true>-->
+    <!--                        <td>&check;</td>-->
+    <!--                    </true>-->
+    <!--                    <false>-->
+    <!--                        <td>&#88;</td>-->
+    <!--                    </false>-->
+    <!--                </check>-->
+                    <!--Delete Field-->
+                    <td>
+                        <form method="post" action="">
+                            <button name="uuid" type="submit" value="{{@row.UUID}}">X</button>
+                        </form>
+                    </td>
+                </check>
             </tr>
-
         </repeat>
         </tbody>
     </table>
