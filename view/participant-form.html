@@ -67,16 +67,16 @@
 
             <div id="emergency" class="form-group col">
                 <div class="row">
-                    <check if="{{ @errors['phone'] }}">
+                    <check if="{{ @errors['ephone'] }}">
                         <div class="alert alert-danger" role="alert">
-                            <span class="error">{{ @errors['phone'] }}</span>
+                            <span class="error">{{ @errors['ephone'] }}</span>
                         </div>
                     </check>
                 </div>
                 <div class="row">
                     <label for = "ephone" class="col-sm-3 col-form-label-lg">Emergency Contact:</label>
                     <div class="col-sm-6">
-                        <input id="ephone" name="phone" class="form-control" value="{{ @phone }}">
+                        <input id="ephone" name="phone" class="form-control" value="{{ @ephone }}">
                     </div>
                 </div>
             </div>
