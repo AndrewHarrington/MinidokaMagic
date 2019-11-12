@@ -217,6 +217,9 @@ $f3->route('GET|POST /new-participant', function ($f3) {
             $_SESSION['survivor'] = $survivor;
             $_SESSION['attended'] = $attended;
             $_SESSION['resCheck'] = $resCheck;
+
+            global $db;
+            $db->insertParticipant($fname, $lname, $email, $phone, $ephone, $age, $survivor, $attended, $resCheck);
             $f3->reroute('/registrations');
         }
     }
