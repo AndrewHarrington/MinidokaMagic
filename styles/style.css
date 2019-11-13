@@ -17,6 +17,13 @@
     list-style: none;
     margin-top: 2vh;
 }
+#greenCheck{
+    color:green;
+}
+#redX{
+    color:red;
+}
+
 body{
     box-sizing: border-box;
 }
