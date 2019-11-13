@@ -18,8 +18,6 @@ $f3->route('GET|POST /', function ($f3) {
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $username = $_POST['username'];
         $password = $_POST['password'];
-//        $hash = password_hash($password,PASSWORD_DEFAULT);
-//        $confirmPassword = password_verify($password,$hash);
         $user = $db->isValidUser($username, $password);
         if($user){
             $_SESSION['fname'] = $user[0]['fname'];
@@ -252,22 +250,9 @@ $f3->route('GET|POST /new-participant', function ($f3) {
 
 
         if (validateParticipantForm()) {
-
-            $_SESSION['fname'] = $fname;
-            $_SESSION['lname'] = $lname;
-            $_SESSION['email'] = $email;
-            $_SESSION['phone'] = $filterPhone;
-            $_SESSION['ephone'] = $ephone;
-            $_SESSION['age'] = $age;
-            $_SESSION['survivor'] = $survivor;
-            $_SESSION['attended'] = $attended;
-            $_SESSION['hasHotel'] = $hasHotel;
-            $_SESSION['hotelResID'] = $hotelResID;
-            $_SESSION['hotelName'] = $hotelName;
-
             global $db;
             $db->insertParticipant($fname, $lname, $phone, $ephone, $email, $age, $survivor, $hasHotel, $attended, $hotelResID, $hotelName);
-           // $f3->reroute('/registrations');
+            $f3->reroute('/registrations');
         }
     }
 
@@ -300,13 +285,6 @@ $f3->route('GET|POST /add-volunteer', function ($f3){
         $f3->set('password', $password);
 
         if (validateUserForm()) {
-            $_SESSION['fname'] = $fname;
-            $_SESSION['lname'] = $lname;
-            $_SESSION['email'] = $email;
-            $_SESSION['phone'] = $phone;
-            $_SESSION['username'] = $username;
-            $_SESSION['password'] = $password;
-            $_SESSION['admin'] = $admin;
 
             global $db;
             $db->addUser($username,$password,$fname,$lname,$email,$phone,$admin);
