@@ -1,6 +1,10 @@
 <include href="view/header.html"/>
+<div class="ml-5">
+    <br>
+    <h3>Add Participant</h3>
+</div>
 <div class="jumbotron" id="capsule">
-    <form name="participant" method="POST" action="#" onsubmit="return validateForm()" class="form-horizontal">
+    <form name="participant" method="POST" action="#" onsubmit="" class="form-horizontal">
         <div class = "form-group">
             <div id="first" class="form-group col">
                 <div class="row">
@@ -11,9 +15,9 @@
                     </check>
                 </div>
                 <div class="row">
-                    <label for="fname" class="col-sm-3 col-form-label-lg">First Name:</label>
+                    <label for="fname" class="col-sm-3 col-form-label-md">First Name:</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="fname" name="fname" value="{{ @fname }}">
+                        <input type="text" class="form-control" id="fname" name="fname" placeholder="first name" value="{{ @fname }}">
                     </div>
                 </div>
             </div>
@@ -26,9 +30,9 @@
                     </check>
                 </div>
                 <div class="row">
-                    <label for = "lname" class="col-sm-3 col-form-label-lg">Last Name:</label>
+                    <label for = "lname" class="col-sm-3 col-form-label-md">Last Name:</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="lname" name="lname" value="{{ @lname }}">
+                        <input type="text" class="form-control" id="lname" name="lname" placeholder="last name" value="{{ @lname }}">
                     </div>
                 </div>
             </div>
@@ -41,9 +45,9 @@
                     </check>
                 </div>
                 <div class="row">
-                    <label for = "email" class="col-sm-3 col-form-label-lg">Email:</label>
+                    <label for = "email" class="col-sm-3 col-form-label-md">Email:</label>
                     <div class="col-sm-6">
-                        <input id="email" name="email" class="form-control" value="{{ @email }}">
+                        <input id="email" name="email" class="form-control" placeholder="input@email.com" value="{{ @email }}">
                     </div>
                 </div>
 
@@ -58,9 +62,9 @@
                     </check>
                 </div>
                 <div class="row">
-                    <label for = "phone" class="col-sm-3 col-form-label-lg">Phone:</label>
+                    <label for = "phone" class="col-sm-3 col-form-label-md">Phone:</label>
                     <div class="col-sm-6">
-                        <input id="phone" name="phone" class="form-control" value="{{ @phone }}">
+                        <input id="phone" name="phone" class="form-control" placeholder="123-456-7890" value="{{ @phone }}">
                     </div>
                 </div>
             </div>
@@ -74,9 +78,9 @@
                     </check>
                 </div>
                 <div class="row">
-                    <label for = "ephone" class="col-sm-3 col-form-label-lg">Emergency Contact:</label>
+                    <label for = "ephone" class="col-sm-3 col-form-label-md">Emergency Contact:</label>
                     <div class="col-sm-6">
-                        <input id="ephone" name="ephone" class="form-control" value="{{ @ephone }}">
+                        <input id="ephone" name="ephone" class="form-control" placeholder="123-456-7890" value="{{ @ephone }}">
                     </div>
                 </div>
             </div>
@@ -90,86 +94,102 @@
                     </check>
                 </div>
                 <div class="row">
-                    <label for="age" class="col-sm-3 col-form-label-lg">Date of Birth:</label>
+                    <label for="age" class="col-sm-3 col-form-label-md">Date of Birth:</label>
                     <div class="col-sm-6">
                         <input type="date" name="age" id="age" value="{{ @age }}">
                     </div>
                 </div>
             </div>
 
-            <div id="survive" class="form-group row">
-                <label class="col-sm-3 col-form-label-lg">Is the guest a survivor?</label>
-                <div class="col-sm-6">
-                    <input type="radio" class="form-check-label" name="survivor" id="survivor-yes" value="{{ @survivor }}">
-                    <label class="form-check-label" for="survivor-yes">
-                        Yes
-                    </label>
-                    <input type="radio" class="form-check-label" name="survivor" id="survivor-no" value="{{ @survivor }}">
-                    <label class="form-check-label" for="survivor-no">
-                        No
-                    </label>
-                </div>
-            </div>
-            <div id="attendance" class="form-group row">
-                <label class="col-sm-3 col-form-label-lg">Has the guest previously attended?</label>
-                <div class="col-sm-6">
-                    <input type="radio" class="form-check-label" id="prevattend-yes" name="prevattend" value="{{ @prevattend }}">
-                    <label class="form-check-label" for="prevattend-yes">
-                        Yes
-                    </label>
-                    <input type="radio" class="form-check-label" id="prevattend-no" name="prevattend" value="{{ @prevattend }}">
-                    <label class="form-check-label" for="prevattend-no">
-                        No
-                    </label>
-                </div>
-            </div>
-            <div id="reservation">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label-lg" for="hasHotel">Check if the guest has a reservation:</label>
+            <div class="form-group col">
+                <div id="survive" class="form-group row">
+                    <label class="col-sm-3 col-form-label-md">Is the guest a survivor?</label>
                     <div class="col-sm-6">
-                        <input id="hasHotel" class="form-check-label" name="hasHotel" type="checkbox" value="{{ @hasHotel }} ">
-                    </div>
-                </div>
-                <div class="form-group col">
-
-                    <div class="row" id="res" hidden>
-                        <div class="col-sm-6">
-                        <label for="hotel" class="col-sm-3 col-form-label-lg">Enter the Hotel Reservation Number
-                            <input type="text" id="hotel" name = "hotelResID" value = "{{ @hotelResID }}" class="form-control">
+                        <input type="radio" class="form-check-label" name="survivor[]" id="survivor-yes" value="1">
+                        <label class="form-check-label" for="survivor-yes">
+                            Yes
                         </label>
-                        </div>
-                        <label for="hotelName" class="col-sm-3 col-form-label-lg">Enter the Hotel Name</label>
+                        <input type="radio" class="form-check-label" name="survivor[]" id="survivor-no" value="0" checked="checked">
+                        <label class="form-check-label" for="survivor-no">
+                            No
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col">
+                <div id="attendance" class="form-group row">
+                    <label class="col-sm-3 col-form-label-md">Has the guest previously attended?</label>
+                    <div class="col-sm-6">
+                        <input type="radio" class="form-check-label" id="prevattend-yes" name="prevattend[]" value="1">
+                        <label class="form-check-label" for="prevattend-yes">
+                            Yes
+                        </label>
+                        <input type="radio" class="form-check-label" id="prevattend-no" name="prevattend[]" value="0" checked="checked">
+                        <label class="form-check-label" for="prevattend-no">
+                            No
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group-col">
+                <div id="reservation" class="col-sm-12">
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label-md" for="hasHotel">Check if the guest has a reservation:</label>
                         <div class="col-sm-6">
-                            <input type="text" id="hotelName" name = "hotelName" value = "{{ @hotelName }}" class="form-control">
+                            <input id="hasHotel" class="form-check-label" name="hasHotel" type="checkbox" value="{{ @hasHotel }} ">
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="res" hidden>
+
+                        <div class="form-group row">
+                            <label for="hotelName" class="col-sm-3 col-form-label-md">Hotel Name:</label>
+                            <div class="col-sm-6">
+                                <input type="text" id="hotelName" name = "hotelName" value = "{{ @hotelName }}" placeholder="hotel name" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="hotel" class="col-sm-3 col-form-label-md">Hotel Reservation Number:</label>
+                            <div class="col-sm-6">
+                                <input type="text" id="hotel" name = "hotelResID" value = "{{ @hotelResID }}" placeholder="reservation#" class="form-control">
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div id="submission" class="float-right">
+                    <label for="submit">
+                        <input class="submit" type="submit" id="submit" onclick="validateForm()">
+                    </label>
+                </div>
+
+                <div class="modal" tabindex="-1" role="dialog" hidden>
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <span>
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Participant Added!</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Participant successfully added to the database!</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </span>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="submission">
-                <label for="submit">
-                    <input class="submit" type="submit" id="submit">
-                </label>
-            </div>
 
-            <div class="modal" tabindex="-1" role="dialog" hidden>
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Participant Added!</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Participant successfully added to the database!</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
             </div>
-
         </div>
     </form>
 </div>

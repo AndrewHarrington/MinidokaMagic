@@ -8,7 +8,7 @@
     <div class="col">
         <check if="@SESSION.admin == 1">
             <form action="" method="post" enctype="multipart/form-data">
-                <div class="input-group">
+                <div class="input-group col-sm-12">
                     <button class="input-group-text" type="submit" id="submit" name="submit">Upload File</button>
                     <div class="custom-file">
                         <input class="custom-file-input" type="file" name="file" id="file">

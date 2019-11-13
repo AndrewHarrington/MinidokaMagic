@@ -18,8 +18,9 @@
                 <th>Email</th>
                 <th>Age</th>
                 <th>Survivor</th>
-                <th>Hotel Reservation</th>
                 <th>Pilgrimages Attended</th>
+                <th>Hotel Reservation</th>
+<!--                <th>Hotel Name</th>-->
             </tr>
         </thead>
         <tbody>
@@ -52,8 +53,8 @@
                         <true>
                             <td></td>
                         </true>
-                        <false>
 
+                        <false>
                             <td><a href="mailto:{{@row.email}}">{{@row.email}}</a></td>
                         </false>
                     </check>
@@ -65,14 +66,15 @@
                         <true>
                             <!--<td><img src="styles/images/yes.jpg" style="width: 50px; height: 55px;" alt="Yes"></td>-->
                             <!--<td>Yes</td>-->
-                            <td id="greenCheck">&check;</td>
+                            <td class="greenCheck">&check;</td>
                         </true>
                         <false>
                             <!--<td><img src="styles/images/no.jpg" style="width: 50px; height: 50px;" alt="No"></td>-->
                             <!--<td>No</td>-->
-                            <td id="redX">x</td>
+                            <td class="redX">x</td>
                         </false>
                     </check>
+                    <td>{{@row.prevattendences}}</td>
                     <!--hotel registration id-->
                     <check if="{{@row.hotelResID == null}}">
                         <true>
@@ -83,7 +85,6 @@
 <!--                            <td>{{@row.hotelName}}</td>-->
                         </false>
                     </check>
-                    <td>{{@row.prevattendences}}</td>
                 </tr>
 
             </repeat>
@@ -91,8 +92,6 @@
     </table>
 </div>
 <footer>
-<!--    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>-->
-<!--    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.20/js/dataTables.jqueryui.min.js"></script>-->
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>

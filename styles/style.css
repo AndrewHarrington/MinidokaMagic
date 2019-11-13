@@ -1,6 +1,7 @@
 #capsule{
     width: 90vw;
     margin: auto;
+    box-shadow: 0 0 2px goldenrod;
 }
 #navlist{
     /*border: 1px solid black;*/
@@ -43,10 +44,10 @@ button{
     background: rgb(191, 107, 4);
     box-shadow: 1px 1px 1px grey;
 }
-h2{
+h2, h3{
     font-family: 'Marcellus SC', serif;
     padding-left: 2vw;
-    text-shadow: 0 0 10px burlywood;
+    text-shadow: 0 0 5px burlywood;
 }
 /* latin-ext */
 @font-face {
