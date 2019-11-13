@@ -14,7 +14,9 @@
     </div>
 </check>
 <input type="hidden" id="isAdmin" value="{{@SESSION.admin}}">
-<ul class="container" id="box"></ul>
+<div class="jumbotron">
+<ul class="list-group" id="box"></ul>
+</div>
 
 <script src="model/javascript/reference-grab.js"></script>
 </body>

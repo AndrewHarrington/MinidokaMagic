@@ -84,7 +84,7 @@
             //print window to given size
             pdfView.innerHTML = '<embed src="../uploads/{{@PARAMS.fileName}}" width= "' + width + '" height= "' + height + '">';
         }
-        
+
         getWindowSize('pdfFile');
 
     </script>
