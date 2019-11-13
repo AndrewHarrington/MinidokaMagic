@@ -1,3 +1,7 @@
+#capsule{
+    width: 90vw;
+    margin: auto;
+}
 #navlist{
     /*border: 1px solid black;*/
     /*box-shadow: 1px 1px 1px grey;*/
@@ -8,6 +12,10 @@
     text-shadow: 0 0 5px black;
     padding: 1vh;
     font-family: 'Marcellus SC', serif;
+}
+#box{
+    list-style: none;
+    margin-top: 2vh;
 }
 body{
     box-sizing: border-box;
