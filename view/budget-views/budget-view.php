@@ -51,7 +51,7 @@
                         <a class="nav-link" href="../{{'reference-pdf'}}">Reference Documents</a>
                     </li>
                     <li class="nav-item border border-dark">
-                        <a class="nav-link" href="../{{logout}}">Logout</a>
+                        <a class="nav-link" href="../{{logout}}">Logout({{@SESSION.fname}})</a>
                     </li>
                 </ul>
             </div>
