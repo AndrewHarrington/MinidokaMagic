@@ -15,7 +15,7 @@ $(document).ready(function(){
             //ISSUE: PDF File names can not be longer than 20 characters
 
             var toAppend = "<li class='list-group-item'>" +
-                "<a href='doc-view/" + pdfName + "'>" +
+                "<a class='col-sm-10' href='doc-view/" + pdfName + "'>" +
                 //icon
                 "<img src='styles/images/pdf-icon.png' alt='pdf-icon' style='width: 30px; height: 30px;'>" +
                 //file name
@@ -24,7 +24,7 @@ $(document).ready(function(){
 
             //check to add delete button
             if($("#isAdmin").val() == 1 ){
-                toAppend += "<form method='post' action=''><button class='button btn warning'name='file' value='" + pdfName + "' type='submit'>Remove</button></form>";
+                toAppend += "<form method='post' class='float-right' action=''><button class='btn btn-warning' name='file' value='" + pdfName + "' type='submit'>Remove</button></form>";
             }
 
             toAppend += "</li>";
