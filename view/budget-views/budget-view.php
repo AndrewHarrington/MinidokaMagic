@@ -17,8 +17,7 @@
 </head>
 <body>
 <header>
-    <!--    <div class="pos-f-t">-->
-    <!--    <h2>Minidoka Pilgrimage</h2>-->
+
     <nav class="navbar navbar-expand-md bg-dark navbar-dark">
         <a class="navbar-brand" href="../{{'registrations'}}">
             <img src="../styles/images/MinidokaLogoWhite.png" alt="Minidoka-Pilgramage">
@@ -28,11 +27,9 @@
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <div class="bg-dark p-4">
-                <!--                <ul class="nav nav-pills nav-justified bg-warning text-dark">-->
+
                 <ul id="navlist" class="navbar-nav justify-content-center">
-                    <!--                    <li class="nav-item border border-dark">-->
-                    <!--                        <a class="nav-link" href="#">Home</a>-->
-                    <!--                    </li>-->
+
                     <li class="nav-item border border-dark">
                         <a class="nav-link" href="../{{'budget-pdf'}}">Budget</a>
                     </li>
@@ -59,36 +56,36 @@
                 </ul>
             </div>
         </div>
-        <!--        <nav class="navbar navbar-dark   bg-dark">-->
-        <!--            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">-->
-        <!--                <span class="navbar-toggler-icon"></span>-->
-        <!--            </button>-->
-        <!--        </nav>-->
+
     </nav>
-    <!--    </div>-->
 
 </header>
-    <div id="pdfFile">
 
+    <div id="pdfFile">
+        <!--Content appears here-->
     </div>
-<!--    <embed src="../uploads/{{@PARAMS.fileName}}" width= "500" height= "375">-->
+
 <footer>
+
     <script>
 
-        //cross browser support for varying size of pdf viewer
-        let width = (window.innerWidth
-            || document.documentElement.clientWidth
-            || document.body.clientWidth) - 20;
-        let height = (window.innerHeight
-            || document.documentElement.clientHeight
-            || document.body.clientHeight);
+        function getWindowSize(x) {
+            //cross browser support for varying size of pdf viewer
+            let width = (window.innerWidth
+                || document.documentElement.clientWidth
+                || document.body.clientWidth) - 20;
+            let height = (window.innerHeight
+                || document.documentElement.clientHeight
+                || document.body.clientHeight);
 
-        //grab our div to print
-        let pdfView = document.getElementById('pdfFile');
+            //grab our div to print
+            let pdfView = document.getElementById(x);
 
-        //print window to given size
-        pdfView.innerHTML = '<embed src="../uploads/{{@PARAMS.fileName}}" width= "' + width + '" height= "' + height + '">';
-
+            //print window to given size
+            pdfView.innerHTML = '<embed src="../uploads/{{@PARAMS.fileName}}" width= "' + width + '" height= "' + height + '">';
+        }
+        
+        getWindowSize('pdfFile');
 
     </script>
 </footer>
