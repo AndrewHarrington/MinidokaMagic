@@ -249,7 +249,6 @@ $f3->route('GET|POST /new-participant', function ($f3) {
         $f3->set('hasHotel',$hasHotel);
         $f3->set('hotelResID', $hotelResID);
         $f3->set('hotelName', $hotelName);
-        var_dump($_POST);
 
 
         if (validateParticipantForm()) {
