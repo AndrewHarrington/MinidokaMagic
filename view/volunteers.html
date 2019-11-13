@@ -48,10 +48,10 @@
                 </check>
                 <check if="{{@row.admin == true}}">
                     <true>
-                        <td>&check;</td>
+                        <td class="greenCheck">&check;</td>
                     </true>
                     <false>
-                        <td>&#88;</td>
+                        <td class="redX">x</td>
                     </false>
                 </check>
                 <check if="@SESSION.admin == 1">
