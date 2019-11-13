@@ -14,7 +14,7 @@ $(document).ready(function(){
 
             //ISSUE: PDF File names can not be longer than 20 characters
 
-            var toAppend = "<li>" +
+            var toAppend = "<li class='list-group-item'>" +
                 "<a href='doc-view/" + pdfName + "'>" +
                 //icon
                 "<img src='styles/images/pdf-icon.png' alt='pdf-icon' style='width: 30px; height: 30px;'>" +
