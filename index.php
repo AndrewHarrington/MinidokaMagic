@@ -217,10 +217,16 @@ $f3->route('GET|POST /new-participant', function ($f3) {
         $email = $_POST['email'];
         $phone = $_POST['phone'];
         $ephone = $_POST['ephone'];
+
+        //parse the age
         $age = $_POST['age'];
+        $age = explode("-", $age);
+        $age = 2019 - $age[0];
+
         $survivor = $_POST['survivor'];
         $survivor = $survivor[0];
         $attended = $_POST['prevattend'];
+        $attended = $attended[0];
         $hasHotel = isset($_POST['hasHotel']);
         $hotelResID = $_POST['hotelResID'];
         $hotelName = $_POST['hotelName'];
@@ -243,7 +249,7 @@ $f3->route('GET|POST /new-participant', function ($f3) {
         $f3->set('hasHotel',$hasHotel);
         $f3->set('hotelResID', $hotelResID);
         $f3->set('hotelName', $hotelName);
-        var_dump($hasHotel);
+        var_dump($_POST);
 
 
         if (validateParticipantForm()) {
@@ -262,7 +268,7 @@ $f3->route('GET|POST /new-participant', function ($f3) {
 
             global $db;
             $db->insertParticipant($fname, $lname, $phone, $ephone, $email, $age, $survivor, $hasHotel, $attended, $hotelResID, $hotelName);
-            $f3->reroute('/registrations');
+           // $f3->reroute('/registrations');
         }
     }
 

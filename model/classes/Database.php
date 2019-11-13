@@ -53,16 +53,18 @@ class Database
         INSERT 
         INTO registrations
           (fname, lname, phone, emergency, email, age, survivor, hashotel, prevattendences) 
-        VALUES (:fname, :lname, :phone, :emergency, :email, :age, :survivor, :hashotel, :prevattendences);
-        
-        SELECT @@IDENTITY;
-        
+        VALUES (:fname, :lname, :phone, :emergency, :email, :age, :survivor, 0, :prevattendences);
     ";
 
-    const NEW_HOTEL_REG =
+    const NEW_PARTICIPANT_WITH_HOTEL_REG =
     "
+        INSERT 
+        INTO registrations
+          (fname, lname, phone, emergency, email, age, survivor, hashotel, prevattendences) 
+        VALUES (:fname, :lname, :phone, :emergency, :email, :age, :survivor, :hashotel, :prevattendences);
+        
         INSERT INTO hotelregistrations(userID, hotelResID, hotelName)
-        VALUES (:id, :resId, :hotelName)
+        VALUES ((SELECT @@IDENTITY), :resId, :hotelName)
     ";
 
     const GET_VOLUNTEERS =
@@ -108,7 +110,7 @@ class Database
 
         $this->_getRegistrationData = $this->_dbc->prepare(self::GET_REGISTRATION_DATA_1);
         $this->_newParticipant = $this->_dbc->prepare(self::NEW_PARTICIPANT);
-        $this->_newHotelReg = $this->_dbc->prepare(self::NEW_HOTEL_REG);
+        $this->_newHotelReg = $this->_dbc->prepare(self::NEW_PARTICIPANT_WITH_HOTEL_REG);
         $this->_getUsers = $this->_dbc->prepare(self::GET_VOLUNTEERS);
         $this->_newUser = $this->_dbc->prepare(self::INSERT_NEW_USER);
         $this->_deactivateUser = $this->_dbc->prepare(self::DEACTIVATE_USER);
@@ -137,30 +139,39 @@ class Database
      * @param $survivor Database column participant is a survivor or not
      * @param $hashotel Database column participant has a hotel reservation
      * @param $prevattendences Database column participant has attended pilgrimage before
-     * @param $hotelRegId Database column participant hotel confirmation number
+     * @param $hotelResId Database column participant hotel confirmation number
      * @param $hotelName Database column participant hotel name
      * @return mixed void Database column participant data
      */
     public function insertParticipant
         ($fname, $lname, $phone, $emergency, $email, $age, $survivor, $hashotel, $prevattendences,
-         $hotelRegId, $hotelName){
+         $hotelResId, $hotelName){
 
-        $this->_newParticipant->bindParam(':fname', $fname, PDO::PARAM_STR);
-        $this->_newParticipant->bindParam(':lname', $lname, PDO::PARAM_STR);
-        $this->_newParticipant->bindParam(':phone', $phone, PDO::PARAM_STR);
-        $this->_newParticipant->bindParam(':emergency', $emergency, PDO::PARAM_STR);
-        $this->_newParticipant->bindParam(':email', $email, PDO::PARAM_STR);
-        $this->_newParticipant->bindParam(':age', $age, PDO::PARAM_INT);
-        $this->_newParticipant->bindParam(':survivor', $survivor, PDO::PARAM_BOOL);
-        $this->_newParticipant->bindParam(':hashotel', $hashotel, PDO::PARAM_BOOL);
-        $this->_newParticipant->bindParam(':prevattendences', $prevattendences, PDO::PARAM_INT);
+        if(!$hashotel){
+            $this->_newParticipant->bindParam(':fname', $fname, PDO::PARAM_STR);
+            $this->_newParticipant->bindParam(':lname', $lname, PDO::PARAM_STR);
+            $this->_newParticipant->bindParam(':phone', $phone, PDO::PARAM_STR);
+            $this->_newParticipant->bindParam(':emergency', $emergency, PDO::PARAM_STR);
+            $this->_newParticipant->bindParam(':email', $email, PDO::PARAM_STR);
+            $this->_newParticipant->bindParam(':age', $age, PDO::PARAM_INT);
+            $this->_newParticipant->bindParam(':survivor', $survivor, PDO::PARAM_BOOL);
+            $this->_newParticipant->bindParam(':hashotel', $hashotel, PDO::PARAM_BOOL);
+            $this->_newParticipant->bindParam(':prevattendences', $prevattendences, PDO::PARAM_INT);
 
-        $this->_newParticipant->execute();
-        $id = $this->_newParticipant->fetchAll(PDO::FETCH_ASSOC);
-        $id = $id['@@identity'];
-        if($hashotel == 1){
-            $this->_newHotelReg->bindParam(':id', $id, PDO::PARAM_INT);
-            $this->_newHotelReg->bindParam(':regId', $hotelRegId, PDO::PARAM_INT);
+            $this->_newParticipant->execute();
+            return $this->_newParticipant->fetchAll(PDO::FETCH_ASSOC);
+        }
+        else{
+            $this->_newHotelReg->bindParam(':fname', $fname, PDO::PARAM_STR);
+            $this->_newHotelReg->bindParam(':lname', $lname, PDO::PARAM_STR);
+            $this->_newHotelReg->bindParam(':phone', $phone, PDO::PARAM_STR);
+            $this->_newHotelReg->bindParam(':emergency', $emergency, PDO::PARAM_STR);
+            $this->_newHotelReg->bindParam(':email', $email, PDO::PARAM_STR);
+            $this->_newHotelReg->bindParam(':age', $age, PDO::PARAM_INT);
+            $this->_newHotelReg->bindParam(':survivor', $survivor, PDO::PARAM_BOOL);
+            $this->_newHotelReg->bindParam(':hashotel', $hashotel, PDO::PARAM_BOOL);
+            $this->_newHotelReg->bindParam(':prevattendences', $prevattendences, PDO::PARAM_INT);
+            $this->_newHotelReg->bindParam(':resId', $hotelResId, PDO::PARAM_STR);
             $this->_newHotelReg->bindParam(':hotelName', $hotelName, PDO::PARAM_STR);
 
             $this->_newHotelReg->execute();
