@@ -9,22 +9,27 @@ $(document).ready(function(){
     });
 });
 
-// $(document).ready(function(){
-//     $("#modal").click(function(){
-//         if($("#submit").is(":clicked")){
-//             $("#modal").attr("hidden", false);
-//         }
-//         else{
-//             $("#res").attr("hidden", true);
-//         }
-//     });
-// });
+function displayModal(){
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("submit");
+    var span = document.getElementsByClassName("close")[0];
+    btn.onclick = function() {
+        modal.style.display = "block";
+    };
+    span.onclick = function() {
+        modal.style.display = "none";
+    };
+    // window.onclick = function(event) {
+    //     if (event.target == modal) {
+    //         modal.style.display = "none";
+    //     }
+    // }
+}
 
 function validateForm() {
     let x = document.forms["participant"]["fname"].value;
     if (x === "") {
         alert("First name must be filled out.");
-        return false;
     }
     x = document.forms["participant"]["lname"].value;
     if(x === ""){

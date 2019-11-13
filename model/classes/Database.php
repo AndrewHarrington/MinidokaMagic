@@ -155,7 +155,6 @@ class Database
             $this->_newParticipant->bindParam(':email', $email, PDO::PARAM_STR);
             $this->_newParticipant->bindParam(':age', $age, PDO::PARAM_INT);
             $this->_newParticipant->bindParam(':survivor', $survivor, PDO::PARAM_BOOL);
-            $this->_newParticipant->bindParam(':hashotel', $hashotel, PDO::PARAM_BOOL);
             $this->_newParticipant->bindParam(':prevattendences', $prevattendences, PDO::PARAM_INT);
 
             $this->_newParticipant->execute();

@@ -111,9 +111,7 @@ function validAge($age){
  * @return bool true if valid
  */
 function validPhone($phone){
-    return (preg_match("/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/", $phone)
-            || preg_match("/^[0-9]{10}/", $phone)) && (mb_strlen((string)$phone) == 10 ||
-            mb_strlen((string)$phone) == 13);
+    return (preg_match("/^[0-9]{10}/", $phone) && mb_strlen((string)$phone) == 10);
 }
 
 /**
@@ -149,5 +147,6 @@ function validUsername($username){
  * @return bool true if valid
  */
 function validPassword($password){
+
     return  (!empty($password));
 }
