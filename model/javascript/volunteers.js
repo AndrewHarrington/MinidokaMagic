@@ -1,6 +1,6 @@
 $(document).ready(function() {
     let cols = document.getElementsByTagName("th").length;
-    if(cols == 5){
+    if(cols === 5){
         $('#volunteers').DataTable( {
             columnDefs: [
                 {

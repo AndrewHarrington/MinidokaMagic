@@ -20,7 +20,8 @@
   ],
   "require": {
     "bcosca/fatfree-core": "dev-master",
-    "ext-ctype": "*"
+    "ext-ctype": "*",
+    "ext-mbstring": "*"
   },
   "autoload": {
     "classmap": ["model/classes"]
