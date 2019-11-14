@@ -5,7 +5,11 @@ $(document).ready(function() {
             columnDefs: [
                 {
                     className: "dt-left",
-                    targets: [0, 1, 2, 3, 4]
+                    targets: [0, 1, 2, 3, 5]
+                },
+                {
+                    className: "dt-center",
+                    targets: [4, 6]
                 }
             ],
             responsive: {
@@ -29,7 +33,11 @@ $(document).ready(function() {
             columnDefs: [
                 {
                     className: "dt-left",
-                    targets: [0, 1, 2, 3, 4, 5]
+                    targets: [0, 1, 2, 3, 5]
+                },
+                {
+                    className: "dt-center",
+                    targets: [4, 6]
                 }
             ],
             responsive: {

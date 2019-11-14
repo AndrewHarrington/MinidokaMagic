@@ -4,10 +4,14 @@ $(document).ready(function() {
         columnDefs: [
             {
                 className: "dt-left",
-                targets: [0, 1, 2, 3, 4, 5]
+                targets: [0, 1, 2, 3, 4]
             },
             {
                 responsive: true
+            },
+            {
+                className: "dt-center",
+                targets: [5,6,7]
             }],
         responsive: {
             details: {
