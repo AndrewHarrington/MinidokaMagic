@@ -74,7 +74,15 @@
                             <td class="redX">x</td>
                         </false>
                     </check>
-                    <td>{{@row.prevattendences}}</td>
+                    <check if="{{@row.prevattendences == true}}">
+                        <true>
+                            <td>{{@row.prevattendences}}</td>
+                        </true>
+                        <false>
+                            <td></td>
+                        </false>
+                    </check>
+
                     <!--hotel registration id-->
                     <check if="{{@row.hotelResID == null}}">
                         <true>
