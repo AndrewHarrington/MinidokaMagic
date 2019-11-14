@@ -1,14 +1,14 @@
 $(document).ready(function() {
     $('#registrants').DataTable( {
+
         columnDefs: [
             {
                 className: "dt-left",
                 targets: [0, 1, 2, 3, 4, 5]
             },
             {
-
-            }
-            ],
+                responsive: true
+            }],
         responsive: {
             details: {
                 display: $.fn.dataTable.Responsive.display.modal( {
