@@ -27,7 +27,7 @@
                         <a class="nav-link" href="../{{'budget-pdf'}}">Budget</a>
                     </li>
                     <li class="nav-item border border-dark">
-                        <a class="nav-link" href="../{{'new-participant'}}">Registration</a>
+                        <a class="nav-link" href="../{{'new-participant'}}">Add Participant</a>
                     </li>
                     <li class="nav-item border border-dark">
                         <a class="nav-link" href="#">Volunteers</a>
