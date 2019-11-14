@@ -19,8 +19,7 @@
                 <th>Age</th>
                 <th>Survivor</th>
                 <th>Pilgrimages Attended</th>
-                <th>Hotel Reservation</th>
-<!--                <th>Hotel Name</th>-->
+                <th>Hotel Information</th>
             </tr>
         </thead>
         <tbody>
@@ -64,13 +63,9 @@
                     <!--are they a survivor?-->
                     <check if="{{@row.survivor == true}}">
                         <true>
-                            <!--<td><img src="styles/images/yes.jpg" style="width: 50px; height: 55px;" alt="Yes"></td>-->
-                            <!--<td>Yes</td>-->
                             <td class="greenCheck">&check;</td>
                         </true>
                         <false>
-                            <!--<td><img src="styles/images/no.jpg" style="width: 50px; height: 50px;" alt="No"></td>-->
-                            <!--<td>No</td>-->
                             <td class="redX">x</td>
                         </false>
                     </check>
@@ -89,8 +84,12 @@
                             <td></td>
                         </true>
                         <false>
-                            <td>{{@row.hotelResID}}</td>
-<!--                            <td>{{@row.hotelName}}</td>-->
+                            <td>
+                                <strong>Hotel Name:</strong>
+                                &nbsp; {{@row.hotelName}} &nbsp;&nbsp;
+                                <strong>Reservation#: </strong> &nbsp;
+                                {{@row.hotelResID}}
+                            </td>
                         </false>
                     </check>
                 </tr>
