@@ -38,11 +38,11 @@
                     <li class="nav-item border border-dark">
                         <a class="nav-link" href="../{{'volunteers'}}">Volunteers</a>
                     </li>
-                    <check if="@SESSION.admin == 1">
-                        <li class="nav-item border border-dark">
-                            <a class="nav-link" href="../{{'add-volunteer'}}">Add Volunteer</a>
-                        </li>
-                    </check>
+
+                    <li class="nav-item border border-dark">
+                        <a class="nav-link" href="../{{'add-volunteer'}}">Add Volunteer</a>
+                    </li>
+
                     <li class="nav-item border border-dark">
                         <a class="nav-link" href="#">Scholarships</a>
                     </li>
