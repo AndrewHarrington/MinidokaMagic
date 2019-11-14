@@ -1,7 +1,8 @@
 <include href='view/header.html'/>
 <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.jqueryui.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
 <div class="ml-5">
     <br>
     <h3>Volunteers</h3>
@@ -14,12 +15,16 @@
             <th>Last Name</th>
             <th>Phone #</th>
             <th>Email</th>
-            <th>Admin</th>
             <check if="@SESSION.admin == 1">
-                <th>Username</th>
-                <th>Delete User</th>
+                <true>
+                    <th>Username</th>
+                    <th>Admin</th>
+                    <th>Delete User</th>
+                </true>
+                <false>
+                    <th>Admin</th>
+                </false>
             </check>
-
         </tr>
         </thead>
         <tbody>
@@ -28,25 +33,14 @@
                 <td>{{@row.fname}}</td>
                 <td>{{@row.lname}}</td>
                 <!--phone#-->
-                <check if="{{@row.phone == null}}">
-                    <true>
-                        <td></td>
-                    </true>
-                    <false>
-                        <td>({{substr(@row.phone, 0, 3)}})-{{substr(@row.phone, 3, 3)}}-{{substr(@row.phone, 6)}}</td>
-                    </false>
-                </check>
-                <!--email-->
-                <check if="{{@row.email == null}}">
-                    <true>
-                        <td></td>
-                    </true>
-                    <false>
+                <td>({{substr(@row.phone, 0, 3)}})-{{substr(@row.phone, 3, 3)}}-{{substr(@row.phone, 6)}}</td>
 
-                        <td><a href="mailto:{{@row.email}}">{{@row.email}}</a></td>
-                    </false>
-                </check>
-                <check if="{{@row.admin == true}}">
+                <!--email-->
+                <td><a href="mailto:{{@row.email}}">{{@row.email}}</a></td>
+
+                <td>{{@row.username}}</td>
+
+                <check if="{{@row.admin == 1}}">
                     <true>
                         <td class="greenCheck">&check;</td>
                     </true>
@@ -54,52 +48,23 @@
                         <td class="redX">x</td>
                     </false>
                 </check>
-                <check if="@SESSION.admin == 1">
-                    <td>{{@row.username}}</td>
-                    <!--can they add and remove users?-->
-
-    <!--                &lt;!&ndash;can they add and remove registrants?&ndash;&gt;-->
-    <!--                <check if="{{@row.editreg == true}}">-->
-    <!--                    <true>-->
-    <!--                        <td>&check;</td>-->
-    <!--                    </true>-->
-    <!--                    <false>-->
-    <!--                        <td>&#88;</td>-->
-    <!--                    </false>-->
-    <!--                </check>-->
-
-    <!--                &lt;!&ndash;can they add and remove budget files?&ndash;&gt;-->
-    <!--                <check if="{{@row.editbudget == true}}">-->
-    <!--                    <true>-->
-    <!--                        <td>&check;</td>-->
-    <!--                    </true>-->
-    <!--                    <false>-->
-    <!--                        <td>&#88;</td>-->
-    <!--                    </false>-->
-    <!--                </check>-->
-                    <!--Delete Field-->
-                    <td>
-                        <form method="post" action="">
-                            <button class="btn btn-warning" name="uuid" type="submit" value="{{@row.UUID}}">Remove</button>
-                        </form>
-                    </td>
-                </check>
+                <td>
+                    <form method="post" action="">
+                        <button class="btn btn-warning center" name="uuid" type="submit" value="{{@row.UUID}}">Remove</button>
+                    </form>
+                </td>
             </tr>
         </repeat>
         </tbody>
     </table>
 </div>
 <footer>
-    <!--    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>-->
-    <!--    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.20/js/dataTables.jqueryui.min.js"></script>-->
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.jqueryui.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.jqueryui.min.js"></script>
     <script src="model/javascript/volunteers.js"></script>
-<!--    <script type="text/javascript" charset="utf-8" src="model/javascript/participant-table.js"></script>-->
 </footer>
 </body>
 </html>

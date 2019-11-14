@@ -4,7 +4,7 @@ $(document).ready(function() {
         columnDefs: [
             {
                 className: "dt-left",
-                targets: [0, 1, 2, 3, 4]
+                targets: [0, 1, 2, 3, 4, 8]
             },
             {
                 responsive: true
