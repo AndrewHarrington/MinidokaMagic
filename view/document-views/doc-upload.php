@@ -22,8 +22,8 @@
         <ul class="container" id="box"></ul>
     </div>
 </div>
-
-
-<script src="model/javascript/reference-grab.js"></script>
+<footer>
+    <script src="model/javascript/reference-grab.js"></script>
+</footer>
 </body>
 </html>
