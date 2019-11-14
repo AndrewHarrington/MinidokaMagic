@@ -16,7 +16,7 @@
                 <div class="row">
                     <label for="fname" class="col-sm-3 col-form-label-md">First Name:</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="fname" name="fname" value="{{ @fname }}">
+                        <input type="text" class="form-control" id="fname" name="fname" placeholder="Jane" value="{{ @fname }}">
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                 <div class="row">
                     <label for = "lname" class="col-sm-3 col-form-label-md">Last Name:</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="lname" name="lname" value="{{ @lname }}">
+                        <input type="text" class="form-control" id="lname" name="lname" placeholder="Doe" value="{{ @lname }}">
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                 <div class="row">
                     <label for = "email" class="col-sm-3 col-form-label-md">Email:</label>
                     <div class="col-sm-6">
-                        <input id="email" name="email" class="form-control" value="{{ @email }}">
+                        <input id="email" name="email" placeholder="jane.doe@mail.com" class="form-control" value="{{ @email }}">
                     </div>
                 </div>
 
@@ -63,7 +63,7 @@
                 <div class="row">
                     <label for = "phone" class="col-sm-3 col-form-label-md">Phone:</label>
                     <div class="col-sm-6">
-                        <input id="phone" name="phone" class="form-control" value="{{ @phone }}">
+                        <input id="phone" name="phone" placeholder="425-867-5309" class="form-control" value="{{ @phone }}">
                     </div>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                 <div class="row">
                     <label for = "username" class="col-sm-3 col-form-label-md">Username:</label>
                     <div class="col-sm-6">
-                        <input id="username" name="username" class="form-control" value="{{ @username }}">
+                        <input id="username" name="username" placeholder="janedoe" class="form-control" value="{{ @username }}">
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                 <div class="row">
                     <label for = "password" class="col-sm-3 col-form-label-md">Password:</label>
                     <div class="col-sm-6">
-                        <input id="password" name="password" class="form-control" value="{{ @password }}">
+                        <input id="password" name="password" placeholder="password" class="form-control" value="{{ @password }}">
                     </div>
                 </div>
 
@@ -104,6 +104,7 @@
             <div class="form-group col">
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label-md">Admin Privileges:</label>
+                    <div class="col-sm-6">
                         <input type="radio" class="form-check-label" name="admin[]" id="admin-yes" value="1">
                         <label class="form-check-label" for="admin-yes">
                             Yes
@@ -112,12 +113,12 @@
                         <label class="form-check-label" for="admin-no">
                             No
                         </label>
-                    </label>
+                    </div>
                 </div>
             </div>
-            <div id="submission">
+            <div id="submission" class="float-right">
                 <label for="submit">
-                    <input type="submit" id="submit">
+                    <input class="submit" type="submit" id="submit">
                 </label>
             </div>
         </div>
