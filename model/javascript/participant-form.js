@@ -47,4 +47,5 @@ function validateForm() {
     if(x === ""){
         alert("Emergency phone number must be filled out.");
     }
+    alert("User successfully added!")
 }
