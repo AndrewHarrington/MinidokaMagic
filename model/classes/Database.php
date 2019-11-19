@@ -9,6 +9,12 @@
 class Database
 {
 
+    const REMOVE_HOTEL =
+    "
+        DELETE FROM hotelregistrations
+        WHERE userID = :id;
+    ";
+
     const GET_REGISTRANT =
     "
        SELECT *
@@ -26,7 +32,11 @@ class Database
     "
         UPDATE hotelregistrations
         SET hotelRedID = :resID, hotelName = :hotelName
-        WHERE userID = :id
+        WHERE userID = :id;
+        
+        UPDATE registrations
+        SET hashotel = 1
+        WHERE regID = :id;
     ";
 
     const EDIT_PARTICIPANT =
@@ -113,6 +123,7 @@ class Database
     private $_updateHotel;
     private $_insertHotel;
     private $_getRegistrant;
+    private $_removeHotel;
     private $_dbc;
 
     /**
@@ -152,6 +163,7 @@ class Database
         $this->_updateHotel = $this->_dbc->prepare(self::UPDATE_HOTEL);
         $this->_insertHotel = $this->_dbc->prepare(self::INSERT_HOTEL);
         $this->_getRegistrant = $this->_dbc->prepare(self::GET_REGISTRANT);
+        $this->_removeHotel = $this->_dbc->prepare(self::REMOVE_HOTEL);
 
     }
 
@@ -314,6 +326,7 @@ class Database
         $this->_updateParticipant->bindParam(':email', $email, PDO::PARAM_STR);
         $this->_updateParticipant->bindParam(':age', $age, PDO::PARAM_INT);
         $this->_updateParticipant->bindParam(':survivor', $survivor, PDO::PARAM_BOOL);
+        $this->_updateParticipant->bindParam(':hasHotel', $hashotel, PDO::PARAM_BOOL);
         $this->_updateParticipant->bindParam(':prevattendences', $prevattendences, PDO::PARAM_INT);
         $this->_updateParticipant->bindParam(':cancelled', $cancelled, PDO::PARAM_BOOL);
 
@@ -361,6 +374,18 @@ class Database
      * @return mixed - All of that registrant's data
      */
     public function getRegistrant($id){
+        $this->_getRegistrant->bindParam(':id', $id, PDO::PARAM_INT);
+
+        $this->_getRegistrant->execute();
+        return $this->_getRegistrant->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Removes a registrant's hotel data based on their id
+     * @param $id - The unique identifier for the registrant
+     * @return mixed
+     */
+    public function removeHotel($id){
         $this->_getRegistrant->bindParam(':id', $id, PDO::PARAM_INT);
 
         $this->_getRegistrant->execute();
