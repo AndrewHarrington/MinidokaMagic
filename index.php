@@ -300,6 +300,16 @@ $f3->route('GET|POST /new-participant', function ($f3) {
     echo $view->render('view/participant-form.html');
 });
 
+$f3->route('GET|POST /update-participant', function ($f3){
+    if((!isset($_SESSION['fname'])) || (!isset($_SESSION['lname'])) ||
+        (!isset($_SESSION['admin']))) {
+        $f3->reroute('/');
+    };
+    $view = new Template();
+    echo $view->render('view/participant-form.html');
+
+});
+
 $f3->route('GET|POST /add-volunteer', function ($f3) {
     if((!isset($_SESSION['fname'])) || (!isset($_SESSION['lname'])) ||
         (!isset($_SESSION['admin']))) {
