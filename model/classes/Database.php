@@ -9,6 +9,13 @@
 class Database
 {
 
+    const GET_HOTEL =
+    "
+        SELECT * 
+        FROM hotelregistrations
+        WHERE userID = :id
+    ";
+
     const REMOVE_HOTEL =
     "
         DELETE FROM hotelregistrations
@@ -75,7 +82,7 @@ class Database
         VALUES (:username, :password, :fname, :lname, :email, :phone, :admin)
     ";
 
-    const GET_REGISTRATION_DATA_1 =
+    const GET_REGISTRATION_DATA =
     "
           SELECT * 
           FROM registrations INNER JOIN hotelregistrations 
@@ -124,6 +131,7 @@ class Database
     private $_insertHotel;
     private $_getRegistrant;
     private $_removeHotel;
+    private $_getHotel;
     private $_dbc;
 
     /**
@@ -151,7 +159,7 @@ class Database
             return;
         }
 
-        $this->_getRegistrationData = $this->_dbc->prepare(self::GET_REGISTRATION_DATA_1);
+        $this->_getRegistrationData = $this->_dbc->prepare(self::GET_REGISTRATION_DATA);
         $this->_newParticipant = $this->_dbc->prepare(self::NEW_PARTICIPANT);
         $this->_newHotelReg = $this->_dbc->prepare(self::NEW_PARTICIPANT_WITH_HOTEL_REG);
         $this->_getUsers = $this->_dbc->prepare(self::GET_VOLUNTEERS);
@@ -164,6 +172,7 @@ class Database
         $this->_insertHotel = $this->_dbc->prepare(self::INSERT_HOTEL);
         $this->_getRegistrant = $this->_dbc->prepare(self::GET_REGISTRANT);
         $this->_removeHotel = $this->_dbc->prepare(self::REMOVE_HOTEL);
+        $this->_getHotel = $this->_dbc->prepare(self::GET_HOTEL);
 
     }
 
@@ -390,5 +399,17 @@ class Database
 
         $this->_getRegistrant->execute();
         return $this->_getRegistrant->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Gets a registrant's hotel data based on their id
+     * @param $id - The unique identifier for the registrant
+     * @return mixed - All of that registrant's hotel data
+     */
+    public function getHotel($id){
+        $this->_getHotel->bindParam(':id', $id, PDO::PARAM_INT);
+
+        $this->_getHotel->execute();
+        return $this->_getHotel->fetchAll(PDO::FETCH_ASSOC);
     }
 }
