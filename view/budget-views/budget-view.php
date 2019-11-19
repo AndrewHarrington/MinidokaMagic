@@ -28,7 +28,9 @@
             <div class="bg-dark p-4">
 
                 <ul id="navlist" class="navbar-nav justify-content-center">
-
+                    <li class="nav-item border border-dark" >
+                        <a class="nav-link" href="{{'registrations'}}">Home</a>
+                    </li>
                     <li class="nav-item border border-dark">
                         <a class="nav-link" href="../{{'budget-pdf'}}">Budget</a>
                     </li>
