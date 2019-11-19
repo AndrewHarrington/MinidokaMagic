@@ -9,6 +9,13 @@
 class Database
 {
 
+    const GET_REGISTRANT =
+    "
+       SELECT *
+       FROM registrations
+       WHERE regID = :id
+    ";
+
     const INSERT_HOTEL =
     "
         INSERT INTO hotelregistrations (userID, hotelResID, hotelName)
@@ -105,6 +112,7 @@ class Database
     private $_updateParticipant;
     private $_updateHotel;
     private $_insertHotel;
+    private $_getRegistrant;
     private $_dbc;
 
     /**
@@ -143,6 +151,7 @@ class Database
         $this->_updateParticipant = $this->_dbc->prepare(self::EDIT_PARTICIPANT);
         $this->_updateHotel = $this->_dbc->prepare(self::UPDATE_HOTEL);
         $this->_insertHotel = $this->_dbc->prepare(self::INSERT_HOTEL);
+        $this->_getRegistrant = $this->_dbc->prepare(self::GET_REGISTRANT);
 
     }
 
@@ -321,7 +330,7 @@ class Database
      */
     public function editHotel
     ($userID, $hotelName, $hotelResID){
-        $this->_updateHotel->bindParam(':id', $userID, PDO::PARAM_STR);
+        $this->_updateHotel->bindParam(':id', $userID, PDO::PARAM_INT);
         $this->_updateHotel->bindParam(':resID', $hotelResID, PDO::PARAM_STR);
         $this->_updateHotel->bindParam(':hotelName', $hotelName, PDO::PARAM_STR);
 
@@ -338,11 +347,18 @@ class Database
      */
     public function insertHotel
     ($userID, $hotelName, $hotelResID){
-        $this->_insertHotel->bindParam(':id', $userID, PDO::PARAM_STR);
+        $this->_insertHotel->bindParam(':id', $userID, PDO::PARAM_INT);
         $this->_insertHotel->bindParam(':resID', $hotelResID, PDO::PARAM_STR);
         $this->_insertHotel->bindParam(':hotelName', $hotelName, PDO::PARAM_STR);
 
         $this->_insertHotel->execute();
         return $this->_insertHotel->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getRegistrant($id){
+        $this->_getRegistrant->bindParam(':id', $id, PDO::PARAM_INT);
+
+        $this->_getRegistrant->execute();
+        return $this->_getRegistrant->fetchAll(PDO::FETCH_ASSOC);
     }
 }
