@@ -355,6 +355,11 @@ class Database
         return $this->_insertHotel->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Gets a registrant's data based on their id
+     * @param $id - The unique identifier for the registrant
+     * @return mixed - All of that registrant's data
+     */
     public function getRegistrant($id){
         $this->_getRegistrant->bindParam(':id', $id, PDO::PARAM_INT);
 
