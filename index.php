@@ -252,7 +252,7 @@ $f3->route('GET|POST /new-participant', function ($f3) {
         $lname = $_POST['lname'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];
-        $ephone = $_POST['ephone'];
+        $ephone = $_POST['emergency'];
 
         //parse the age
         $age = $_POST['age'];
@@ -278,7 +278,7 @@ $f3->route('GET|POST /new-participant', function ($f3) {
         $f3->set('lname', $lname);
         $f3->set('email', $email);
         $f3->set('phone', $phone);
-        $f3->set('ephone', $ephone);
+        $f3->set('emergency', $ephone);
         $f3->set('age', $age);
         $f3->set('survivor', $survivor);
         $f3->set('attended', $attended);
@@ -305,8 +305,39 @@ $f3->route('GET|POST /update-participant', function ($f3){
         (!isset($_SESSION['admin']))) {
         $f3->reroute('/');
     };
-    $view = new Template();
-    echo $view->render('view/participant-form.html');
+    global $db;
+    //update form
+    if($f3->get('update')==true) {
+        //if user data has changed call editPaticipant()
+        //if hasHotel changed call editHotel()
+        //if inserting hotel call to registered participant
+       $db->editParticipant();
+       $f3->reroute('/');
+    }
+    $id = $_POST['regID'];
+    if(!empty($id))
+    {
+        $f3->set('update',true);
+        $data = $db->getRegistrant($id)[0];
+        $hotelData = $db->getHotel($id)[0];
+        var_dump($data);
+        $f3->set('fname', $data['fname']);
+        $f3->set('lname', $data['lname']);
+        $f3->set('email', $data['email']);
+        $f3->set('phone', $data['phone']);
+        $f3->set('ephone',$data['emergency']);
+        $f3->set('age', $data['age']);
+        $f3->set('survivor', $data['survivor']);
+        $f3->set('attended', $data['attended']);
+        $f3->set('hasHotel',$data['hasHotel']);
+        $f3->set('hotelResID', $hotelData['hotelResID']);
+        $f3->set('hotelName', $hotelData['hotelName']);
+
+        $view = new Template();
+        echo $view->render('view/participant-form.html');
+    }
+//    $view = new Template();
+//    echo $view->render('view/participant-form.html');
 
 });
 

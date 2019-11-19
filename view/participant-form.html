@@ -83,7 +83,7 @@
                 <div class="row">
                     <label for = "ephone" class="col-sm-3 col-form-label-md">Emergency Contact:</label>
                     <div class="col-sm-6">
-                        <input id="ephone" name="ephone" class="form-control" placeholder="123-456-7890" value="{{ @ephone }}">
+                        <input id="ephone" name="emergency" class="form-control" placeholder="123-456-7890" value="{{ @ephone }}">
                     </div>
                 </div>
             </div>
@@ -145,8 +145,15 @@
                             <input id="hasHotel" class="form-check-label" name="hasHotel" type="checkbox" value="{{ @hasHotel }} ">
                         </div>
                     </div>
+                    <check if="isset(@update)">
+                        <true>
+                            <div class="form-group" id="res" >
+                        </true>
+                        <false>
+                            <div class="form-group" id="res" hidden>
+                        </false>
 
-                    <div class="form-group" id="res" hidden>
+                    </check>
 
                         <div class="form-group row">
                             <label for="hotelName" class="col-sm-3 col-form-label-md">Hotel Name:</label>
