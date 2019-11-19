@@ -1,7 +1,10 @@
 <include href="view/header.html"/>
 <div class="ml-5">
     <br>
-    <h3>Add Participant</h3>
+    <check if="isset(@update)">
+        <true><h3>Update Participant</h3></true>
+        <false><h3>Add Participant</h3></false>
+    </check>
 </div>
 <div class="jumbotron" id="capsule">
     <form name="participant" method="POST" action="#" onsubmit="" class="form-horizontal">
