@@ -9,6 +9,27 @@
 class Database
 {
 
+    const INSERT_HOTEL =
+    "
+        INSERT INTO hotelregistrations (userID, hotelResID, hotelName)
+        VALUES(:userId, :hotelResID, :hotelName)
+    ";
+
+    const UPDATE_HOTEL =
+    "
+        UPDATE hotelregistrations
+        SET hotelRedID = :resID, hotelName = :hotelName
+        WHERE userID = :id
+    ";
+
+    const EDIT_PARTICIPANT =
+    "
+        UPDATE registrations
+        SET fname = :fname, lname = :lname, phone = :phone, emergency = :emergency, email = :email, age = :age, 
+          survivor = :survivor, hashotel = :hashotel, prevattendences = : prevattendences, cancelled = :cancelled
+        WHERE regID = :id
+    ";
+
     const IS_VALID_USERNAME =
     "
         SELECT *
@@ -43,7 +64,7 @@ class Database
           FROM registrations INNER JOIN hotelregistrations 
           WHERE registrations.regID = hotelregistrations.userID
           UNION
-          SELECT regID, fname, lname, phone, emergency, email, age, survivor, hashotel, prevattendences, NULL as hotelRedPKID, NULL as userID, NULL as hotelResID, NULL as hotelName
+          SELECT regID, fname, lname, phone, emergency, email, age, survivor, hashotel, prevattendences, NULL as hotelRedPKID, NULL as userID, NULL as hotelResID, NULL as hotelName, cancelled
           FROM registrations
           WHERE hashotel = false
     ";
@@ -81,6 +102,9 @@ class Database
     private $_deactivateUser;
     private $_isValidUser;
     private $_isValidUsername;
+    private $_updateParticipant;
+    private $_updateHotel;
+    private $_insertHotel;
     private $_dbc;
 
     /**
@@ -116,6 +140,9 @@ class Database
         $this->_deactivateUser = $this->_dbc->prepare(self::DEACTIVATE_USER);
         $this->_isValidUser = $this->_dbc->prepare(self::IS_VALID_USER);
         $this->_isValidUsername = $this->_dbc->prepare(self::IS_VALID_USERNAME);
+        $this->_updateParticipant = $this->_dbc->prepare(self::EDIT_PARTICIPANT);
+        $this->_updateHotel = $this->_dbc->prepare(self::UPDATE_HOTEL);
+        $this->_insertHotel = $this->_dbc->prepare(self::INSERT_HOTEL);
 
     }
 
@@ -250,5 +277,72 @@ class Database
 
         $this->_isValidUsername->execute();
         return $this->_isValidUsername->rowCount(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * This function edits an existing participant in the database
+     * @param $id Database column participant unique identifier
+     * @param $fname Database column participant first name
+     * @param $lname Database column participant last name
+     * @param $phone Database column participant phone number
+     * @param $emergency Database column participant emergency number
+     * @param $email Database column participant email
+     * @param $age Database column participant age
+     * @param $survivor Database column participant is a survivor or not
+     * @param $hashotel Database column participant has a hotel reservation
+     * @param $prevattendences Database column participant has attended pilgrimage before
+     * @param $cancelled Database column participant has cancelled their attendence
+     * @return mixed void Database column participant data
+     */
+    public function editParticipant
+    ($id, $fname, $lname, $phone, $emergency, $email, $age, $survivor, $hashotel, $prevattendences, $cancelled){
+
+        $this->_updateParticipant->bindParam(':id', $id, PDO::PARAM_INT);
+        $this->_updateParticipant->bindParam(':fname', $fname, PDO::PARAM_STR);
+        $this->_updateParticipant->bindParam(':lname', $lname, PDO::PARAM_STR);
+        $this->_updateParticipant->bindParam(':phone', $phone, PDO::PARAM_STR);
+        $this->_updateParticipant->bindParam(':emergency', $emergency, PDO::PARAM_STR);
+        $this->_updateParticipant->bindParam(':email', $email, PDO::PARAM_STR);
+        $this->_updateParticipant->bindParam(':age', $age, PDO::PARAM_INT);
+        $this->_updateParticipant->bindParam(':survivor', $survivor, PDO::PARAM_BOOL);
+        $this->_updateParticipant->bindParam(':prevattendences', $prevattendences, PDO::PARAM_INT);
+        $this->_updateParticipant->bindParam(':cancelled', $cancelled, PDO::PARAM_BOOL);
+
+        $this->_updateParticipant->execute();
+        return $this->_updateParticipant->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * This Function updates a users hotel information
+     * @param $userID - The id of the user
+     * @param $hotelName - The new name of the hotel
+     * @param $hotelResID - The new reservation number for that user
+     * @return mixed
+     */
+    public function editHotel
+    ($userID, $hotelName, $hotelResID){
+        $this->_updateHotel->bindParam(':id', $userID, PDO::PARAM_STR);
+        $this->_updateHotel->bindParam(':resID', $hotelResID, PDO::PARAM_STR);
+        $this->_updateHotel->bindParam(':hotelName', $hotelName, PDO::PARAM_STR);
+
+        $this->_updateHotel->execute();
+        return $this->_updateHotel->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * This Function inserts a users hotel information
+     * @param $userID - The id of the user
+     * @param $hotelName - The new name of the hotel
+     * @param $hotelResID - The new reservation number for that user
+     * @return mixed
+     */
+    public function insertHotel
+    ($userID, $hotelName, $hotelResID){
+        $this->_insertHotel->bindParam(':id', $userID, PDO::PARAM_STR);
+        $this->_insertHotel->bindParam(':resID', $hotelResID, PDO::PARAM_STR);
+        $this->_insertHotel->bindParam(':hotelName', $hotelName, PDO::PARAM_STR);
+
+        $this->_insertHotel->execute();
+        return $this->_insertHotel->fetchAll(PDO::FETCH_ASSOC);
     }
 }
