@@ -24,13 +24,14 @@ $(document).ready(function(){
 
             //check to add delete button
             if($("#isAdmin").val() == 1 ){
-                toAppend += "<form method='post' class='float-right' action=''><button class='btn btn-warning' name='file' value='" + pdfName + "' type='submit'><i class=\"fas fa-trash-alt\"></i></button></form>";
+
+                toAppend += "<form method='post' class='float-right' action=''><button class='btn btn-warning' name='file' value='" + pdfName + "' type='submit'><i class='fas fa-trash-alt'></i></button></form>";
             }
 
             toAppend += "</li>";
 
             //write each element as a clickable image/text
-            $("#box").append(toAppend);
+            $(".box").append(toAppend);
 
         })
     });

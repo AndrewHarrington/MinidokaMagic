@@ -19,10 +19,11 @@
             </form>
         </check>
         <input type="hidden" id="isAdmin" value="{{@SESSION.admin}}">
-        <ul class="container" id="box"></ul>
+        <ul class="container box" ></ul>
     </div>
 </div>
 <footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="model/javascript/reference-grab.js"></script>
 </footer>
 </body>
