@@ -1,7 +1,4 @@
 <include href='view/header.html'/>
-<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.jqueryui.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
     <div class="ml-5">
     <br>
     <h3>Participants</h3>
@@ -97,7 +94,7 @@
                     </check>
                     <td>
                         <form method="post" action="{{'update-participant'}}">
-                            <button class="btn btn-warning center" type="submit" class="btn btn-default btn-sm" name="regID" value="{{@row.regID}}">
+                            <button class="btn btn-warning center" type="submit"  name="regID" value="{{@row.regID}}">
                                 <i class="fas fa-edit"></i>
                             </button>
                         </form>
