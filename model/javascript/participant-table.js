@@ -11,7 +11,7 @@ $(document).ready(function() {
             },
             {
                 className: "dt-center",
-                targets: [5,6,7]
+                targets: [5,6,7,9]
             }],
         responsive: {
             details: {

@@ -312,7 +312,7 @@ $f3->route('GET|POST /update-participant', function ($f3){
     if(!empty($id))
     {
         $f3->set('update',true);
-        var_dump($data);
+        //var_dump($data);
         $f3->set('fname', $data['fname']);
         $f3->set('lname', $data['lname']);
         $f3->set('email', $data['email']);
