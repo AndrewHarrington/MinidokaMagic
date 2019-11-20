@@ -3,7 +3,7 @@
     <br>
     <h3>Add Volunteer</h3>
 </div><div class="jumbotron" id="capsule">
-    <form action= "#" method ="POST" class="form-horizontal">
+    <form name="user" action= "#" method ="POST" class="form-horizontal">
         <div class = "form-group">
             <div class="form-group col">
                 <div class="row">
@@ -118,11 +118,10 @@
             </div>
             <div id="submission" class="float-right">
                 <label for="submit">
-                    <input class="submit" type="submit" id="submit">
+                    <input class="submit" type="submit" id="submit" onclick="validateUserForm()">
                 </label>
             </div>
         </div>
     </form>
 </div>
-</body>
-</html>
+<include href='view/footer.html'/>

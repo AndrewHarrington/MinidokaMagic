@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    $('#registrants').DataTable( {
+
+    $('#registrants').DataTable ({
 
         columnDefs: [
             {
@@ -14,22 +15,21 @@ $(document).ready(function() {
                 targets: [5,6,7,9]
             }],
         responsive: {
+
             details: {
-                display: $.fn.dataTable.Responsive.display.modal( {
+
+                display: $.fn.dataTable.Responsive.display.modal({
                     header: function ( row ) {
-                        var data = row.data();
+                        let data = row.data();
                         return 'Details for '+data[0]+' '+ data[1];
-
-                    },
-                    id: function (column) {
-                        var data = column.data();
-                        return data[9] = '';
                     }
-                } ),
-                renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
-                     tableClass: 'table'
+                }),
 
-                } )
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll ({
+
+                     tableClass: 'table',
+
+                })
             }
         },
         "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
