@@ -306,20 +306,12 @@ $f3->route('GET|POST /update-participant', function ($f3){
         $f3->reroute('/');
     };
     global $db;
-    //update form
-    if($f3->get('update')==true) {
-        //if user data has changed call editPaticipant()
-        //if hasHotel changed call editHotel()
-        //if inserting hotel call to registered participant
-       $db->editParticipant();
-       $f3->reroute('/');
-    }
     $id = $_POST['regID'];
+    $data = $db->getRegistrant($id)[0];
+    $hotelData = $db->getHotel($id)[0];
     if(!empty($id))
     {
         $f3->set('update',true);
-        $data = $db->getRegistrant($id)[0];
-        $hotelData = $db->getHotel($id)[0];
         var_dump($data);
         $f3->set('fname', $data['fname']);
         $f3->set('lname', $data['lname']);
@@ -332,13 +324,22 @@ $f3->route('GET|POST /update-participant', function ($f3){
         $f3->set('hasHotel',$data['hasHotel']);
         $f3->set('hotelResID', $hotelData['hotelResID']);
         $f3->set('hotelName', $hotelData['hotelName']);
+        $f3->set('cancelled',$data['canceled']);
 
         $view = new Template();
         echo $view->render('view/participant-form.html');
     }
-//    $view = new Template();
-//    echo $view->render('view/participant-form.html');
-
+    //TODO update form checks
+    //if user data has changed call editParticipant()
+    //if hasHotel changed call editHotel()
+    //if inserting hotel call to registered participant
+//    if($f3->get('update')==true) {
+//
+//            var_dump($_POST);
+//            $db->editParticipant();
+//
+//            $f3->reroute('/registrations');
+//    }
 });
 
 $f3->route('GET|POST /add-volunteer', function ($f3) {

@@ -27,9 +27,9 @@ function validateParticipantForm(){
         $f3->set("errors['phone']", "Not a valid phone number, please reenter!");
     }
 
-    if(!validPhone($f3->get('ephone'))){
+    if(!validPhone($f3->get('emergency'))){
         $isValid = false;
-        $f3->set("errors['ephone']", "Not a valid phone number, please reenter!");
+        $f3->set("errors['emergency']", "Not a valid phone number, please reenter!");
     }
 
     if (!validAge($f3->get('age'))) {

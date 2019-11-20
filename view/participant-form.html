@@ -74,9 +74,9 @@
 
             <div id="emergency" class="form-group col">
                 <div class="row">
-                    <check if="{{ @errors['ephone'] }}">
+                    <check if="{{ @errors['emergency'] }}">
                         <div class="alert alert-danger" role="alert">
-                            <span class="error">{{ @errors['ephone'] }}</span>
+                            <span class="error">{{ @errors['emergency'] }}</span>
                         </div>
                     </check>
                 </div>
@@ -112,7 +112,8 @@
                         <label class="form-check-label" for="survivor-yes">
                             Yes
                         </label>
-                        <input type="radio" class="form-check-label" name="survivor[]" id="survivor-no" value="0" checked="checked">
+                        <input type="radio" class="form-check-label" name="survivor[]" id="survivor-no" value="0"
+                               checked= "checked">
                         <label class="form-check-label" for="survivor-no">
                             No
                         </label>
@@ -128,7 +129,8 @@
                         <label class="form-check-label" for="prevattend-yes">
                             Yes
                         </label>
-                        <input type="radio" class="form-check-label" id="prevattend-no" name="prevattend[]" value="0" checked="checked">
+                        <input type="radio" class="form-check-label" id="prevattend-no" name="prevattend[]" value="0"
+                               checked= "checked">
                         <label class="form-check-label" for="prevattend-no">
                             No
                         </label>
@@ -152,7 +154,6 @@
                         <false>
                             <div class="form-group" id="res" hidden>
                         </false>
-
                     </check>
 
                         <div class="form-group row">
@@ -168,6 +169,26 @@
                                 <input type="text" id="hotel" name = "hotelResID" value = "{{ @hotelResID }}" placeholder="reservation#" class="form-control">
                             </div>
                         </div>
+                    <check if="isset(@update)">
+                        <true>
+                            <div id="cancel" class="form-group row">
+                        </true>
+                        <false>
+                            <div id="cancel" class="form-group row" hidden>
+                        </false>
+                    </check>
+                        <label class="col-sm-3 col-form-label-md">Cancel Attendance</label>
+                        <div class="col-sm-6">
+                            <input type="radio" class="form-check-label" id="cancel-yes" name="cancelled[]" value="1">
+                            <label class="form-check-label" for="cancel-yes">
+                                Yes
+                            </label>
+                            <input type="radio" class="form-check-label" id="cancel-no" name="cancelled[]" value="0" checked="checked">
+                            <label class="form-check-label" for="cancel-no">
+                                No
+                            </label>
+                        </div>
+                    </div>
 
 
                     </div>

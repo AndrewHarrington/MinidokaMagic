@@ -43,7 +43,7 @@ function validateForm() {
     if(x === ""){
         alert("Phone number must be filled out.");
     }
-    x = document.forms["participant"]["ephone"].value;
+    x = document.forms["participant"]["emergency"].value;
     if(x === ""){
         alert("Emergency phone number must be filled out.");
     }
