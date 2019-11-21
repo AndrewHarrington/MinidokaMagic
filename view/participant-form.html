@@ -6,9 +6,12 @@
         <false><h3>Add Participant</h3></false>
     </check>
 </div>
+<!--Form Box-->
 <div class="jumbotron" id="capsule">
-    <form name="participant" method="POST" action="#" onsubmit="" class="form-horizontal">
+    <!--Overall form-->
+    <form name="participant" method="POST" action="" onsubmit="" class="form-horizontal">
         <div class = "form-group">
+            <!--First Name-->
             <div id="first" class="form-group col">
                 <div class="row">
                     <check if="{{ @errors['fname'] }}">
@@ -24,6 +27,7 @@
                     </div>
                 </div>
             </div>
+            <!--Last Name-->
             <div id="last" class="form-group col">
                 <div class="row">
                     <check if="{{ @errors['lname'] }}">
@@ -39,6 +43,7 @@
                     </div>
                 </div>
             </div>
+            <!--Email-->
             <div id="mail" class="form-group col">
                 <div class="row">
                     <check if="{{ @errors['email'] }}">
@@ -55,7 +60,7 @@
                 </div>
 
             </div>
-
+            <!--Phone Number-->
             <div id="phone-number" class="form-group col">
                 <div class="row">
                     <check if="{{ @errors['phone'] }}">
@@ -71,7 +76,7 @@
                     </div>
                 </div>
             </div>
-
+            <!--Emergency Phone Number-->
             <div id="emergency" class="form-group col">
                 <div class="row">
                     <check if="{{ @errors['emergency'] }}">
@@ -87,7 +92,7 @@
                     </div>
                 </div>
             </div>
-
+            <!--Date Of Birth-->
             <div id="DOB" class="form-group col">
                 <div class="row">
                     <check if="{{@errors['age']}}">
@@ -103,52 +108,61 @@
                     </div>
                 </div>
             </div>
-
+            <!--Survivor-->
             <div class="form-group col">
                 <div id="survive" class="form-group row">
                     <label class="col-sm-3 col-form-label-md">Is the guest a survivor?</label>
                     <div class="col-sm-6">
-                        <input type="radio" class="form-check-label" name="survivor[]" id="survivor-yes" value="1">
+                        <input type="radio" class="form-check-label" name="survivor[]" id="survivor-yes" value="1"
+                        <check if="{{@survivor}}"><true>checked="checked"</true></check>>
                         <label class="form-check-label" for="survivor-yes">
                             Yes
                         </label>
                         <input type="radio" class="form-check-label" name="survivor[]" id="survivor-no" value="0"
-                               checked= "checked">
+                        <check if="{{@survivor}}"><false>checked="checked"</false></check>>
                         <label class="form-check-label" for="survivor-no">
                             No
                         </label>
                     </div>
                 </div>
             </div>
-
+            <!--Previous Attendances-->
             <div class="form-group col">
                 <div id="attendance" class="form-group row">
                     <label class="col-sm-3 col-form-label-md">Has the guest previously attended?</label>
                     <div class="col-sm-6">
-                        <input type="radio" class="form-check-label" id="prevattend-yes" name="prevattendences[]" value="1">
+                        <input type="radio" class="form-check-label" id="prevattend-yes" name="prevattendences[]" value="1"
+                            <check if="{{@attended}}"><true>checked="checked"</true></check>>
                         <label class="form-check-label" for="prevattend-yes">
                             Yes
                         </label>
                         <input type="radio" class="form-check-label" id="prevattend-no" name="prevattendences[]" value="0"
-                               checked= "checked">
+                            <check if="{{@attended}}"><false>checked="checked"</false></check>>
                         <label class="form-check-label" for="prevattend-no">
                             No
                         </label>
                     </div>
                 </div>
             </div>
-
+            <!--Hotel Check Box-->
             <div class="form-group-col">
                 <div id="reservation" class="col-sm-12">
-
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label-md" for="hasHotel">Check if the guest has a reservation:</label>
-                        <div class="col-sm-6">
-                            <input id="hasHotel" class="form-check-label" name="hasHotel" type="checkbox"
-                            <check if="isset($_POST['hasHotel'])">
-                                checked = 'checked';
-                            </check>value="{{ @hasHotel }}">
-                        </div>
+                        <check if="isset(@update)">
+                            <true>
+                                <label class="col-sm-3 col-form-label-md" for="hasHotel">Check if the guest has a reservation:</label>
+                                <div class="col-sm-6">
+                                    <input id="hasHotel" class="form-check-label" name="hasHotel" type="checkbox" checked="{{ @hasHotel }}">
+                                </div>
+                            </true>
+                            <false>
+                                <label class="col-sm-3 col-form-label-md" for="hasHotel">Check if the guest has a reservation:</label>
+                                <div class="col-sm-6">
+                                    <input id="hasHotel" class="form-check-label" name="hasHotel" type="checkbox" value="{{ @hasHotel }}">
+                                </div>
+                            </false>
+                        </check>
+
                     </div>
                     <check if="isset(@update)">
                         <true>
@@ -172,32 +186,42 @@
                                 <input type="text" id="hotel" name = "hotelResID" value = "{{ @hotelResID }}" placeholder="reservation#" class="form-control">
                             </div>
                         </div>
-                    <check if="isset(@update)">
-                        <true>
-                            <div id="cancel" class="form-group row">
-                        </true>
-                        <false>
-                            <div id="cancel" class="form-group row" hidden>
-                        </false>
-                    </check>
-                        <label class="col-sm-3 col-form-label-md">Cancel Attendance</label>
-                        <div class="col-sm-6">
-                            <input type="radio" class="form-check-label" id="cancel-yes" name="cancelled[]" value="1">
-                            <label class="form-check-label" for="cancel-yes">
-                                Yes
-                            </label>
-                            <input type="radio" class="form-check-label" id="cancel-no" name="cancelled[]" value="0" checked="checked">
-                            <label class="form-check-label" for="cancel-no">
-                                No
-                            </label>
-                        </div>
+
                     </div>
 
 
                     </div>
+            
+            <!--Cancellation-->
+            <div class="ml-3">
+                <check if="isset(@update)">
+                    <true>
+                        <div id="cancel" class="form-group row">
+                    </true>
+                    <false>
+                        <div id="cancel" class="form-group row" hidden>
+                    </false>
+                </check>
+                    <label class="col-sm-3 col-form-label-md">Cancel Attendance</label>
+                    <div class="col-sm-6">
+                        <input type="radio" class="form-check-label" id="cancel-yes" name="cancelled[]" value="1">
+                        <label class="form-check-label" for="cancel-yes">
+                            Yes
+                        </label>
+                        <input type="radio" class="form-check-label" id="cancel-no" name="cancelled[]" value="0" checked="checked">
+                        <label class="form-check-label" for="cancel-no">
+                            No
+                        </label>
+                    <!--Closing for col-sm-6 div-->
+                    </div>
+                <!--Closing for visibility div-->
                 </div>
+            <!--Closing for form group div-->
+            </div>
+
             <check if="isset(@update)">
                 <true>
+                    <input type="hidden" value="1" name="isUpdate" id="isUpdate">
                     <div id="submission" class="float-right">
                         <label for="update">
                             <input name ="{{@row.regID}}" value="Update" class="update" type="submit" id="update" >
