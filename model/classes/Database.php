@@ -147,8 +147,8 @@ class Database
      * @return PDO|void
      */
     public function connect(){
-        $user = $_SERVER['USER'];
-        if($user == "minidoka"){
+        $user = $_SERVER['HTTP_HOST'];
+        if($user == "minidokamagic.greenriverdev.com"){
             require_once("/../home/minidoka/db_connection.php");
         }
         else{
