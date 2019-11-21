@@ -212,7 +212,7 @@ class Database
             $this->_newParticipant->bindParam(':email', $email, PDO::PARAM_STR);
             $this->_newParticipant->bindParam(':age', $age, PDO::PARAM_INT);
             $this->_newParticipant->bindParam(':survivor', $survivor, PDO::PARAM_BOOL);
-            $this->_newParticipant->bindParam(':prevattendences', $prevattendences, PDO::PARAM_INT);
+            $this->_newParticipant->bindParam(':prevattendences', $prevattendences, PDO::PARAM_BOOL);
 
             $this->_newParticipant->execute();
             return $this->_newParticipant->fetchAll(PDO::FETCH_ASSOC);
@@ -226,7 +226,7 @@ class Database
             $this->_newHotelReg->bindParam(':age', $age, PDO::PARAM_INT);
             $this->_newHotelReg->bindParam(':survivor', $survivor, PDO::PARAM_BOOL);
             $this->_newHotelReg->bindParam(':hashotel', $hashotel, PDO::PARAM_BOOL);
-            $this->_newHotelReg->bindParam(':prevattendences', $prevattendences, PDO::PARAM_INT);
+            $this->_newHotelReg->bindParam(':prevattendences', $prevattendences, PDO::PARAM_BOOL);
             $this->_newHotelReg->bindParam(':resId', $hotelResId, PDO::PARAM_STR);
             $this->_newHotelReg->bindParam(':hotelName', $hotelName, PDO::PARAM_STR);
 
@@ -321,7 +321,7 @@ class Database
      * @param $survivor Database column participant is a survivor or not
      * @param $hashotel Database column participant has a hotel reservation
      * @param $prevattendences Database column participant has attended pilgrimage before
-     * @param $cancelled Database column participant has cancelled their attendence
+     * @param $cancelled Database column participant has cancelled their attendance
      * @return mixed void Database column participant data
      */
     public function editParticipant
@@ -336,7 +336,7 @@ class Database
         $this->_updateParticipant->bindParam(':age', $age, PDO::PARAM_INT);
         $this->_updateParticipant->bindParam(':survivor', $survivor, PDO::PARAM_BOOL);
         $this->_updateParticipant->bindParam(':hasHotel', $hashotel, PDO::PARAM_BOOL);
-        $this->_updateParticipant->bindParam(':prevattendences', $prevattendences, PDO::PARAM_INT);
+        $this->_updateParticipant->bindParam(':prevattendences', $prevattendences, PDO::PARAM_BOOL);
         $this->_updateParticipant->bindParam(':cancelled', $cancelled, PDO::PARAM_BOOL);
 
         $this->_updateParticipant->execute();

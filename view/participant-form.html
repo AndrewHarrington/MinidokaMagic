@@ -125,11 +125,11 @@
                 <div id="attendance" class="form-group row">
                     <label class="col-sm-3 col-form-label-md">Has the guest previously attended?</label>
                     <div class="col-sm-6">
-                        <input type="radio" class="form-check-label" id="prevattend-yes" name="prevattend[]" value="1">
+                        <input type="radio" class="form-check-label" id="prevattend-yes" name="prevattendences[]" value="1">
                         <label class="form-check-label" for="prevattend-yes">
                             Yes
                         </label>
-                        <input type="radio" class="form-check-label" id="prevattend-no" name="prevattend[]" value="0"
+                        <input type="radio" class="form-check-label" id="prevattend-no" name="prevattendences[]" value="0"
                                checked= "checked">
                         <label class="form-check-label" for="prevattend-no">
                             No
@@ -144,7 +144,10 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label-md" for="hasHotel">Check if the guest has a reservation:</label>
                         <div class="col-sm-6">
-                            <input id="hasHotel" class="form-check-label" name="hasHotel" type="checkbox" value="{{ @hasHotel }} ">
+                            <input id="hasHotel" class="form-check-label" name="hasHotel" type="checkbox"
+                            <check if="isset($_POST['hasHotel'])">
+                                checked = 'checked';
+                            </check>value="{{ @hasHotel }}">
                         </div>
                     </div>
                     <check if="isset(@update)">
@@ -193,11 +196,22 @@
 
                     </div>
                 </div>
-                <div id="submission" class="float-right">
-                    <label for="submit">
-                        <input class="submit" type="submit" id="submit" onclick="validateForm()">
-                    </label>
-                </div>
+            <check if="isset(@update)">
+                <true>
+                    <div id="submission" class="float-right">
+                        <label for="update">
+                            <input name ="{{@row.regID}}" value="Update" class="update" type="submit" id="update" >
+                        </label>
+                    </div>
+                </true>
+                <false>
+                    <div id="submission" class="float-right">
+                        <label for="submit">
+                            <input class="submit" type="submit" id="submit" onclick="validateForm()">
+                        </label>
+                    </div>
+                </false>
+            </check>
 
                 <div class="modal" tabindex="-1" role="dialog" hidden>
                     <div class="modal-dialog" role="document">

@@ -246,7 +246,7 @@ $f3->route('GET|POST /new-participant', function ($f3) {
         $f3->reroute('/');
     };
 
-    if(!empty($_POST)) {
+    if($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST)) {
 
         $fname = $_POST['fname'];
         $lname = $_POST['lname'];
@@ -258,12 +258,21 @@ $f3->route('GET|POST /new-participant', function ($f3) {
         $age = $_POST['age'];
         $age = explode("-", $age);
         $age = 2019 - $age[0];
+        if($_POST['survivor'][0]==1)
+        {
+            $survivor = 1;
+        }else{
+            $survivor = 0;
+        }
 
-        $survivor = $_POST['survivor'];
-        $survivor = $survivor[0];
-        $attended = $_POST['prevattend'];
-        $attended = $attended[0];
-        $hasHotel = isset($_POST['hasHotel']);
+        if($_POST['prevattendences'][0]==1)
+        {
+            $attended = 1;
+        }else{
+            $attended = 0;
+        }
+
+        $hasHotel = $_POST['hasHotel'];
         $hotelResID = $_POST['hotelResID'];
         $hotelName = $_POST['hotelName'];
         $filterPhone = filter_var($phone,FILTER_SANITIZE_NUMBER_INT);
@@ -281,10 +290,11 @@ $f3->route('GET|POST /new-participant', function ($f3) {
         $f3->set('emergency', $ephone);
         $f3->set('age', $age);
         $f3->set('survivor', $survivor);
-        $f3->set('attended', $attended);
+        $f3->set('prevattendences', $attended);
         $f3->set('hasHotel',$hasHotel);
         $f3->set('hotelResID', $hotelResID);
         $f3->set('hotelName', $hotelName);
+        //var_dump($_POST);
 
         if (validateParticipantForm()) {
 
@@ -295,12 +305,12 @@ $f3->route('GET|POST /new-participant', function ($f3) {
             $f3->reroute('/registrations');
         }
     }
-
     $view = new Template();
     echo $view->render('view/participant-form.html');
 });
 
 $f3->route('GET|POST /update-participant', function ($f3){
+    //check to see if they are logged in
     if((!isset($_SESSION['fname'])) || (!isset($_SESSION['lname'])) ||
         (!isset($_SESSION['admin']))) {
         $f3->reroute('/');
@@ -308,11 +318,89 @@ $f3->route('GET|POST /update-participant', function ($f3){
     global $db;
     $id = $_POST['regID'];
     $data = $db->getRegistrant($id)[0];
+
     $hotelData = $db->getHotel($id)[0];
+    //check to see if they have submitted an updated participant
+    if(($_SERVER['REQUEST_METHOD'] == "POST") && ($_POST['isUpdate'] == 1)){
+
+        //database interactions
+        if(!empty($_POST) && $_POST['hasHotel'] == 1)
+        {
+
+//            $userID=$db->getRegistrant($_POST['regID']);
+            $uHotelResID = $_POST['hotelResID'];
+            $uHotelName = $_POST['hotelName'];
+
+            $uFname = $_POST['fname'];
+            $uLname =$_POST['lname'];
+            $uEmail = $_POST['email'];
+            $uPhone = $_POST['phone'];
+            $uEmergency = $_POST['emergency'];
+            $uAge = ($_POST['age'] - 2019);
+            if(isset($_POST['survivor']) && $_POST['survivor']==1)
+            {
+                $uSurvivor = $_POST['survivor'][0];
+                $f3->set('survivor', $uSurvivor);
+            }else{
+                $uSurvivor = $_POST['survivor'][0];
+                $f3->set('survivor', $uSurvivor);
+
+            }
+            if(isset($_POST['prevattendences'])&& $_POST['prevattendences']==1)
+            {
+                $uPrevattend = $_POST['[prevattendences'][0];
+                $f3->set('prevattendences', $uPrevattend);
+            }else{
+                $uPrevattend = $_POST['[prevattendences'][1];
+                $f3->set('prevattendences', $uPrevattend);
+            }
+            if(isset($_POST['hasHotel']))
+            {
+                $uHasHotel = 1;
+                $f3->set('hasHotel', $uHasHotel);
+            }else{
+                $uHasHotel = 0;
+                $f3->set('hasHotel', $uHasHotel);
+            }
+            if(isset($_POST['regID']) && $_POST['regID'] == $userID)
+            {
+               $userID= $_POST['regID'] ;
+                $f3->set('regID', $userID);
+            }
+            if(isset($_POST['cancelled']) && $_POST['cancelled'] == 1)
+            {
+                $uCancelled = $_POST['cancelled'][0];
+                $f3->set('cancelled',$uCancelled);
+            }else{
+                $uCancelled = $_POST['cancelled'][1];
+                $f3->set('cancelled',$uCancelled);
+            }
+
+            $f3->set('hotelResID', $uHotelResID);
+            $f3->set('hotelName', $uHotelName);
+            $f3->set('fname',$uFname);
+            $f3->set('lname',$uLname);
+            $f3->set('email', $uEmail);
+            $f3->set('phone' , $uPhone);
+            $f3->set('emergency', $uEmergency);
+            $f3->set('age',$uAge);
+
+            //var_dump($f3);
+            $db->insertHotel($userID,$uHotelName,$uHotelResID);
+            $db->editParticipant($uFname,$uLname,$uPhone,$uEmergency,$uEmail,$uAge,$uSurvivor,$uHasHotel,
+            $uPrevattend, $uHotelResID);
+
+            $f3->reroute('/registrations');
+        }
+    } else {
+
+        var_dump($_POST);
+    }
+
+    //otherwise...
+
     if(!empty($id))
     {
-        $f3->set('update',true);
-        //var_dump($data);
         $f3->set('fname', $data['fname']);
         $f3->set('lname', $data['lname']);
         $f3->set('email', $data['email']);
@@ -320,27 +408,26 @@ $f3->route('GET|POST /update-participant', function ($f3){
         $f3->set('ephone',$data['emergency']);
         $f3->set('age', $data['age']);
         $f3->set('survivor', $data['survivor']);
-        $f3->set('attended', $data['attended']);
+        $f3->set('attended', $data['prevattendences']);
         $f3->set('hasHotel',$data['hasHotel']);
         $f3->set('hotelResID', $hotelData['hotelResID']);
         $f3->set('hotelName', $hotelData['hotelName']);
-        $f3->set('cancelled',$data['canceled']);
-
+        $f3->set('cancelled',$data['cancelled']);
+        $f3->set('update', true);
         $view = new Template();
         echo $view->render('view/participant-form.html');
     }
-    //TODO update form checks
-    //if user data has changed call editParticipant()
-    //if hasHotel changed call editHotel()
-    //if inserting hotel call to registered participant
-//    if($f3->get('update')==true) {
+//    if(isset($_POST))
+//    {
 //
-//            var_dump($_POST);
-//            $db->editParticipant();
-//
-//            $f3->reroute('/registrations');
 //    }
+
+//            if user data has changed call editParticipant()
+//            if hasHotel changed call editHotel()
+//            if inserting hotel call to registered participant
+
 });
+
 
 $f3->route('GET|POST /add-volunteer', function ($f3) {
     if((!isset($_SESSION['fname'])) || (!isset($_SESSION['lname'])) ||
