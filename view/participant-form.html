@@ -88,7 +88,7 @@
                 <div class="row">
                     <label for = "ephone" class="col-sm-3 col-form-label-md">Emergency Contact:</label>
                     <div class="col-sm-6">
-                        <input id="ephone" name="emergency" class="form-control" placeholder="123-456-7890" value="{{ @ephone }}">
+                        <input id="ephone" name="emergency" class="form-control" placeholder="123-456-7890" value="{{ @emergency }}">
                     </div>
                 </div>
             </div>
@@ -148,20 +148,10 @@
             <div class="form-group-col">
                 <div id="reservation" class="col-sm-12">
                     <div class="form-group row">
-                        <check if="isset(@update)">
-                            <true>
-                                <label class="col-sm-3 col-form-label-md" for="hasHotel">Check if the guest has a reservation:</label>
-                                <div class="col-sm-6">
-                                    <input id="hasHotel" class="form-check-label" name="hasHotel" type="checkbox" checked="{{ @hasHotel }}">
-                                </div>
-                            </true>
-                            <false>
-                                <label class="col-sm-3 col-form-label-md" for="hasHotel">Check if the guest has a reservation:</label>
-                                <div class="col-sm-6">
-                                    <input id="hasHotel" class="form-check-label" name="hasHotel" type="checkbox" value="{{ @hasHotel }}">
-                                </div>
-                            </false>
-                        </check>
+                            <label class="col-sm-3 col-form-label-md" for="hasHotel">Check if the guest has a reservation:</label>
+                            <div class="col-sm-6">
+                                <input id="hasHotel" class="form-check-label" name="hasHotel" type="checkbox" value="{{ @hasHotel }}" checked="{{isset(@hasHotel)}}">
+                            </div>
 
                     </div>
                     <check if="isset(@update)">
@@ -224,7 +214,7 @@
                     <input type="hidden" value="1" name="isUpdate" id="isUpdate">
                     <div id="submission" class="float-right">
                         <label for="update">
-                            <input name ="{{@row.regID}}" value="Update" class="update" type="submit" id="update" >
+                            <button name="regID" id="update" class="update" type="submit" value="{{@regID}}">Update</button>
                         </label>
                     </div>
                 </true>

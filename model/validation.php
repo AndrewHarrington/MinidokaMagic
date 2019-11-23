@@ -39,6 +39,7 @@ function validateParticipantForm(){
 
     if(!validEmail($f3->get('email'))){
         $isValid = false;
+
         $f3->set("errors['email']", "Please enter a valid email.");
     }
     return $isValid;
@@ -82,7 +83,8 @@ function validateUserForm(){
     }
     if(!validPassword($f3->get('password'))){
         $isValid = false;
-        $f3->set("errors['password']", "Please enter a valid password");
+        $f3->set("errors['password']", "Password should be at least 8 characters in length and should include 
+        at least one uppercase letter, one number, and one special character.");
     }
     return $isValid;
 }
@@ -119,17 +121,9 @@ function validPhone($phone){
  * @param $email $email the email input
  * @return mixed
  */
-function validEmail($email){
+function validEmail($email)
+{
     return filter_var($email, FILTER_VALIDATE_EMAIL);
-}
-
-/**
- * This function checks if the hotel input is not empty, optional input, will add to database if it checked
- * @param $hotel $hotel checkbox
- * @return bool return true if checked
- */
-function validHotelRes($hotel){
-    return !empty($hotel) && ctype_alnum($hotel);
 }
 
 /**
@@ -138,15 +132,18 @@ function validHotelRes($hotel){
  * @return bool return true if valid
  */
 function validUsername($username){
-    return !empty($username) && ctype_alpha($username);
+    return !empty($username) && ctype_alnum($username);
 }
 
 /**
- * This function checks if the password input is not empty
+ * This function checks if the password input is not empty and has more than 4 characters
  * @param $password $password the password input
  * @return bool true if valid
  */
 function validPassword($password){
-
-    return  (!empty($password));
+    $uppercase = preg_match('@[A-Z]@', $password);
+    $lowercase = preg_match('@[a-z]@', $password);
+    $number    = preg_match('@[0-9]@', $password);
+    $specialChars = preg_match('@[^\w]@', $password);
+    return  ( $uppercase && $lowercase && $number && $specialChars && strlen($password)>4);
 }
