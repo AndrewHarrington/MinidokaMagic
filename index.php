@@ -326,9 +326,9 @@ $f3->route('GET|POST /update-participant', function ($f3){
 
 
     $hotelData = $db->getHotel($id)[0];
-    var_dump($id);
-    var_dump($_POST);
-    var_dump($data);
+    //var_dump($id);
+    //var_dump($_POST);
+   // var_dump($data);
     //check to see if they have submitted an updated participant
     if(($_SERVER['REQUEST_METHOD'] == "POST") && ($_POST['isUpdate'] == 1)){
 
