@@ -1,9 +1,9 @@
 <include href='view/header.html'/>
-    <div class="ml-4 mr-5">
-        <br>
-        <h3 class="float-left">Participants</h3>
-        <a class="float-right" href="{{'new-participant'}}"><button class="btn-warning">Add Participant</button></a>
-    </div>
+<div class="ml-4 mr-5">
+    <br>
+    <h3 class="float-left">Participants</h3>
+    <a class="float-right" href="{{'new-participant'}}"><button class="btn-warning">Add Participant</button></a>
+</div>
 <div class="text-left ml-5 mr-5">
     <table id="registrants" class="display nowrap" style="width:100%">
         <thead>
@@ -23,10 +23,9 @@
         <tbody>
             <repeat group="{{@registrations}}" value="{{@row}}">
                 <tr
-                    <check if="{{@row.cancelled == 1}}">
-                        <true>style="background-color:#ff8080"</true>
-                    </check>
-                >
+                <check if="{{ @row.cancelled == 1  }}">
+                    <true>style="background-color:#ff8080"</true>
+                </check>>
                     <td>
                         {{@row.fname}}
                     </td>

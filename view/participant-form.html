@@ -150,7 +150,11 @@
                     <div class="form-group row">
                             <label class="col-sm-3 col-form-label-md" for="hasHotel">Check if the guest has a reservation:</label>
                             <div class="col-sm-6">
-                                <input id="hasHotel" class="form-check-label" name="hasHotel" type="checkbox" checked="{{isset(@hashotel)}}"/>
+                                <input id="hasHotel" class="form-check-label" name="hasHotel" type="checkbox"
+                                <check if="!isset(@hasHotel)">
+                                    <true>value = "0"</true>
+                                    <false>checked ="checked"</false>
+                            </check>/>
                             </div>
                     </div>
                     <check if="isset(@update)">
@@ -227,7 +231,7 @@
                 <false>
                     <div id="submission" class="float-right">
                         <label for="submit">
-                            <button class="submit  btn btn-warning" type="submit" id="submit" onclick="validateForm()">Submit</button>
+                            <button class="submit  btn btn-warning" type="submit" id="submit" onclick="validateParticipantForm()">Submit</button>
                         </label>
                     </div>
                 </false>
