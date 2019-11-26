@@ -21,7 +21,7 @@ function validateUserForm() {
     }
     x = document.forms["user"]["email"].value;
     if(x === ""){
-        alert("Email must be entered.");
+        alert("Please enter a valid email");
     }
     x = document.forms["user"]["phone"].value;
     if(x === ""){
@@ -29,26 +29,30 @@ function validateUserForm() {
     }
 }
 
-function validateForm() {
-    let x = document.forms["participant"]["fname"].value;
-    if (x === "") {
+function validateParticipantForm() {
+    let fname = document.forms["participant"]["fname"].value;
+    if (fname === "") {
         alert("First name must be filled out.");
     }
-    x = document.forms["participant"]["lname"].value;
-    if(x === ""){
+    let lname = document.forms["participant"]["lname"].value;
+    if(lname === ""){
         alert("Last name must be filled out.");
     }
-    x = document.forms["participant"]["email"].value;
-    if(x === ""){
-        alert("Email must be entered.");
+    let email = document.forms["participant"]["email"].value;
+    if(email === ""){
+        alert("Please enter a valid email address");
     }
-    x = document.forms["participant"]["phone"].value;
-    if(x === ""){
+    let phone = document.forms["participant"]["phone"].value;
+    if(phone === ""){
         alert("Phone number must be filled out.");
     }
-    x = document.forms["participant"]["emergency"].value;
-    if(x === ""){
+    let emergency = document.forms["participant"]["emergency"].value;
+    if(emergency === ""){
         alert("Emergency phone number must be filled out.");
     }
-    alert("User successfully added!")
+    if(fname !== "" && lname !== "" && email!=="" && phone!=="" && emergency!=="")
+    {
+        alert("User successfully added!")
+    }
+
 }
