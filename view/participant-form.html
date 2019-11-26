@@ -193,11 +193,18 @@
                 </check>
                     <label class="col-sm-3 col-form-label-md">Cancel Attendance</label>
                     <div class="col-sm-6">
-                        <input type="radio" class="form-check-label" id="cancel-yes" name="cancelled[]" value="1">
+                        <input type="radio" class="form-check-label" id="cancel-yes" name="cancelled[]" value="1"
+                        <check if="@cancelled">
+                            <true>checked = "checked"</true>
+                        </check>
+
                         <label class="form-check-label" for="cancel-yes">
                             Yes
                         </label>
-                        <input type="radio" class="form-check-label" id="cancel-no" name="cancelled[]" value="0" checked="checked">
+                        <input type="radio" class="form-check-label" id="cancel-no" name="cancelled[]" value="0"
+                        <check if="@cancelled">
+                            <false>checked= "checked" </false>
+                        </check>>
                         <label class="form-check-label" for="cancel-no">
                             No
                         </label>
@@ -213,7 +220,7 @@
                     <input type="hidden" value="1" name="isUpdate" id="isUpdate">
                     <div id="submission" class="float-right">
                         <label for="update">
-                            <button name="regID" id="update" class="update" type="submit" value="{{@regID}}">Update</button>
+                            <button class="submit  btn btn-warning" name="regID" id="update" class="update" type="submit" value="{{@regID}}">Update</button>
                         </label>
                     </div>
                 </true>
