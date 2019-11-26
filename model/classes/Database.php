@@ -8,7 +8,6 @@
  */
 class Database
 {
-
     const GET_HOTEL =
     "
         SELECT * 
@@ -20,6 +19,7 @@ class Database
     "
         DELETE FROM hotelregistrations
         WHERE userID = :id;
+    
     ";
 
     const GET_REGISTRANT =
@@ -29,10 +29,19 @@ class Database
        WHERE regID = :id
     ";
 
+    const UPDATE_HAS_HOTEL =
+        "
+        UPDATE registrations
+        SET hashotel = :hashotel
+        WHERE regid = :id
+        
+        ";
+
     const INSERT_HOTEL =
     "
         INSERT INTO hotelregistrations (userID, hotelResID, hotelName)
-        VALUES(:userId, :hotelResID, :hotelName)
+        VALUES(:id, :hotelResID, :hotelName);
+        
     ";
 
     const UPDATE_HOTEL =
@@ -60,6 +69,7 @@ class Database
         FROM users
         WHERE username = :username AND active = 1
     ";
+
 
     const IS_VALID_USER =
     "
@@ -128,6 +138,7 @@ class Database
     private $_isValidUsername;
     private $_updateParticipant;
     private $_updateHotel;
+    private $_updateHasHotel;
     private $_insertHotel;
     private $_getRegistrant;
     private $_removeHotel;
@@ -174,6 +185,7 @@ class Database
         $this->_isValidUsername = $this->_dbc->prepare(self::IS_VALID_USERNAME);
         $this->_updateParticipant = $this->_dbc->prepare(self::EDIT_PARTICIPANT);
         $this->_updateHotel = $this->_dbc->prepare(self::UPDATE_HOTEL);
+        $this->_updateHasHotel = $this->_dbc->prepare(self::UPDATE_HAS_HOTEL);
         $this->_insertHotel = $this->_dbc->prepare(self::INSERT_HOTEL);
         $this->_getRegistrant = $this->_dbc->prepare(self::GET_REGISTRANT);
         $this->_removeHotel = $this->_dbc->prepare(self::REMOVE_HOTEL);
@@ -217,7 +229,7 @@ class Database
             $this->_newParticipant->bindParam(':email', $email, PDO::PARAM_STR);
             $this->_newParticipant->bindParam(':age', $age, PDO::PARAM_INT);
             $this->_newParticipant->bindParam(':survivor', $survivor, PDO::PARAM_BOOL);
-            $this->_newParticipant->bindParam(':prevattendences', $prevattendences, PDO::PARAM_INT);
+            $this->_newParticipant->bindParam(':prevattendences', $prevattendences, PDO::PARAM_BOOL);
 
             $this->_newParticipant->execute();
             return $this->_newParticipant->fetchAll(PDO::FETCH_ASSOC);
@@ -231,7 +243,7 @@ class Database
             $this->_newHotelReg->bindParam(':age', $age, PDO::PARAM_INT);
             $this->_newHotelReg->bindParam(':survivor', $survivor, PDO::PARAM_BOOL);
             $this->_newHotelReg->bindParam(':hashotel', $hashotel, PDO::PARAM_BOOL);
-            $this->_newHotelReg->bindParam(':prevattendences', $prevattendences, PDO::PARAM_INT);
+            $this->_newHotelReg->bindParam(':prevattendences', $prevattendences, PDO::PARAM_BOOL);
             $this->_newHotelReg->bindParam(':resId', $hotelResId, PDO::PARAM_STR);
             $this->_newHotelReg->bindParam(':hotelName', $hotelName, PDO::PARAM_STR);
 
@@ -257,6 +269,7 @@ class Database
      * @param $lname Database column for user's last name
      * @param $email Database column for user's email
      * @param $phone Database column for user's phone number
+     * @param $admin
      * @return mixed
      */
     public function addUser($username, $password, $fname, $lname, $email, $phone, $admin){
@@ -293,12 +306,12 @@ class Database
      * @return mixed
      */
     public function isValidUser($username, $password){
-        $hash = password_hash($password,PASSWORD_DEFAULT);
 
         $this->_isValidUser->bindParam(':username', $username, PDO::PARAM_STR);
-        $this->_isValidUser->bindParam(':password', $password, PDO::PARAM_STR);
+        $this->_isValidUser->bindParam(':password',$password, PDO::PARAM_STR);
 
         $this->_isValidUser->execute();
+
         return $this->_isValidUser->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -340,8 +353,8 @@ class Database
         $this->_updateParticipant->bindParam(':email', $email, PDO::PARAM_STR);
         $this->_updateParticipant->bindParam(':age', $age, PDO::PARAM_INT);
         $this->_updateParticipant->bindParam(':survivor', $survivor, PDO::PARAM_BOOL);
-        $this->_updateParticipant->bindParam(':hasHotel', $hashotel, PDO::PARAM_BOOL);
-        $this->_updateParticipant->bindParam(':prevattendences', $prevattendences, PDO::PARAM_INT);
+        $this->_updateParticipant->bindParam(':hashotel', $hashotel, PDO::PARAM_BOOL);
+        $this->_updateParticipant->bindParam(':prevattendences', $prevattendences, PDO::PARAM_BOOL);
         $this->_updateParticipant->bindParam(':cancelled', $cancelled, PDO::PARAM_BOOL);
 
         $this->_updateParticipant->execute();
@@ -365,6 +378,14 @@ class Database
         return $this->_updateHotel->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function updateHotel($regID,$hashotel) {
+        $this->_updateHasHotel->bindParam(':id',$regID,PDO::PARAM_INT);
+        $this->_updateHasHotel->bindParam(':hashotel',$hashotel,PDO::PARAM_BOOL);
+
+        $this->_updateHasHotel->execute();
+        return $this->_updateHasHotel->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     /**
      * This Function inserts a users hotel information
      * @param $userID - The id of the user
@@ -375,7 +396,7 @@ class Database
     public function insertHotel
     ($userID, $hotelName, $hotelResID){
         $this->_insertHotel->bindParam(':id', $userID, PDO::PARAM_INT);
-        $this->_insertHotel->bindParam(':resID', $hotelResID, PDO::PARAM_STR);
+        $this->_insertHotel->bindParam(':hotelResID', $hotelResID, PDO::PARAM_STR);
         $this->_insertHotel->bindParam(':hotelName', $hotelName, PDO::PARAM_STR);
 
         $this->_insertHotel->execute();
@@ -396,14 +417,14 @@ class Database
 
     /**
      * Removes a registrant's hotel data based on their id
-     * @param $id - The unique identifier for the registrant
+     * @param $userID - The unique identifier for the registrant
      * @return mixed
      */
-    public function removeHotel($id){
-        $this->_getRegistrant->bindParam(':id', $id, PDO::PARAM_INT);
+    public function removeHotel($userID){
+        $this->_removeHotel->bindParam(':id', $userID, PDO::PARAM_INT);
 
-        $this->_getRegistrant->execute();
-        return $this->_getRegistrant->fetchAll(PDO::FETCH_ASSOC);
+        $this->_removeHotel->execute();
+        return $this->_removeHotel->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**

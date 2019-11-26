@@ -323,115 +323,81 @@ $f3->route('GET|POST /update-participant', function ($f3){
     $id = $_POST['regID'];
     $f3->set('regID',$id);
     $data = $db->getRegistrant($id)[0];
-
-
+//    var_dump($data);
     $hotelData = $db->getHotel($id)[0];
-    //var_dump($id);
-    //var_dump($_POST);
-   // var_dump($data);
-    //check to see if they have submitted an updated participant
-    if(($_SERVER['REQUEST_METHOD'] == "POST") && ($_POST['isUpdate'] == 1)){
+//    var_dump($hotelData);
 
-        //database interactions
-        if((isset($_POST['hasHotel'])!= $data['hasHotel']) && $hotelData == null){
-            //insert hotel
-            $db->insertHotel($id,$_POST['hotelName'],$_POST['hotelResID']);
-
-        }elseif ((empty($_POST['hasHotel'])!= $data['hasHotel'])&& $hotelData != null)
-        {
-            //remove hotel
-            $db->removeHotel($id);
-
-        }elseif (($hotelData != null) && $hotelData['hotelName'] != $_POST['hotelName']
-            && $hotelData['hotelResID'] != $_POST['hotelResID'])
-        {
-            //edit Hotel
-
-        }elseif (($hotelData != null) && !isset($_POST['hasHotel'])
-            && $_POST['hotelName'] == null && $_POST['hotelName'] == null)
-        {
-            //delete hotel
-        } else{
-            //reroute to participant table
-        }
-
-
-            $uHotelResID = $_POST['hotelResID'];
-            $uHotelName = $_POST['hotelName'];
-
-            $uFname = $_POST['fname'];
-            $uLname =$_POST['lname'];
-            $uEmail = $_POST['email'];
-            $uPhone = $_POST['phone'];
-            $uEmergency = $_POST['emergency'];
-            $uAge = ($_POST['age'] - 2019);
-
-            $f3->set('hotelResID', $uHotelResID);
-            $f3->set('hotelName', $uHotelName);
-            $f3->set('fname',$uFname);
-            $f3->set('lname',$uLname);
-            $f3->set('email', $uEmail);
-            $f3->set('phone' , $uPhone);
-            $f3->set('emergency', $uEmergency);
-            $f3->set('age',$uAge);
-
-            if($_POST['survivor'] == 1 && $_POST['survivor'] != $data['survivor'])
-            {
-                $uSurvivor = 1;
-                $f3->set('survivor', $uSurvivor);
-            }else{
-                $uSurvivor = $data['survivor'];
-                $f3->set('survivor', $uSurvivor);
-            }
-            if($_POST['prevattendences'] == 1 && $_POST['prevattendences'] != $data['prevattendences'])
-            {
-                $uPrevattend = 1;
-                $f3->set('prevattendences', $uPrevattend);
-            } else{
-                $uPrevattend = 0;
-                $f3->set('prevattendences', $uPrevattend);
-            }
-
-            if(!empty($_POST['regID']))
-            {
-               $userID= $_POST['regID'] ;
-                $f3->set('regID', $userID);
-            }
-            if($_POST['cancelled'] == 1 && $_POST['cancelled'] != $data['cancelled'])
-            {
-                $uCancelled = 1;
-                $f3->set('cancelled',$uCancelled);
-            }else{
-                $uCancelled = 0;
-                $f3->set('cancelled',$uCancelled);
-            }
-
-
-           // $f3->reroute('/registrations');
-    }
-
-    //otherwise...
-
-    if(!empty($id))
-    {
+    if(!empty($id)) {
+        $age = $f3->get('age', $data['age']);
+        $f3->set('age', $age);
         $f3->set('fname', $data['fname']);
         $f3->set('lname', $data['lname']);
         $f3->set('email', $data['email']);
         $f3->set('phone', $data['phone']);
-        $f3->set('ephone',$data['emergency']);
+        $f3->set('ephone', $data['emergency']);
         $f3->set('age', $data['age']);
         $f3->set('survivor', $data['survivor']);
         $f3->set('attended', $data['prevattendences']);
-        if((isset($data['hasHotel']) && $data['hasHotel']==1)
-        {
-            $f3->set('hasHotel',$data['hasHotel'])});
-        };
+        $f3->set('hasHotel', $data['hashotel']);
+
         $f3->set('hotelResID', $hotelData['hotelResID']);
         $f3->set('hotelName', $hotelData['hotelName']);
-        $f3->set('cancelled',$data['cancelled']);
+        $f3->set('cancelled', $data['cancelled']);
         $f3->set('update', true);
         $view = new Template();
         echo $view->render('view/participant-form.html');
+        //var_dump($id);
+    };
+    //check to see if they have submitted an updated participant
+    if(($_SERVER['REQUEST_METHOD'] == "POST") && ($_POST['isUpdate'] == 1)){
+
+
+//        var_dump($hotelData);
+//        var_dump($_POST);
+        //database interactions
+        if((isset($_POST['hasHotel']) != $data['hashotel']) && ($hotelData == null)){
+            $_POST['hasHotel'] = 1;
+            //update participant hashotel column
+            $db->updateHotel($id,$_POST['hasHotel']);
+//
+            //insert hotel
+            $db->insertHotel($id,$_POST['hotelName'] ,$_POST['hotelResID']);
+
+            $f3->reroute('/registrations');
+
+        } elseif ((isset($_POST['hasHotel']) != $data['hashotel']) && ($hotelData != null))
+        {
+            $_POST['hasHotel'] = 0;
+            //update participant hashotel column
+            $db->updateHotel($id, $_POST['hasHotel']);
+            //remove hotel
+            $db->removeHotel($id);
+            $f3->reroute('/registrations');
+
+        }elseif ((isset($_POST['hasHotel']) != $data['hashotel']) && ($hotelData['hotelName'] != $_POST['hotelName'])
+            && ($hotelData['hotelResID'] != $_POST['hotelResID']) || (($hotelData['hotelName'] ==
+            $_POST['hotelName']) && ($hotelData['hotelResID'] != $_POST['hotelResID'])) || (($hotelData['hotelName'] !=
+        $_POST['hotelName'] && $hotelData['hotelResID'] == $_POST['hotelResID'])))
+        {
+            $_POST['hasHotel'] = 1;
+//            $db->updateHotel($id,$_POST['hasHotel']);
+            $db->editHotel($id,$_POST['hotelName'], $_POST['hotelResID']);
+            $f3->reroute('/registrations');
+
+        }elseif ($_POST != $data)
+        {
+//            var_dump($_POST);
+//            $db->editParticipant($id ,$_POST['fname'],$_POST['lname'], $_POST['phone'], $_POST['emergency'], $_POST['email'],
+//                $_POST['age'], $_POST['survivor'], $_POST['hasHotel'],$_POST['prevattendences'],$_POST['cancelled']);
+
+        } else{
+            //reroute to participant table
+        }
+    }
+
+    //otherwise...
+
+
 });
 
 $f3->route('GET|POST /add-volunteer', function ($f3) {
