@@ -1,8 +1,9 @@
 <include href='view/header.html'/>
-    <div class="ml-5">
-    <br>
-    <h3>Participants</h3>
-</div>
+    <div class="ml-4 mr-5">
+        <br>
+        <h3 class="float-left">Participants</h3>
+        <a class="float-right" href="{{'new-participant'}}"><button class="btn-warning">Add Participant</button></a>
+    </div>
 <div class="text-left ml-5 mr-5">
     <table id="registrants" class="display nowrap" style="width:100%">
         <thead>
@@ -104,5 +105,6 @@
             </repeat>
         </tbody>
     </table>
+    <a class="mt-2 float-right" href="{{'new-participant'}}"><button class="btn-warning">Add Participant</button></a>
 </div>
 <include href='view/footer.html'/>
