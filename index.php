@@ -363,7 +363,6 @@ $f3->route('GET|POST /update-participant', function ($f3){
             //insert hotel
             $db->insertHotel($id,$_POST['hotelName'] ,$_POST['hotelResID']);
 
-            $f3->reroute('/registrations');
 
         } elseif ((isset($_POST['hasHotel']) != $data['hashotel']) && ($hotelData != null))
         {
@@ -372,7 +371,6 @@ $f3->route('GET|POST /update-participant', function ($f3){
             $db->updateHotel($id, $_POST['hasHotel']);
             //remove hotel
             $db->removeHotel($id);
-            $f3->reroute('/registrations');
 
         }elseif ((isset($_POST['hasHotel']) != $data['hashotel']) && ($hotelData['hotelName'] != $_POST['hotelName'])
             && ($hotelData['hotelResID'] != $_POST['hotelResID']) || (($hotelData['hotelName'] ==
@@ -382,17 +380,17 @@ $f3->route('GET|POST /update-participant', function ($f3){
             $_POST['hasHotel'] = 1;
 //            $db->updateHotel($id,$_POST['hasHotel']);
             $db->editHotel($id,$_POST['hotelName'], $_POST['hotelResID']);
-            $f3->reroute('/registrations');
-
-        }elseif ($_POST != $data)
+        }
+        if ($_POST != $data)
         {
-//            var_dump($_POST);
-//            $db->editParticipant($id ,$_POST['fname'],$_POST['lname'], $_POST['phone'], $_POST['emergency'], $_POST['email'],
-//                $_POST['age'], $_POST['survivor'], $_POST['hasHotel'],$_POST['prevattendences'],$_POST['cancelled']);
+            $db->editParticipant($id ,$_POST['fname'],$_POST['lname'], $_POST['phone'], $_POST['emergency'], $_POST['email'],
+                $_POST['age'], $_POST['survivor'], $_POST['hasHotel'],$_POST['prevattendences'],$_POST['cancelled'][0]);
 
         } else{
             //reroute to participant table
         }
+
+        $f3->reroute('/registrations');
     }
 
     //otherwise...

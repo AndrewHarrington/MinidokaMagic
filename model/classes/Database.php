@@ -30,12 +30,11 @@ class Database
     ";
 
     const UPDATE_HAS_HOTEL =
-        "
+    "
         UPDATE registrations
         SET hashotel = :hashotel
         WHERE regid = :id
-        
-        ";
+    ";
 
     const INSERT_HOTEL =
     "
@@ -47,19 +46,15 @@ class Database
     const UPDATE_HOTEL =
     "
         UPDATE hotelregistrations
-        SET hotelRedID = :resID, hotelName = :hotelName
+        SET hotelResID = :resID, hotelName = :hotelName
         WHERE userID = :id;
-        
-        UPDATE registrations
-        SET hashotel = 1
-        WHERE regID = :id;
     ";
 
     const EDIT_PARTICIPANT =
     "
         UPDATE registrations
         SET fname = :fname, lname = :lname, phone = :phone, emergency = :emergency, email = :email, age = :age, 
-          survivor = :survivor, hashotel = :hashotel, prevattendences = : prevattendences, cancelled = :cancelled
+          survivor = :survivor, hashotel = :hashotel, prevattendences = :prevattendences, cancelled = :cancelled
         WHERE regID = :id
     ";
 
@@ -98,7 +93,7 @@ class Database
           FROM registrations INNER JOIN hotelregistrations 
           WHERE registrations.regID = hotelregistrations.userID
           UNION
-          SELECT regID, fname, lname, phone, emergency, email, age, survivor, hashotel, prevattendences, NULL as hotelRedPKID, NULL as userID, NULL as hotelResID, NULL as hotelName, cancelled
+          SELECT regID, fname, lname, phone, emergency, email, age, survivor, hashotel, prevattendences, registrations.cancelled, NULL as hotelRedPKID, NULL as userID, NULL as hotelResID, NULL as hotelName
           FROM registrations
           WHERE hashotel = false
     ";
