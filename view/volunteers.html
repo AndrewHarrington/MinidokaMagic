@@ -3,10 +3,12 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.jqueryui.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 
-<div class="ml-5">
+<div class="ml-5 mr-5">
     <br>
-    <h3>Volunteers</h3>
+    <h3 class="float-left">Volunteers</h3>
+    <a class="float-right" href="{{'add-volunteer'}}"><button class="btn-warning">Add Volunteer</button></a>
 </div>
+
 <div class="text-left ml-5 mr-5">
     <table id="volunteers" class="display nowrap" style="width:100%">
         <thead>
@@ -60,5 +62,6 @@
         </repeat>
         </tbody>
     </table>
+    <a class="mt-2 float-right" href="{{'add-volunteer'}}"><button class="btn-warning">Add Volunteer</button></a>
 </div>
 <include href='view/footer.html'/>
