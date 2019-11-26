@@ -3,6 +3,10 @@
     margin: auto;
     box-shadow: 0 0 2px goldenrod;
 }
+button:hover{
+    box-shadow: 5px 5px 10px gray;
+}
+
 #navlist{
     /*border: 1px solid black;*/
     /*box-shadow: 1px 1px 1px grey;*/
