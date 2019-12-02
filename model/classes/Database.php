@@ -8,6 +8,66 @@
  */
 class Database
 {
+    const REVERT_ARCHIVE =
+    "
+        DROP TABLE registrations;
+        SET @date = YEAR(CURDATE());
+        SET @extension = '_registrations';
+        SET @newName = CONCAT(@date, @extension);
+        SET @query = concat('RENAME TABLE ', @newName, ' TO registrations');
+        PREPARE stmt FROM @query;
+        EXECUTE stmt;
+        DEALLOCATE PREPARE stmt;
+    ";
+
+    const ARCHIVE_ALREADY_EXISTS =
+    "
+        SELECT count(*) AS 'count'
+        FROM information_schema.TABLES 
+        WHERE (TABLE_NAME = CONCAT(YEAR(CURDATE()), '_registrations'))
+    ";
+
+    const CREATE_NEW_REG_TABLE =
+    "
+        CREATE TABLE IF NOT EXISTS `registrations` (
+        `regID` int(11) NOT NULL AUTO_INCREMENT,
+        `fname` varchar(30) NOT NULL,
+        `lname` varchar(30) NOT NULL,
+        `phone` varchar(10) DEFAULT NULL,
+        `emergency` varchar(10) DEFAULT NULL,
+        `email` varchar(320) DEFAULT NULL,
+        `age` int(11) NOT NULL,
+        `survivor` tinyint(1) NOT NULL DEFAULT '0',
+        `hashotel` tinyint(1) NOT NULL DEFAULT '0',
+        `prevattendences` tinyint(1) NOT NULL DEFAULT '0',
+        `cancelled` tinyint(1) NOT NULL DEFAULT '0',
+        PRIMARY KEY (`regID`)
+        );
+    ";
+
+    const ARCHIVE_COPY =
+    "
+        SET @date = YEAR(CURDATE());
+        SET @extension = '_registrations';
+        SET @count = CONCAT('_', :count);
+        SET @newName = CONCAT(@date, @extension, @count);
+        SET @query = concat('RENAME TABLE registrations TO ', @newName);
+        PREPARE stmt FROM @query;
+        EXECUTE stmt;
+        DEALLOCATE PREPARE stmt;
+    ";
+
+    const ARCHIVE_TABLE =
+    "
+        SET @date = YEAR(CURDATE());
+        SET @extension = '_registrations';
+        SET @newName = CONCAT(@date, @extension);
+        SET @query = concat('RENAME TABLE registrations TO ', @newName);
+        PREPARE stmt FROM @query;
+        EXECUTE stmt;
+        DEALLOCATE PREPARE stmt;
+    ";
+
     const GET_HOTEL =
     "
         SELECT * 
@@ -138,6 +198,10 @@ class Database
     private $_getRegistrant;
     private $_removeHotel;
     private $_getHotel;
+    private $_archiveAlreadyExists;
+    private $_archiveTable;
+    private $_archiveCopy;
+    private $_createNewRegTable;
     private $_dbc;
 
     /**
@@ -185,6 +249,10 @@ class Database
         $this->_getRegistrant = $this->_dbc->prepare(self::GET_REGISTRANT);
         $this->_removeHotel = $this->_dbc->prepare(self::REMOVE_HOTEL);
         $this->_getHotel = $this->_dbc->prepare(self::GET_HOTEL);
+        $this->_createNewRegTable = $this->_dbc->prepare(self::CREATE_NEW_REG_TABLE);
+        $this->_archiveAlreadyExists = $this->_dbc->prepare(self::ARCHIVE_ALREADY_EXISTS);
+        $this->_archiveTable = $this->_dbc->prepare(self::ARCHIVE_TABLE . self::CREATE_NEW_REG_TABLE);
+        $this->_archiveCopy = $this->_dbc->prepare(self::ARCHIVE_COPY . self::CREATE_NEW_REG_TABLE);
 
     }
 
@@ -432,5 +500,29 @@ class Database
 
         $this->_getHotel->execute();
         return $this->_getHotel->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Archives all registrations for the year
+     */
+    public function archiveRegistrants(){
+        //check to see if we need to change the archive
+        $this->_archiveAlreadyExists->execute();
+        $count = $this->_archiveAlreadyExists->fetchAll(PDO::FETCH_ASSOC)[0]['count'];
+
+        //prepare to archive
+
+        //if we need to copy
+        if($count != "0"){
+            var_dump("hello");
+            $this->_archiveCopy->bindParam(':count', $count, PDO::PARAM_STR);
+            var_dump($this->_archiveCopy->execute());
+        }
+        //we dont need to copy
+        else{
+            var_dump("world");
+            var_dump($this->_archiveTable->execute());
+        }
+
     }
 }
