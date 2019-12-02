@@ -514,14 +514,12 @@ class Database
 
         //if we need to copy
         if($count != "0"){
-            var_dump("hello");
             $this->_archiveCopy->bindParam(':count', $count, PDO::PARAM_STR);
-            var_dump($this->_archiveCopy->execute());
+            $this->_archiveCopy->execute();
         }
         //we dont need to copy
         else{
-            var_dump("world");
-            var_dump($this->_archiveTable->execute());
+            $this->_archiveTable->execute();
         }
 
     }
