@@ -114,13 +114,6 @@ $f3->route('GET|POST /budget-pdf', function ($f3) {
             }
         }
 
-        //Check file name length < 23chars
-        if(strlen($_FILES["file"]["name"]) > 23) {
-
-            echo "Sorry, file name too long. ";
-            $uploadOk = 0;
-        }
-
         // Check if file already exists
         if (file_exists($target_file)) {
 
@@ -144,6 +137,12 @@ $f3->route('GET|POST /budget-pdf', function ($f3) {
             }
         }
     }
+
+    $dir    = '/home/minidoka/public_html/MinidokaMagic/uploads';
+    $files = array_diff(scandir($dir), array('..', '.'));
+    $f3->set("files", $files);
+
+    $f3->set("isAdmin", $_SESSION['admin']);
 
     $view = new Template();
     echo $view->render('view/budget-views/budget-upload.php');
@@ -197,12 +196,6 @@ $f3->route('GET|POST /reference-pdf', function ($f3) {
             }
         }
 
-        //Check file name length < 23chars
-        if(strlen($_FILES["file"]["name"]) > 23) {
-            echo "Sorry, file name too long. ";
-            $uploadOk = 0;
-        }
-
         // Check if file already exists
         if (file_exists($target_file)) {
             echo "Sorry, file already exists.";
@@ -222,6 +215,12 @@ $f3->route('GET|POST /reference-pdf', function ($f3) {
             }
         }
     }
+
+    $dir    = '/home/minidoka/public_html/MinidokaMagic/reference-docs';
+    $files = array_diff(scandir($dir), array('..', '.'));
+    $f3->set("files", $files);
+
+    $f3->set("isAdmin", $_SESSION['admin']);
 
     $view = new Template();
     echo $view->render('view/document-views/doc-upload.php');

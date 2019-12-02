@@ -19,12 +19,28 @@
             </form>
         </check>
         <input type="hidden" id="isAdmin" value="{{@SESSION.admin}}">
-        <ul class="container box" ></ul>
+        <ul class="container box" >
+            <repeat group="{{@files}}" value="{{@file}}">
+                <li class='list-group-item'>
+                    <a class='col-sm-10' href='doc-view/{{@file}}'>
+                        <img src='styles/images/pdf-icon.png' alt='pdf-icon' style='width: 30px; height: 30px;'>
+                        {{@file}}
+                    </a>
+
+                    <form method='post' class='float-right' action=''>
+                        <button class='btn btn-warning center' name='file' value='{{@file}}' type='submit'>
+                            <i class='fas fa-trash-alt'></i>
+                        </button>
+                    </form>
+                </li>
+
+            </repeat>
+
+        </ul>
     </div>
 </div>
 <footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="model/javascript/reference-grab.js"></script>
 </footer>
 </body>
 </html>
