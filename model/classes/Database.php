@@ -8,6 +8,21 @@
  */
 class Database
 {
+    const GET_ARCHIVE =
+    "
+        SET @date = :year;
+        SET @extension = '_registrations';
+        SET @newName = CONCAT(@date, @extension);
+        SET @query = concat('SELECT * FROM ', @newName);
+    ";
+
+    const VIEW_ARCHIVES =
+    "
+        SELECT TABLE_NAME
+        FROM information_schema.TABLES
+        WHERE TABLE_NAME LIKE '____\_registrations';
+    ";
+
     const REVERT_ARCHIVE =
     "
         DROP TABLE registrations;
@@ -202,6 +217,8 @@ class Database
     private $_archiveTable;
     private $_archiveCopy;
     private $_createNewRegTable;
+    private $_viewArchives;
+    private $_getArchive;
     private $_dbc;
 
     /**
@@ -253,6 +270,8 @@ class Database
         $this->_archiveAlreadyExists = $this->_dbc->prepare(self::ARCHIVE_ALREADY_EXISTS);
         $this->_archiveTable = $this->_dbc->prepare(self::ARCHIVE_TABLE . self::CREATE_NEW_REG_TABLE);
         $this->_archiveCopy = $this->_dbc->prepare(self::ARCHIVE_COPY . self::CREATE_NEW_REG_TABLE);
+        $this->_viewArchives = $this->_dbc->prepare(self::VIEW_ARCHIVES);
+        $this->_getArchive = $this->_dbc->prepare(self::GET_ARCHIVE);
 
     }
 
@@ -522,5 +541,16 @@ class Database
             $this->_archiveTable->execute();
         }
 
+    }
+
+    public function viewArchives(){
+        $this->_viewArchives->execute();
+        return $this->_viewArchives->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getArchive($year){
+        $this->_getArchive->bindParam(":year", $year);
+        $this->_getArchive->execute();
+        return $this->_getArchive->fetchAll(PDO::FETCH_ASSOC);
     }
 }
