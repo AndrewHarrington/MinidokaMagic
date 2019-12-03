@@ -322,7 +322,7 @@ $f3->route('GET|POST /update-participant', function ($f3){
     $id = $_POST['regID'];
     $f3->set('regID',$id);
     $data = $db->getRegistrant($id)[0];
-//    var_dump($data);
+    var_dump($data);
     $hotelData = $db->getHotel($id)[0];
 //    var_dump($hotelData);
 
@@ -333,7 +333,7 @@ $f3->route('GET|POST /update-participant', function ($f3){
         $f3->set('lname', $data['lname']);
         $f3->set('email', $data['email']);
         $f3->set('phone', $data['phone']);
-        $f3->set('ephone', $data['emergency']);
+        $f3->set('emergency', $data['emergency']);
         $f3->set('age', $data['age']);
         $f3->set('survivor', $data['survivor']);
         $f3->set('attended', $data['prevattendences']);
@@ -345,56 +345,60 @@ $f3->route('GET|POST /update-participant', function ($f3){
         $f3->set('update', true);
         $view = new Template();
         echo $view->render('view/participant-form.html');
-        //var_dump($id);
-    };
+
+    }
     //check to see if they have submitted an updated participant
     if(($_SERVER['REQUEST_METHOD'] == "POST") && ($_POST['isUpdate'] == 1)){
 
+        if($_POST != $data)
+        {
+            $phone = $_POST['phone'];
+            $filterPhone = filter_var($phone,FILTER_SANITIZE_NUMBER_INT);
+            $stripPhone = str_replace("-","",$filterPhone);
+            $phone = $stripPhone;
 
-//        var_dump($hotelData);
-//        var_dump($_POST);
+            $ePhone = $_POST['emergency'];
+            $eFilterPhone = filter_var($ePhone,FILTER_SANITIZE_NUMBER_INT);
+            $eStripPhone = str_replace("-","",$eFilterPhone);
+            $ePhone = $eStripPhone;
+            if($data['hashotel'] == 1)
+            {
+                $db->editParticipant($id ,$_POST['fname'],$_POST['lname'], $phone, $ePhone, $_POST['email'],
+                    $_POST['age'], $_POST['survivor'][0],$data['hashotel'],$_POST['prevattendences'][0],$_POST['cancelled'][0]);
+            }
+            else{
+                $db->editParticipant($id ,$_POST['fname'],$_POST['lname'],$phone, $ephone, $_POST['email'],
+                    $_POST['age'], $_POST['survivor'][0],$_POST['hasHotel'],$_POST['prevattendences'][0],$_POST['cancelled'][0]);
+
+            }
+
+        }
         //database interactions
-        if((isset($_POST['hasHotel']) != $data['hashotel']) && ($hotelData == null)){
+        if((isset($_POST['hasHotel'])) && ($hotelData == null)){
             $_POST['hasHotel'] = 1;
             //update participant hashotel column
             $db->updateHotel($id,$_POST['hasHotel']);
-//
+
             //insert hotel
             $db->insertHotel($id,$_POST['hotelName'] ,$_POST['hotelResID']);
 
-
-        } elseif ((isset($_POST['hasHotel']) != $data['hashotel']) && ($hotelData != null))
-        {
+        } elseif ((empty($_POST['hasHotel']) && ($hotelData != null))) {
             $_POST['hasHotel'] = 0;
             //update participant hashotel column
             $db->updateHotel($id, $_POST['hasHotel']);
             //remove hotel
             $db->removeHotel($id);
 
-        }elseif ((isset($_POST['hasHotel']) != $data['hashotel']) && ($hotelData['hotelName'] != $_POST['hotelName'])
-            && ($hotelData['hotelResID'] != $_POST['hotelResID']) || (($hotelData['hotelName'] ==
-            $_POST['hotelName']) && ($hotelData['hotelResID'] != $_POST['hotelResID'])) || (($hotelData['hotelName'] !=
-        $_POST['hotelName'] && $hotelData['hotelResID'] == $_POST['hotelResID'])))
+        } elseif(isset($_POST['hasHotel']) && ($_POST['hotelName'] != $hotelData['hotelName']) || ($_POST['hotelResID'])
+                != $hotelData['hotelResID'])
         {
             $_POST['hasHotel'] = 1;
-//            $db->updateHotel($id,$_POST['hasHotel']);
+            $db->updateHotel($id,$_POST['hasHotel']);
             $db->editHotel($id,$_POST['hotelName'], $_POST['hotelResID']);
-        }
-        if ($_POST != $data)
-        {
-            $db->editParticipant($id ,$_POST['fname'],$_POST['lname'], $_POST['phone'], $_POST['emergency'], $_POST['email'],
-                $_POST['age'], $_POST['survivor'], $_POST['hasHotel'],$_POST['prevattendences'],$_POST['cancelled'][0]);
-
-        } else{
-            //reroute to participant table
         }
 
         $f3->reroute('/registrations');
     }
-
-    //otherwise...
-
-
 });
 
 $f3->route('GET|POST /add-volunteer', function ($f3) {
@@ -455,6 +459,42 @@ $f3->route('GET|POST /volunteers', function ($f3){
 
     $view = new Template();
     echo $view->render('view/volunteers.html');
+});
+
+$f3->route('GET|POST /archive-view', function ($f3) {
+
+    if((!isset($_SESSION['fname'])) || (!isset($_SESSION['lname'])) ||
+        (!isset($_SESSION['admin']))) {
+
+        $f3->reroute('/');
+    };
+
+    global $db;
+
+    $archives= $db->viewArchives();
+    $f3->set("archives", $archives);
+
+    $f3->set("isAdmin", $_SESSION['admin']);
+
+    $view = new Template();
+    echo $view->render('view/archive-views/archive-view.html');
+});
+
+$f3->route('GET /archive-view/@archiveName', function ($f3) {
+
+    if((!isset($_SESSION['fname'])) || (!isset($_SESSION['lname'])) ||
+        (!isset($_SESSION['admin']))) {
+
+        $f3->reroute('/');
+    };
+
+    global $db;
+
+    $archive = $f3->get('PARAMS.archive');
+    $f3->set("registrations", $db->getArchive($archive));
+
+    $view = new Template();
+    echo $view->render('view/archive-views/archive-table.html');
 });
 
 $f3->run();

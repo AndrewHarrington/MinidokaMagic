@@ -151,9 +151,9 @@
                             <label class="col-sm-3 col-form-label-md" for="hasHotel">Check if the guest has a reservation:</label>
                             <div class="col-sm-6">
                                 <input id="hasHotel" class="form-check-label" name="hasHotel" type="checkbox"
-                                <check if="!isset(@hasHotel)">
-                                    <true>value = "0"</true>
-                                    <false>checked ="checked"</false>
+                                <check if="isset(@hasHotel)">
+                                    <true>checked = "checked"</true>
+
                             </check>/>
                             </div>
                     </div>
