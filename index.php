@@ -322,9 +322,8 @@ $f3->route('GET|POST /update-participant', function ($f3){
     $id = $_POST['regID'];
     $f3->set('regID',$id);
     $data = $db->getRegistrant($id)[0];
-    var_dump($data);
+
     $hotelData = $db->getHotel($id)[0];
-//    var_dump($hotelData);
 
     if(!empty($id)) {
         $age = $f3->get('age', $data['age']);
@@ -367,7 +366,7 @@ $f3->route('GET|POST /update-participant', function ($f3){
                     $_POST['age'], $_POST['survivor'][0],$data['hashotel'],$_POST['prevattendences'][0],$_POST['cancelled'][0]);
             }
             else{
-                $db->editParticipant($id ,$_POST['fname'],$_POST['lname'],$phone, $ephone, $_POST['email'],
+                $db->editParticipant($id ,$_POST['fname'],$_POST['lname'],$phone, $ePhone, $_POST['email'],
                     $_POST['age'], $_POST['survivor'][0],$_POST['hasHotel'],$_POST['prevattendences'][0],$_POST['cancelled'][0]);
 
             }
