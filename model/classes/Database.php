@@ -8,13 +8,21 @@
  */
 class Database
 {
+    const REMOVE_ARCHIVE =
+    "
+        DROP TABLE :archive
+    ";
+
     const GET_ARCHIVE =
     "
-        SET @date = :year;
-        SET @extension = '_registrations';
-        SET @newName = CONCAT(@date, @extension);
-        SET @query = concat('SELECT * FROM ', @newName);
+        SET @query = 'SELECT * FROM :archive';
+        PREPARE stmt FROM @query;
+        EXECUTE stmt;
     ";
+
+//    SET @query = concat('SELECT * FROM :archive');
+//            PREPARE stmt FROM @query;
+//            EXECUTE stmt;
 
     const VIEW_ARCHIVES =
     "
@@ -170,7 +178,7 @@ class Database
           UNION
           SELECT regID, fname, lname, phone, emergency, email, age, survivor, hashotel, prevattendences, registrations.cancelled, NULL as hotelRedPKID, NULL as userID, NULL as hotelResID, NULL as hotelName
           FROM registrations
-          WHERE hashotel = false
+          WHERE hashotel = false AND (SELECT count(*) from hotelregistrations where userID = regID) = 0
     ";
 
     const NEW_PARTICIPANT =
@@ -219,6 +227,7 @@ class Database
     private $_createNewRegTable;
     private $_viewArchives;
     private $_getArchive;
+    private $_removeArchive;
     private $_dbc;
 
     /**
@@ -272,6 +281,7 @@ class Database
         $this->_archiveCopy = $this->_dbc->prepare(self::ARCHIVE_COPY . self::CREATE_NEW_REG_TABLE);
         $this->_viewArchives = $this->_dbc->prepare(self::VIEW_ARCHIVES);
         $this->_getArchive = $this->_dbc->prepare(self::GET_ARCHIVE);
+        $this->_removeArchive = $this->_dbc->prepare(self::REMOVE_ARCHIVE);
 
     }
 
@@ -548,9 +558,17 @@ class Database
         return $this->_viewArchives->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getArchive($year){
-        $this->_getArchive->bindParam(":year", $year);
+    public function getArchive($archive){
+        $sql = "SELECT * FROM $archive";
+        $this->_getArchive = $this->_dbc->prepare($sql);
+
         $this->_getArchive->execute();
         return $this->_getArchive->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function removeArchive($archive){
+        $this->_removeArchive->bindParam(":archive", $archive);
+        $this->_removeArchive->execute();
+        return $this->_removeArchive->fetchAll(PDO::FETCH_ASSOC);
     }
 }

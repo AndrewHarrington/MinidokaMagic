@@ -489,8 +489,10 @@ $f3->route('GET /archive-view/@archiveName', function ($f3) {
 
     global $db;
 
-    $archive = $f3->get('PARAMS.archive');
-    $f3->set("registrations", $db->getArchive($archive));
+    $archive = $f3->get('PARAMS.archiveName');
+    $f3->set("archive", $archive);
+    $data = $db->getArchive($archive);
+    $f3->set("registrations", $data);
 
     $view = new Template();
     echo $view->render('view/archive-views/archive-table.html');
