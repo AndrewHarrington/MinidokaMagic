@@ -20,10 +20,6 @@ class Database
         EXECUTE stmt;
     ";
 
-//    SET @query = concat('SELECT * FROM :archive');
-//            PREPARE stmt FROM @query;
-//            EXECUTE stmt;
-
     const VIEW_ARCHIVES =
     "
         SELECT TABLE_NAME
