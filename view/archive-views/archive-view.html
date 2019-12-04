@@ -1,0 +1,23 @@
+<include href='view/header.html'/>
+
+<body>
+    <ul class="container box" >
+        <repeat group="{{@archives}}" value="{{@archive}}">
+            <li class='list-group-item'>
+                <a class='col-sm-10' href='archive-view/{{@archive.TABLE_NAME}}'>
+                    <img src='styles/images/archive-logo.jpg' alt='archive-icon' style='width: 30px; height: 30px;'>
+                    {{@archive.TABLE_NAME}}
+                </a>
+
+                <form method='post' class='float-right' action=''>
+                    <button class='btn btn-warning center' name='file' value='{{@archive.TABLE_NAME}}' type='submit'>
+                        <i class='fas fa-trash-alt'></i>
+                    </button>
+                </form>
+            </li>
+
+        </repeat>
+
+    </ul>
+</body>
+</html>
