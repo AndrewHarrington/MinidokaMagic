@@ -3,13 +3,15 @@
     margin: auto;
     box-shadow: 0 0 2px goldenrod;
 }
-#registrants_wrapper{
+#registrants_wrapper, #volunteers_wrapper{
     box-shadow: 0 0 2px goldenrod;
 }
 button:hover{
     box-shadow: 5px 5px 10px gray;
 }
-
+.ui-button:hover{
+    box-shadow: 5px 5px 5px gray;
+}
 #navlist{
     /*border: 1px solid black;*/
     /*box-shadow: 1px 1px 1px grey;*/
@@ -50,11 +52,15 @@ header{
 button{
     background: rgb(191, 107, 4);
     box-shadow: 1px 1px 1px grey;
+    margin: 0 .2em 0;
 }
 h2, h3{
     font-family: 'Marcellus SC', serif;
     padding-left: 2vw;
     text-shadow: 0 0 5px burlywood;
+}
+.cancelled {
+    background-color: #ff8080;
 }
 /* latin-ext */
 @font-face {
