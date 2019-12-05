@@ -5,88 +5,90 @@
     <br>
     <h3 class="float-left">{{@archive}} Archived Data</h3>
 </div>
+<br>
 
-    <div class="text-left ml-5 mr-5">
-        <table id="registrants" class="display nowrap" style="width:100%">
-            <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Phone #</th>
-                <th>Emergency #</th>
-                <th>Age</th>
-                <th>Survivor</th>
-                <th>Previously Attended</th>
-                <th>Email</th>
+<div class="text-left ml-5 mr-5">
+    <table id="registrants" class="display nowrap" style="width:100%">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone #</th>
+            <th>Emergency #</th>
+            <th>Age</th>
+            <th>Survivor</th>
+            <th>Previously Attended</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <repeat group="{{@registrations}}" value="{{@row}}">
+            <tr
+            <check if="{{ @row.cancelled == 1  }}">
+                <true>style="background-color:#ff8080"</true>
+            </check>>
+            <td>
+                {{@row.fname}}
+            </td>
+            <td>{{@row.lname}}</td>
+            <!--phone1-->
+            <check if="{{@row.phone == null}}">
+                <true>
+                    <td></td>
+                </true>
+                <false>
+                    <td>({{substr(@row.phone, 0, 3)}})-{{substr(@row.phone, 3, 3)}}-{{substr(@row.phone, 6)}}</td>
+                </false>
+            </check>
+            <!--phone2-->
+            <check if="{{@row.emergency == null}}">
+                <true>
+                    <td></td>
+                </true>
+                <false>
+                    <td>({{substr(@row.emergency, 0, 3)}})-{{substr(@row.emergency, 3, 3)}}-{{substr(@row.emergency, 6)}}</td>
+                </false>
+            </check>
+
+            <td>{{@row.age}}</td>
+
+            <!--are they a survivor?-->
+            <check if="{{@row.survivor == true}}">
+                <true>
+                    <td class="greenCheck">&check;</td>
+                </true>
+                <false>
+                    <td class="redX">x</td>
+                </false>
+            </check>
+
+            <check if="{{@row.prevattendences == true}}">
+                <true>
+                    <td class="greenCheck">&check;</td>
+                </true>
+                <false>
+                    <td></td>
+                </false>
+            </check>
+
+            <!--email-->
+            <check if="{{@row.email == null}}">
+                <true>
+                    <td></td>
+                </true>
+
+                <false>
+                    <td><a href="mailto:{{@row.email}}">{{@row.email}}</a></td>
+                </false>
+            </check>
             </tr>
-            </thead>
-            <tbody>
-            <repeat group="{{@registrations}}" value="{{@row}}">
-                <tr
-                <check if="{{ @row.cancelled == 1  }}">
-                    <true>style="background-color:#ff8080"</true>
-                </check>>
-                <td>
-                    {{@row.fname}}
-                </td>
-                <td>{{@row.lname}}</td>
-                <!--phone1-->
-                <check if="{{@row.phone == null}}">
-                    <true>
-                        <td></td>
-                    </true>
-                    <false>
-                        <td>({{substr(@row.phone, 0, 3)}})-{{substr(@row.phone, 3, 3)}}-{{substr(@row.phone, 6)}}</td>
-                    </false>
-                </check>
-                <!--phone2-->
-                <check if="{{@row.emergency == null}}">
-                    <true>
-                        <td></td>
-                    </true>
-                    <false>
-                        <td>({{substr(@row.emergency, 0, 3)}})-{{substr(@row.emergency, 3, 3)}}-{{substr(@row.emergency, 6)}}</td>
-                    </false>
-                </check>
 
-                <td>{{@row.age}}</td>
+        </repeat>
+        </tbody>
+    </table>
 
-                <!--are they a survivor?-->
-                <check if="{{@row.survivor == true}}">
-                    <true>
-                        <td class="greenCheck">&check;</td>
-                    </true>
-                    <false>
-                        <td class="redX">x</td>
-                    </false>
-                </check>
-
-                <check if="{{@row.prevattendences == true}}">
-                    <true>
-                        <td class="greenCheck">&check;</td>
-                    </true>
-                    <false>
-                        <td></td>
-                    </false>
-                </check>
-
-                <!--email-->
-                <check if="{{@row.email == null}}">
-                    <true>
-                        <td></td>
-                    </true>
-
-                    <false>
-                        <td><a href="mailto:{{@row.email}}">{{@row.email}}</a></td>
-                    </false>
-                </check>
-                </tr>
-
-            </repeat>
-            </tbody>
-        </table>
-
-    </div>
+</div>
+<footer>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -102,6 +104,10 @@
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.jqueryui.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    <script src="../model/javascript/archive-table.js"></script>
+    <script src="model/javascript/participant-table.js"></script>
+    <script src="model/javascript/volunteers.js"></script>
+    <script src="model/javascript/forms.js"></script>
+
+</footer>
 </body>
 </html>
