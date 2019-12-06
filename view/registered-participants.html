@@ -4,6 +4,13 @@
     <h3 class="float-left">Participants</h3>
     <a class="float-right" href="{{'new-participant'}}"><button class="btn-warning">Add Participant</button></a>
     <a class="float-right" href="archive-view"><button class="btn-warning">View Archives</button></a>
+    <form method='post' class='float-right' action=''>
+        <button class='btn-warning' name='file' value='{{@archive.TABLE_NAME}}' type='submit'
+                onclick="return confirm('Are you sure you want to archive current data?')">
+            Archive Data
+            <!--<i class="fas fa-undo"></i>-->
+        </button>
+    </form>
 </div>
 <div class="text-left ml-5 mr-5">
     <table id="registrants" class="display nowrap" style="width:100%">
@@ -107,5 +114,12 @@
     </table>
     <a class="mt-2 float-right" href="{{'new-participant'}}"><button class="btn-warning">Add Participant</button></a>
     <a class="mt-2 float-right" href="archive-view"><button class="btn-warning">View Archives</button></a>
+    <form method='post' class='mt-2 float-right' action=''>
+        <button class='btn-warning' name='file' value='{{@archive.TABLE_NAME}}' type='submit'
+                onclick="return confirm('Are you sure you want to archive current data?')">
+            Archive Data
+            <!--<i class="fas fa-undo"></i>-->
+        </button>
+    </form>
 </div>
 <include href='view/footer.html'/>

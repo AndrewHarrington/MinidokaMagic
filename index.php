@@ -66,6 +66,12 @@ $f3->route('GET|POST /registrations', function ($f3) {
     };
 
     global $db;
+
+    //we need to call the archive
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $db->archiveRegistrants();
+    }
+
     $data = $db->getRegistrationData();
     $f3->set('registrations', $data);
 
@@ -469,6 +475,12 @@ $f3->route('GET|POST /archive-view', function ($f3) {
     };
 
     global $db;
+
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+        $db->revertArchive($_POST['file']);
+
+        $f3->reroute('/registrations');
+    }
 
     $archives= $db->viewArchives();
     $f3->set("archives", $archives);

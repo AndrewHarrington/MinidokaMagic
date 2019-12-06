@@ -24,16 +24,13 @@ class Database
     "
         SELECT TABLE_NAME
         FROM information_schema.TABLES
-        WHERE TABLE_NAME LIKE '____\_registrations';
+        WHERE TABLE_NAME LIKE '____\_registrations%%%';
     ";
 
     const REVERT_ARCHIVE =
     "
         DROP TABLE registrations;
-        SET @date = YEAR(CURDATE());
-        SET @extension = '_registrations';
-        SET @newName = CONCAT(@date, @extension);
-        SET @query = concat('RENAME TABLE ', @newName, ' TO registrations');
+        SET @query = concat('RENAME TABLE ', :archive , ' TO registrations');
         PREPARE stmt FROM @query;
         EXECUTE stmt;
         DEALLOCATE PREPARE stmt;
@@ -224,6 +221,7 @@ class Database
     private $_viewArchives;
     private $_getArchive;
     private $_removeArchive;
+    private $_revertArchive;
     private $_dbc;
 
     /**
@@ -278,6 +276,7 @@ class Database
         $this->_viewArchives = $this->_dbc->prepare(self::VIEW_ARCHIVES);
         $this->_getArchive = $this->_dbc->prepare(self::GET_ARCHIVE);
         $this->_removeArchive = $this->_dbc->prepare(self::REMOVE_ARCHIVE);
+        $this->_revertArchive = $this->_dbc->prepare(self::REVERT_ARCHIVE);
 
     }
 
@@ -566,5 +565,12 @@ class Database
         $this->_removeArchive->bindParam(":archive", $archive);
         $this->_removeArchive->execute();
         return $this->_removeArchive->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function revertArchive($archive){
+        var_dump($archive);
+        $this->_revertArchive->bindParam(":archive", $archive, PDO::PARAM_STR);
+        $this->_revertArchive->execute();
+        return $this->_revertArchive->fetchAll(PDO::FETCH_ASSOC);
     }
 }
