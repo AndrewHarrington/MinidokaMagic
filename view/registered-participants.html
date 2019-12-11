@@ -68,8 +68,9 @@
                             </td>
                         </false>
                     </check>
+                <td>{{ date('Y') - date('Y', strtotime(@row.age)) }}
 
-                    <td>{{@row.age}}</td>
+<!--                    <td>{{@row.age}}</td>-->
 
                     <!--are they a survivor?-->
                     <check if="{{@row.survivor == true}}">

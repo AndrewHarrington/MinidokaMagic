@@ -259,11 +259,13 @@ $f3->route('GET|POST /new-participant', function ($f3) {
         $email = $_POST['email'];
         $phone = $_POST['phone'];
         $ephone = $_POST['emergency'];
-
-        //parse the age
         $age = $_POST['age'];
-        $age = explode("-", $age);
-        $age = 2019 - $age[0];
+        $datetime = strtotime($age);
+        $dob = date('Y-m-d',$datetime);
+        //parse the age
+//        $age = $_POST['age'];
+//        $age = explode("-", $age);
+//        $age = 2019 - $age[0];
         if($_POST['survivor'][0]==1)
         {
             $survivor = 1;
@@ -304,15 +306,23 @@ $f3->route('GET|POST /new-participant', function ($f3) {
         $f3->set('hotelResID', $hotelResID);
         $f3->set('hotelName', $hotelName);
         //var_dump($_POST);
-
         if (validateParticipantForm()) {
 
             global $db;
-            $db->insertParticipant($fname, $lname, $phone, $ephone, $email, $age, $survivor, $hasHotel, $attended,
+            $db->insertParticipant($fname, $lname, $phone, $ephone, $email, $dob, $survivor, $hasHotel, $attended,
                 $hotelResID, $hotelName);
 
             $f3->reroute('/registrations');
         }
+
+//        if (validateParticipantForm()) {
+//
+//            global $db;
+//            $db->insertParticipant($fname, $lname, $phone, $ephone, $email, $age, $survivor, $hasHotel, $attended,
+//                $hotelResID, $hotelName);
+//
+//            $f3->reroute('/registrations');
+//        }
     }
     $view = new Template();
     echo $view->render('view/participant-form.html');
@@ -332,8 +342,7 @@ $f3->route('GET|POST /update-participant', function ($f3){
     $hotelData = $db->getHotel($id)[0];
 
     if(!empty($id)) {
-        $age = $f3->get('age', $data['age']);
-        $f3->set('age', $age);
+        $f3->get('age', $data['age']);
         $f3->set('fname', $data['fname']);
         $f3->set('lname', $data['lname']);
         $f3->set('email', $data['email']);
@@ -366,16 +375,31 @@ $f3->route('GET|POST /update-participant', function ($f3){
             $eFilterPhone = filter_var($ePhone,FILTER_SANITIZE_NUMBER_INT);
             $eStripPhone = str_replace("-","",$eFilterPhone);
             $ePhone = $eStripPhone;
+
+            $age = $_POST['age'];
+            $datetime = strtotime($age);
+            $dob = date('Y-m-d',$datetime);
+
             if($data['hashotel'] == 1)
             {
                 $db->editParticipant($id ,$_POST['fname'],$_POST['lname'], $phone, $ePhone, $_POST['email'],
-                    $_POST['age'], $_POST['survivor'][0],$data['hashotel'],$_POST['prevattendences'][0],$_POST['cancelled'][0]);
+                    $dob, $_POST['survivor'][0],$data['hashotel'],$_POST['prevattendences'][0],$_POST['cancelled'][0]);
             }
             else{
                 $db->editParticipant($id ,$_POST['fname'],$_POST['lname'],$phone, $ePhone, $_POST['email'],
-                    $_POST['age'], $_POST['survivor'][0],$_POST['hasHotel'],$_POST['prevattendences'][0],$_POST['cancelled'][0]);
+                    $dob, $_POST['survivor'][0],$_POST['hasHotel'],$_POST['prevattendences'][0],$_POST['cancelled'][0]);
 
             }
+//            if($data['hashotel'] == 1)
+//            {
+//                $db->editParticipant($id ,$_POST['fname'],$_POST['lname'], $phone, $ePhone, $_POST['email'],
+//                    $_POST['age'], $_POST['survivor'][0],$data['hashotel'],$_POST['prevattendences'][0],$_POST['cancelled'][0]);
+//            }
+//            else{
+//                $db->editParticipant($id ,$_POST['fname'],$_POST['lname'],$phone, $ePhone, $_POST['email'],
+//                    $_POST['age'], $_POST['survivor'][0],$_POST['hasHotel'],$_POST['prevattendences'][0],$_POST['cancelled'][0]);
+//
+//            }
 
         }
         //database interactions
