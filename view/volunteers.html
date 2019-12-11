@@ -35,7 +35,7 @@
                 <td>{{@row.fname}}</td>
                 <td>{{@row.lname}}</td>
                 <!--phone#-->
-                <td>({{substr(@row.phone, 0, 3)}})-{{substr(@row.phone, 3, 3)}}-{{substr(@row.phone, 6)}}</td>
+                <td>({{substr(@row.phone, 0, 3)}}){{substr(@row.phone, 3, 3)}}-{{substr(@row.phone, 6)}}</td>
 
                 <!--email-->
                 <td><a href="mailto:{{@row.email}}">{{@row.email}}</a></td>
